@@ -1,0 +1,144 @@
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe.config
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.AssemblyReference.cache
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.Properties.Resources.resources
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.GenerateResource.cache
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.CoreCompileInputs.cache
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDangNhap.resources
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmNhaXuatBan.resources
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmTheDocGia.resources
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmGiaoDienChinh.resources
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmSach.resources
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmTaiKhoan.resources
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmTacGia.resources
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmTheLoai.resources
+D:\CS Projects\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmPhieuMuonTra.resources
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe.config
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.AssemblyReference.cache
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDangNhap.resources
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmGiaoDienChinh.resources
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.Properties.Resources.resources
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.GenerateResource.cache
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.CoreCompileInputs.cache
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDoiMatKhau.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe.config
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.AssemblyReference.cache
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.SuggestedBindingRedirects.cache
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDangNhap.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDoiMatKhau.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmGiaoDienChinh.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.Properties.Resources.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.GenerateResource.cache
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.CoreCompileInputs.cache
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe.config
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.AssemblyReference.cache
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDangNhap.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDoiMatKhau.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmGiaoDienChinh.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmNhaXuatBan.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmPhieuMuonTra.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmTheLoai.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmTacGia.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmTaiKhoan.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmSach.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmTheDocGia.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.Properties.Resources.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.GenerateResource.cache
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLNhaXuatBan.resources
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmThongKe.resources
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLPhieuMuonTra.resources
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTheLoai.resources
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTacGia.resources
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTaiKhoan.resources
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLSach.resources
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTheDocGia.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe.config
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.AssemblyReference.cache
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDangNhap.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDoiMatKhau.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmGiaoDienChinh.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLNhaXuatBan.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLPhieuMuonTra.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTheLoai.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTacGia.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTaiKhoan.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLSach.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTheDocGia.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmThongKe.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.GUI.frmXacNhanTra.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.Properties.Resources.resources
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.GenerateResource.cache
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.CoreCompileInputs.cache
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+D:\Library Management System Project (C#)\Library-Management-System-Project-CSharp\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+D:\Library Management System Project (C#)\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.GUI.frmXacNhanTra.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe.config
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.AssemblyReference.cache
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.SuggestedBindingRedirects.cache
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDangNhap.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDoiMatKhau.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmGiaoDienChinh.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLNhaXuatBan.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLPhieuMuonTra.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTheLoai.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTacGia.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTaiKhoan.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLSach.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTheDocGia.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmThongKe.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.GUI.frmXacNhanTra.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.Properties.Resources.resources
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.GenerateResource.cache
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.CoreCompileInputs.cache
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+D:\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLNhaXuatBan.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLPhieuMuonTra.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTheLoai.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTacGia.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTaiKhoan.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLSach.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTheDocGia.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmThongKe.resources
+C:\DOAN\C#\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.GUI.frmXacNhanTra.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe.config
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\bin\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.AssemblyReference.cache
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDangNhap.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\GUI.frmDoiMatKhau.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmGiaoDienChinh.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLNhaXuatBan.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLPhieuMuonTra.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTheLoai.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTacGia.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTaiKhoan.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLSach.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmQLTheDocGia.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.frmThongKe.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.GUI.frmXacNhanTra.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien_NamTuan.Properties.Resources.resources
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.GenerateResource.cache
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.exe
+C:\Users\LENOVO\Documents\Zalo Received Files\PhanMemQuanLyThuVien-NamTuan\PhanMemQuanLyThuVien-NamTuan\obj\Debug\PhanMemQuanLyThuVien-NamTuan.pdb
