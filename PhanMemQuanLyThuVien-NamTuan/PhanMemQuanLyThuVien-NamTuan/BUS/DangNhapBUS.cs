@@ -9,9 +9,9 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
 {
     public class DangNhapBUS
     {
-        public static bool KTDangNhap(string MatKhau)
+        public static bool CheckLogin(string MatKhau)
         {
-            return DataProvider.KTDangNhap(MatKhau);
+            return DangNhapDAO.CheckLogin(MatKhau);
         }
     }
 }

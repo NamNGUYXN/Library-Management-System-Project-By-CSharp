@@ -1,4 +1,5 @@
 ﻿using PhanMemQuanLyThuVien_NamTuan.BUS;
+using PhanMemQuanLyThuVien_NamTuan.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,14 +25,16 @@ namespace PhanMemQuanLyThuVien_NamTuan
             this.Close();
         }
 
-        void HienThiMaNXBKeTiep()
+        void DisplayNextPublisherId()
         {
-            txtPublisherId.Text = TuDongTao.MaKeTiep("MaNXB", "NhaXuatBan", "NXB");
+            txtPublisherId.Text = NhaXuatBanBUS.CreateNextId();
         }
 
-        void HienThiBangNXB(string query = "SELECT * FROM NhaXuatBan WHERE TrangThai = 1")
+        void DisplayPublisher(DataTable data = null, string query = null)
         {
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            if (data == null) data = NhaXuatBanBUS.GetData();
+            if (query != null) data = NhaXuatBanBUS.GetData(query);
+
             dgvDataList.DataSource = data;
             txtQuantity.Text = data.Rows.Count.ToString();
 
@@ -43,18 +46,19 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             // Không tự động tạo các cột tiêu đề
             dgvDataList.AutoGenerateColumns = false;
-
-            HienThiBangNXB();
-            HienThiMaNXBKeTiep();
-
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
+            // Hiện dữ liệu nhà xuất bản vào DataGridView
+            DisplayPublisher();
+            // Hiện mã nhà xuất bản kế tiếp
+            DisplayNextPublisherId();
+            // Hiện lời nhắc dưới ô nhập
             lblCheckName.Text = "Vui lòng nhập tên!";
             lblCheckAddress.Text = "Vui lòng nhập địa chỉ!";
             lblCheckPhone.Text = "Vui lòng nhập SĐT!";
-
-            btnUpdate.Enabled = false;
-            btnDelete.Enabled = false;
         }
 
+        // Sự kiện xảy ra khi chọn vào 1 dòng dữ liệu trong DataGridView
         private void dgvDataList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             btnAdd.Enabled = false;
@@ -79,66 +83,49 @@ namespace PhanMemQuanLyThuVien_NamTuan
             }
         }
 
+        // Chọn tìm theo mã
         private void radPublisherId_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM NhaXuatBan WHERE TrangThai = 1";
-            query += " AND MaNXB LIKE '%" + NoiDungTim + "%'";
-            HienThiBangNXB(query);
+            ResetAll();
+            DataTable data = NhaXuatBanBUS.SearchData("MaNXB", txtSearch.Text);
+            DisplayPublisher(data);
         }
 
+        // Chọn tìm theo tên
         private void radPublisherName_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM NhaXuatBan WHERE TrangThai = 1";
-            query += " AND TenNXB LIKE N'%" + NoiDungTim + "%'";
-            HienThiBangNXB(query);
+            ResetAll();
+            DataTable data = NhaXuatBanBUS.SearchData("TenNXB", txtSearch.Text);
+            DisplayPublisher(data);
         }
 
+        // Chọn tìm theo SĐT
         private void radPhone_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM NhaXuatBan WHERE TrangThai = 1";
-            query += " AND SDT LIKE '%" + NoiDungTim + "%'";
-            HienThiBangNXB(query);
+            ResetAll();
+            DataTable data = NhaXuatBanBUS.SearchData("SDT", txtSearch.Text);
+            DisplayPublisher(data);
         }
 
+        // Sự kiện xảy ra khi nội dung tìm thay đổi
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query;
-
             if (radPublisherId.Checked)
-            {
-                query = "SELECT * FROM NhaXuatBan WHERE TrangThai = 1";
-                query += " AND MaNXB LIKE '%" + NoiDungTim + "%'";
-
-            }
+                radPublisherId_CheckedChanged(sender, e);
             else if (radPublisherName.Checked)
-            {
-                query = "SELECT * FROM NhaXuatBan WHERE TrangThai = 1";
-                query += " AND TenNXB LIKE N'%" + NoiDungTim + "%'";
-            }
+                radPublisherName_CheckedChanged(sender, e);
             else
-            {
-                query = "SELECT * FROM NhaXuatBan WHERE TrangThai = 1";
-                query += " AND SDT LIKE '%" + NoiDungTim + "%'";
-            }
-
-            HienThiBangNXB(query);
+                radPhone_CheckedChanged(sender, e);
         }
 
-        void ResetDuLieuNhap()
+        // Reset form
+        void ResetAll()
         {
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
-            HienThiMaNXBKeTiep();
-            HienThiBangNXB();
+            DisplayNextPublisherId();
+            DisplayPublisher();
             txtPublisherName.Text = "";
             txtAddress.Text = "";
             txtPhone.Text = "";
@@ -146,9 +133,106 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
+            ResetAll();
         }
 
+        // Ngăn ko cho nhập nội dung tìm kiếm ko hợp lệ
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                !char.IsControl(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        // Ngăn ko cho nhập SDT ko hợp lệ
+        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            bool KeyDelete = (e.KeyChar == (char)Keys.Delete);
+            bool KeyBackspace = (e.KeyChar == (char)Keys.Back);
+            if (!char.IsDigit(e.KeyChar) && !KeyDelete && !KeyBackspace)
+            {
+                e.Handled = true;
+            }
+
+            string SDT = txtPhone.Text;
+            if (SDT.Length >= 12 && !KeyDelete && !KeyBackspace)
+            {
+                e.Handled = true;
+                lblCheckPhone.Text = "SĐT tối đa 12 số!";
+            }
+        }
+
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
+        private void txtPublisherName_TextChanged(object sender, EventArgs e)
+        {
+            string NXB = txtPublisherName.Text;
+            if (NXB == "")
+                lblCheckName.Text = "Vui lòng nhập tên!";
+            else 
+                lblCheckName.Text = "";
+        }
+
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
+        private void txtAddress_TextChanged(object sender, EventArgs e)
+        {
+            string DiaChi = txtAddress.Text;
+            if (DiaChi == "")
+                lblCheckAddress.Text = "Vui lòng nhập địa chỉ!";
+            else 
+                lblCheckAddress.Text = "";
+        }
+
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
+        private void txtPhone_TextChanged(object sender, EventArgs e)
+        {
+            string SDT = txtPhone.Text;
+            // Kiểm tra số điện thoại đã tồn tại
+            string query = $"SELECT SDT FROM NhaXuatBan WHERE SDT = '{SDT}' AND MaNXB <> '{txtPublisherId.Text}'";
+            int ExistPhone = NhaXuatBanBUS.GetData(query).Rows.Count;
+            if (SDT == "")
+                lblCheckPhone.Text = "Vui lòng nhập SĐT!";
+            else if (ExistPhone > 0)
+                lblCheckPhone.Text = "SĐT đã tồn tại!";
+            else 
+                lblCheckPhone.Text = "";
+        }
+
+        string CheckValidInput(out string MaNXB, out string TenNXB, out string DiaChi, out string SDT)
+        {
+            MaNXB = txtPublisherId.Text;
+            TenNXB = txtPublisherName.Text;
+            DiaChi = txtAddress.Text;
+            SDT = txtPhone.Text;
+
+            string ThongBao = "";
+            if (TenNXB == "") ThongBao += "Vui lòng nhập tên NXB!";
+
+            if (DiaChi == "")
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "Vui lòng nhập địa chỉ!";
+            }
+
+            if (SDT == "")
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "Vui lòng nhập SĐT!";
+            }
+
+            string query = $"SELECT SDT FROM NhaXuatBan WHERE SDT = '{SDT}' AND MaNXB <> '{MaNXB}'";
+            int ExistPhone = NhaXuatBanBUS.GetData(query).Rows.Count;
+            if (ExistPhone > 0)
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "SĐT đã tồn tại!";
+            }
+
+            return ThongBao;
+        }
+
+        // Chức năng thêm
         private void btnAdd_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Đồng ý thêm?", "Thông báo",
@@ -157,40 +241,26 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (result == DialogResult.Yes)
             {
                 string MaNXB, TenNXB, DiaChi, SDT;
-                MaNXB = txtPublisherId.Text;
-                TenNXB = txtPublisherName.Text;
-                DiaChi = txtAddress.Text;
-                SDT = txtPhone.Text;
-
-                string ThongBao = "";
-                if (TenNXB == "") ThongBao += "Vui lòng nhập tên NXB!";
-
-                if (DiaChi == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập địa chỉ!";
-                }
-
-                if (SDT == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập SĐT!";
-                }
+                string ThongBao = CheckValidInput(out MaNXB, out TenNXB, out DiaChi, out SDT);
 
                 if (ThongBao == "")
                 {
-                    string query = "INSERT INTO NhaXuatBan (MaNXB, TenNXB, DiaChi, SDT, TrangThai)";
-                    query += " VALUES ('" + MaNXB + "', N'" + TenNXB + "', N'" + DiaChi + "',";
-                    query += " '" + SDT + "', 1)";
+                    ParameterCSDL pMaNXB = new ParameterCSDL("MaNXB", MaNXB);
+                    ParameterCSDL pTenNXB = new ParameterCSDL("TenNXB", TenNXB.Trim());
+                    ParameterCSDL pDiaChi = new ParameterCSDL("DiaChi", DiaChi.Trim());
+                    ParameterCSDL pSDT = new ParameterCSDL("SDT", SDT);
+                    ParameterCSDL[] pArray = { pMaNXB, pTenNXB, pDiaChi, pSDT };
+                    List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+                    LstParams.AddRange(pArray);
 
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+                    int RowsAffected = NhaXuatBanBUS.InsertData(LstParams);
 
                     if (RowsAffected > 0)
                     {
                         MessageBox.Show("Thêm thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        ResetDuLieuNhap();
+                        ResetAll();
                     }
                 }
                 else
@@ -209,40 +279,34 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (result == DialogResult.Yes)
             {
                 string MaNXB, TenNXB, DiaChi, SDT;
-                MaNXB = txtPublisherId.Text;
-                TenNXB = txtPublisherName.Text;
-                DiaChi = txtAddress.Text;
-                SDT = txtPhone.Text;
-
-                string ThongBao = "";
-                if (TenNXB == "") ThongBao += "Vui lòng nhập tên NXB!";
-
-                if (DiaChi == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập địa chỉ!";
-                }
-
-                if (SDT == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập SĐT!";
-                }
+                string ThongBao = CheckValidInput(out MaNXB, out TenNXB, out DiaChi, out SDT);
 
                 if (ThongBao == "")
                 {
-                    string query = "UPDATE NhaXuatBan SET TenNXB = N'" + TenNXB + "',";
-                    query += " DiaChi = N'" + DiaChi + "', SDT = '" + SDT + "'";
-                    query += " WHERE MaNXB = '" + MaNXB + "'";
+                    ParameterCSDL pMaNXB = new ParameterCSDL("MaNXB", MaNXB);
+                    ParameterCSDL pTenNXB = new ParameterCSDL("TenNXB", TenNXB.Trim());
+                    ParameterCSDL pDiaChi = new ParameterCSDL("DiaChi", DiaChi.Trim());
+                    ParameterCSDL pSDT = new ParameterCSDL("SDT", SDT);
+                    ParameterCSDL[] pArray = { pMaNXB, pTenNXB, pDiaChi, pSDT };
+                    List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+                    LstParams.AddRange(pArray);
+                    // Kiểm tra xem nội dung sửa có khác ban đầu ko
+                    string query = $"SELECT * FROM NhaXuatBan WHERE MaNXB = '{MaNXB}' AND TenNXB = N'{TenNXB}'";
+                    query += $" AND DiaChi = N'{DiaChi}' AND SDT = '{SDT}'";
 
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
-
-                    if (RowsAffected > 0)
+                    int NotChangeData = NhaXuatBanBUS.GetData(query).Rows.Count;
+                    // Khi nội dung sửa khác ban đầu thì cập nhật lại
+                    if (NotChangeData == 0)
                     {
-                        MessageBox.Show("Sửa thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        int RowsAffected = NhaXuatBanBUS.UpdateData(LstParams);
 
-                        ResetDuLieuNhap();
+                        if (RowsAffected > 0)
+                        {
+                            MessageBox.Show("Sửa thành công!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            ResetAll();
+                        }
                     }
                 }
                 else
@@ -263,65 +327,16 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 string MaNXB;
                 MaNXB = txtPublisherId.Text;
 
-                string query = "UPDATE NhaXuatBan SET TrangThai = 0";
-                query += " WHERE MaNXB = '" + MaNXB + "'";
-
-                int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+                int RowsAffected = NhaXuatBanBUS.DeleteData(MaNXB);
 
                 if (RowsAffected > 0)
                 {
                     MessageBox.Show("Xóa thành công!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    ResetDuLieuNhap();
+                    ResetAll();
                 }
             }
-        }
-
-        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-                lblCheckPhone.Text = "SĐT không hợp lệ!";
-            }
-
-            string SDT = txtPhone.Text;
-            if (!char.IsControl(e.KeyChar) && SDT.Length >= 12)
-            {
-                e.Handled = true;
-                lblCheckPhone.Text = "SĐT tối đa 12 số!";
-            }
-        }
-
-        private void txtPublisherName_TextChanged(object sender, EventArgs e)
-        {
-            string NXB = txtPublisherName.Text;
-            if (NXB == "")
-            {
-                lblCheckName.Text = "Vui lòng nhập tên!";
-            }
-            else lblCheckName.Text = "";
-        }
-
-        private void txtAddress_TextChanged(object sender, EventArgs e)
-        {
-            string DiaChi = txtAddress.Text;
-            if (DiaChi == "")
-            {
-                lblCheckAddress.Text = "Vui lòng nhập địa chỉ!";
-            }
-            else lblCheckAddress.Text = "";
-        }
-
-        private void txtPhone_TextChanged(object sender, EventArgs e)
-        {
-            string SDT = txtPhone.Text;
-            if (SDT == "")
-            {
-                lblCheckPhone.Text = "Vui lòng nhập SĐT!";
-            }
-            else lblCheckPhone.Text = "";
         }
     }
 }

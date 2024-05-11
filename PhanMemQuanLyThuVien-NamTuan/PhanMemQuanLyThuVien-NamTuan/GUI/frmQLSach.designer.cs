@@ -49,7 +49,7 @@
             this.lblCheckPublicationDate = new System.Windows.Forms.Label();
             this.lblCheckBookName = new System.Windows.Forms.Label();
             this.cboAuthor = new System.Windows.Forms.ComboBox();
-            this.cboManufacturer = new System.Windows.Forms.ComboBox();
+            this.cboPublisher = new System.Windows.Forms.ComboBox();
             this.cboCategory = new System.Windows.Forms.ComboBox();
             this.txtPublicationDate = new System.Windows.Forms.TextBox();
             this.txtInStock = new System.Windows.Forms.TextBox();
@@ -83,7 +83,7 @@
             this.lblQuantity = new System.Windows.Forms.Label();
             this.txtQuantity = new System.Windows.Forms.TextBox();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.cboFilterManufacturer = new System.Windows.Forms.ComboBox();
+            this.cboFilterPublisher = new System.Windows.Forms.ComboBox();
             this.cboFilterAuthor = new System.Windows.Forms.ComboBox();
             this.cboFilterCategory = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -205,7 +205,7 @@
             this.panel4.Controls.Add(this.lblCheckPublicationDate);
             this.panel4.Controls.Add(this.lblCheckBookName);
             this.panel4.Controls.Add(this.cboAuthor);
-            this.panel4.Controls.Add(this.cboManufacturer);
+            this.panel4.Controls.Add(this.cboPublisher);
             this.panel4.Controls.Add(this.cboCategory);
             this.panel4.Controls.Add(this.txtPublicationDate);
             this.panel4.Controls.Add(this.txtInStock);
@@ -288,14 +288,14 @@
             this.cboAuthor.TabIndex = 2;
             this.cboAuthor.TextChanged += new System.EventHandler(this.cboAuthor_TextChanged);
             // 
-            // cboManufacturer
+            // cboPublisher
             // 
-            this.cboManufacturer.FormattingEnabled = true;
-            this.cboManufacturer.Location = new System.Drawing.Point(105, 283);
-            this.cboManufacturer.Name = "cboManufacturer";
-            this.cboManufacturer.Size = new System.Drawing.Size(207, 24);
-            this.cboManufacturer.TabIndex = 2;
-            this.cboManufacturer.TextChanged += new System.EventHandler(this.cboManufacturer_TextChanged);
+            this.cboPublisher.FormattingEnabled = true;
+            this.cboPublisher.Location = new System.Drawing.Point(105, 283);
+            this.cboPublisher.Name = "cboPublisher";
+            this.cboPublisher.Size = new System.Drawing.Size(207, 24);
+            this.cboPublisher.TabIndex = 2;
+            this.cboPublisher.TextChanged += new System.EventHandler(this.cboManufacturer_TextChanged);
             // 
             // cboCategory
             // 
@@ -671,7 +671,7 @@
             // 
             this.panel7.BackColor = System.Drawing.Color.Teal;
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.cboFilterManufacturer);
+            this.panel7.Controls.Add(this.cboFilterPublisher);
             this.panel7.Controls.Add(this.cboFilterAuthor);
             this.panel7.Controls.Add(this.cboFilterCategory);
             this.panel7.Controls.Add(this.label1);
@@ -682,14 +682,14 @@
             this.panel7.Size = new System.Drawing.Size(665, 49);
             this.panel7.TabIndex = 21;
             // 
-            // cboFilterManufacturer
+            // cboFilterPublisher
             // 
-            this.cboFilterManufacturer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboFilterManufacturer.FormattingEnabled = true;
-            this.cboFilterManufacturer.Location = new System.Drawing.Point(451, 23);
-            this.cboFilterManufacturer.Name = "cboFilterManufacturer";
-            this.cboFilterManufacturer.Size = new System.Drawing.Size(207, 21);
-            this.cboFilterManufacturer.TabIndex = 2;
+            this.cboFilterPublisher.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFilterPublisher.FormattingEnabled = true;
+            this.cboFilterPublisher.Location = new System.Drawing.Point(451, 23);
+            this.cboFilterPublisher.Name = "cboFilterPublisher";
+            this.cboFilterPublisher.Size = new System.Drawing.Size(207, 21);
+            this.cboFilterPublisher.TabIndex = 2;
             // 
             // cboFilterAuthor
             // 
@@ -792,7 +792,7 @@
         private System.Windows.Forms.Label lblInStock;
         private System.Windows.Forms.Label lblBookName;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.ComboBox cboManufacturer;
+        private System.Windows.Forms.ComboBox cboPublisher;
         private System.Windows.Forms.ComboBox cboCategory;
         private System.Windows.Forms.TextBox txtInStock;
         private System.Windows.Forms.ImageList imgIcon;
@@ -826,7 +826,7 @@
         private System.Windows.Forms.Label lblQuantity;
         private System.Windows.Forms.TextBox txtQuantity;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.ComboBox cboFilterManufacturer;
+        private System.Windows.Forms.ComboBox cboFilterPublisher;
         private System.Windows.Forms.ComboBox cboFilterAuthor;
         private System.Windows.Forms.ComboBox cboFilterCategory;
         private System.Windows.Forms.Label label1;

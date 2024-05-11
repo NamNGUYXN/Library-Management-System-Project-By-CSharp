@@ -16,6 +16,11 @@ namespace GUI
             this.Close();
         }
 
+        private void frmDoiMatKhau_Load(object sender, EventArgs e)
+        {
+            txtPresentPassword.Select();
+        }
+
         private void btnChange_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Đồng ý đổi mật khẩu?",
@@ -32,7 +37,7 @@ namespace GUI
 
                 // Kiểm tra nhập liệu
                 if (MatKhauHienTai == "") ThongBao += "Vui lòng nhập mật khẩu hiện tại!";
-                
+
 
                 if (MatKhauMoi == "")
                 {
@@ -48,7 +53,7 @@ namespace GUI
 
                 // Kiểm tra mật khẩu mới trùng nhau
                 if (MatKhauMoi == MatKhauMoiXacNhan)
-                    KTDoiMatKhau = DoiMatKhauBUS.KTDoiMatKhau(MatKhauHienTai, MatKhauMoi);
+                    KTDoiMatKhau = DoiMatKhauBUS.CheckChangePassword(MatKhauHienTai, MatKhauMoi);
                 else
                     ThongBao += "Mật khẩu mới không trùng nhau!";
 

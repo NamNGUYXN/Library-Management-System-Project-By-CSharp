@@ -8,33 +8,30 @@ using System.Threading.Tasks;
 using System.Data;
 using GUI;
 using System.Windows.Forms;
+using PhanMemQuanLyThuVien_NamTuan.DTO;
+using System.Drawing;
 
 namespace PhanMemQuanLyThuVien_NamTuan.DAO
 {
     public class DataProvider
     {
-        public static SqlConnection KetNoiCSDL()
-        {
-            try
-            {
-                string sConn = @"Data Source=.;Initial Catalog=DBQuanLyThuVien;Integrated Security=True";
-                SqlConnection conn = new SqlConnection(sConn);
-                return conn;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Lỗi kết nối Cơ Sở Dữ Liệu...", ex);
-            }
-        }
+        private static SqlConnection conn = new SqlConnection(@"Data Source=.;Initial Catalog=DBQuanLyThuVien;Integrated Security=True");
 
-        public static DataTable LayDuLieu(string query)
+        public static DataTable GetData(string query, List<ParameterCSDL> LstParams = null)
         {
             try
             {
-                SqlConnection conn = KetNoiCSDL();
-                conn.Open();
                 DataTable data = new DataTable();
-                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+                if (LstParams != null)
+                {
+                    foreach (ParameterCSDL param in LstParams)
+                    {
+                        cmd.Parameters.AddWithValue(param.KeyCSDL, param.ValueCSDL);
+                    }
+                }
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 adapter.Fill(data);
                 conn.Close();
 
@@ -46,90 +43,23 @@ namespace PhanMemQuanLyThuVien_NamTuan.DAO
             }
         }
 
-        public static int ThaoTacDuLieu(string query)
+        public static int ExcuteSQL(string query, List<ParameterCSDL> LstParams = null)
         {
-            int result;
-
             try
             {
-                SqlConnection conn = KetNoiCSDL();
+                int result;
                 SqlCommand cmd = new SqlCommand(query, conn);
+                if (LstParams != null)
+                {
+                    foreach (ParameterCSDL param in LstParams)
+                    {
+                        cmd.Parameters.AddWithValue(param.KeyCSDL, param.ValueCSDL);
+                    }
+                }
                 conn.Open();
                 result = cmd.ExecuteNonQuery();
                 conn.Close();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Lỗi thực thi truy vấn...", ex);
-            }
-            
-            return result;
-        }
-
-        public static bool KTDangNhap(string MatKhau)
-        {
-            try
-            {
-                bool check = false;
-                string MaTK = frmDangNhap.MaTK;
-                string query = "SELECT MatKhau, Quyen FROM TaiKhoan WHERE MaTK = '" + MaTK + "' AND TrangThai = 1";
-                DataTable data = LayDuLieu(query);
-
-                if (data.Rows.Count > 0)
-                {
-                    string MatKhauTrongCSDL = data.Rows[0][0].ToString();
-                    bool Quyen = (bool)data.Rows[0][1];
-
-                    if (MatKhau == MatKhauTrongCSDL)
-                    {
-                        check = true;
-                        frmDangNhap.Quyen = Quyen;
-                    }
-                }
-
-                return check; 
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Lỗi thực thi truy vấn...", ex);
-            }
-        }
-
-        public static bool KTDoiMatKhau(string MatKhauHienTai, string MatKhauMoi)
-        {
-            try
-            {
-                bool check = true;
-
-                // Lấy mật khẩu cũ từ csdl
-                string MaTK = frmDangNhap.MaTK;
-                string MatKhauCu = "";
-                string query = "SELECT MatKhau FROM TaiKhoan";
-                query += " WHERE MaTK = '" + MaTK + "'";
-                SqlConnection conn = KetNoiCSDL();
-                SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.HasRows && reader.Read())
-                {
-                    MatKhauCu = reader.GetString(0);
-                }
-                reader.Close();
-
-                //Kiểm tra mật khẩu hiện tại khớp với mật khẩu cũ 
-                if (MatKhauHienTai == MatKhauCu)
-                {
-                    query = "UPDATE TaiKhoan SET MatKhau = '" + MatKhauMoi + "'";
-                    query += " WHERE MaTK = '" + MaTK + "'";
-                    ThaoTacDuLieu(query);
-                }
-                else check = false;
-
-                conn.Close();
-
-                return check;
+                return result;
             }
             catch (Exception ex)
             {
@@ -140,8 +70,7 @@ namespace PhanMemQuanLyThuVien_NamTuan.DAO
         public static void DoDuLieu(string column, string table, ComboBox cbo)
         {
             string query = "SELECT " + column + " FROM " + table;
-
-            SqlConnection conn = KetNoiCSDL();
+            
             conn.Open();
             SqlCommand cmd = new SqlCommand(query, conn);
 
@@ -153,6 +82,7 @@ namespace PhanMemQuanLyThuVien_NamTuan.DAO
                     cbo.Items.Add(value);
                 }
             }
+            conn.Close();
         }
     }
 }

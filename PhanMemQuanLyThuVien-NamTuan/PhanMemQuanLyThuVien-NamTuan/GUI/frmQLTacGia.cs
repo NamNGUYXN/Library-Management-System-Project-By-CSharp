@@ -1,5 +1,7 @@
 ﻿using PhanMemQuanLyThuVien_NamTuan.BUS;
+using PhanMemQuanLyThuVien_NamTuan.DTO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Schema;
 
 namespace PhanMemQuanLyThuVien_NamTuan
 {
@@ -25,33 +28,16 @@ namespace PhanMemQuanLyThuVien_NamTuan
             this.Close();
         }
 
-        void HienThiMaTGKeTiep()
+        void DisplayNextAuthorId()
         {
-            // Tìm mã tác giả cao nhất trong csdl
-            string query = "SELECT MAX(MaTG) FROM TacGia";
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
-            string MaTGMax = data.Rows[0][0].ToString();
-
-            if (MaTGMax == "")
-                txtAuthorId.Text = "TG001";
-            else
-            {
-                // Tách ra phần chuỗi và số
-                string StringPart = Regex.Match(MaTGMax, @"[A-Z]+").Value;
-                int NumberPart = int.Parse(Regex.Match(MaTGMax, @"\d+").Value);
-
-                // Tăng phần số lên 1 đơn vị
-                NumberPart++;
-
-                // Nối phần chuỗi và số lại
-                string MaTGKeTiep = StringPart + NumberPart.ToString("D3");
-                txtAuthorId.Text = MaTGKeTiep;
-            }
+            txtAuthorId.Text = TacGiaBUS.CreateNextId();
         }
 
-        void HienThiBangTacGia(string query = "SELECT * FROM TacGia WHERE TrangThai = 1")
+        void DisplayAuthor(DataTable data = null, string query = null)
         {
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            if (data == null) data = TacGiaBUS.GetData();
+            if (query != null) data = TacGiaBUS.GetData(query);
+
             dgvDataList.DataSource = data;
             txtQuantity.Text = data.Rows.Count.ToString();
 
@@ -63,17 +49,18 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             // Không tự động tạo các cột tiêu đề
             dgvDataList.AutoGenerateColumns = false;
-
-            HienThiBangTacGia();
-            HienThiMaTGKeTiep();
-
-            lblCheckName.Text = "Vui lòng nhập họ tên!";
-            lblCheckHometown.Text = "Vui lòng nhập quê quán!";
-
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
+            // Hiện dữ liệu tác giả vào DataGridView
+            DisplayAuthor();
+            // Hiện mã tác giả kế tiếp
+            DisplayNextAuthorId();
+            // Hiện lời nhắc dưới ô nhập
+            lblCheckName.Text = "Vui lòng nhập họ tên!";
+            lblCheckHometown.Text = "Vui lòng nhập quê quán!";
         }
 
+        // Sự kiện xảy ra khi chọn vào 1 dòng dữ liệu trong DataGridView
         private void dgvDataList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             btnAdd.Enabled = false;
@@ -99,60 +86,98 @@ namespace PhanMemQuanLyThuVien_NamTuan
             }
         }
 
+        // Chọn tìm theo mã
         private void radBookId_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM TacGia WHERE TrangThai = 1";
-            query += " AND MaTG LIKE '%" + NoiDungTim + "%'";
-            HienThiBangTacGia(query);
+            ResetAll();
+            DataTable data = TacGiaBUS.SearchData("MaSach", txtSearch.Text);
+            DisplayAuthor(data);
         }
 
+        // Chọn tìm theo tên
         private void radBookName_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM TacGia WHERE TrangThai = 1";
-            query += " AND HoTenTG LIKE N'%" + NoiDungTim + "%'";
-            HienThiBangTacGia(query);
+            ResetAll();
+            DataTable data = TacGiaBUS.SearchData("TenSach", txtSearch.Text);
+            DisplayAuthor(data);
         }
 
+        // Sự kiện xảy ra khi nội dung tìm thay đổi
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query;
-
             if (radAuthorId.Checked)
-            {
-                query = "SELECT * FROM TacGia WHERE TrangThai = 1";
-                query += " AND MaTG LIKE '%" + NoiDungTim + "%'";
-
-            }
+                radBookId_CheckedChanged(sender, e);
             else
-            {
-                query = "SELECT * FROM TacGia WHERE TrangThai = 1";
-                query += " AND HoTenTG LIKE N'%" + NoiDungTim + "%'";
-            }
-
-            HienThiBangTacGia(query);
+                radBookName_CheckedChanged(sender, e);
         }
 
-        void ResetDuLieuNhap()
+        // Reset form
+        void ResetAll()
         {
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
-            HienThiMaTGKeTiep();
-            HienThiBangTacGia();
-            txtAuthorName.Text = "";
             radMale.Checked = true;
+            DisplayAuthor();
+            DisplayNextAuthorId();
+            txtAuthorName.Text = "";
             txtHometown.Text = "";
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
+            ResetAll();
+        }
+
+        // Ngăn ko cho nhập họ tên ko hợp lệ
+        private void txtAuthorName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            bool KeyDelete = (e.KeyChar == (char)Keys.Delete);
+            bool KeyBackspace = (e.KeyChar == (char)Keys.Back);
+            if (!char.IsWhiteSpace(e.KeyChar) && !char.IsLetter(e.KeyChar) &&
+                !KeyDelete && !KeyBackspace)
+            {
+                e.Handled = true;
+            }
+        }
+
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
+        private void txtAuthorName_TextChanged(object sender, EventArgs e)
+        {
+            string HoTen = txtAuthorName.Text;
+            if (HoTen == "")
+                lblCheckName.Text = "Vui lòng nhập họ tên!";
+            else 
+                lblCheckName.Text = "";
+        }
+
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
+        private void txtHometown_TextChanged(object sender, EventArgs e)
+        {
+            string Quequan = txtHometown.Text;
+            if (Quequan == "")
+                lblCheckHometown.Text = "Vui lòng nhập quê quán!";
+            else 
+                lblCheckHometown.Text = "";
+        }
+
+        string CheckValidInput(out string MaTG, out string HoTenTG, out string GioiTinh, out string QueQuan)
+        {
+            MaTG = txtAuthorId.Text;
+            HoTenTG = txtAuthorName.Text;
+            GioiTinh = (radMale.Checked) ? "Nam" : "Nữ";
+            QueQuan = txtHometown.Text;
+
+            string ThongBao = "";
+            if (HoTenTG == "") ThongBao += "Vui lòng nhập họ tên!";
+
+            if (QueQuan == "")
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "Vui lòng nhập quê quán!";
+            }
+
+            return ThongBao;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -163,34 +188,26 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (result == DialogResult.Yes)
             {
                 string MaTG, HoTenTG, GioiTinh, QueQuan;
-                MaTG = txtAuthorId.Text;
-                HoTenTG = txtAuthorName.Text;
-                GioiTinh = (radMale.Checked) ? "Nam" : "Nữ";
-                QueQuan = txtHometown.Text;
-
-                string ThongBao = "";
-                if (HoTenTG == "") ThongBao += "Vui lòng nhập họ tên!";
-
-                if (QueQuan == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập quê quán!";
-                }
+                string ThongBao = CheckValidInput(out MaTG, out HoTenTG, out GioiTinh, out QueQuan);
 
                 if (ThongBao == "")
                 {
-                    string query = "INSERT INTO TacGia (MaTG, HoTenTG, GioiTinh, QueQuan, TrangThai)";
-                    query += " VALUES ('" + MaTG + "', N'" + HoTenTG + "', N'" + GioiTinh + "',";
-                    query += " N'" + QueQuan + "', 1)";
+                    ParameterCSDL pMaTG = new ParameterCSDL("MaTG", MaTG);
+                    ParameterCSDL pHoTenTG = new ParameterCSDL("HoTenTG", HoTenTG.Trim());
+                    ParameterCSDL pGioiTinh = new ParameterCSDL("GioiTinh", GioiTinh);
+                    ParameterCSDL pQueQuan = new ParameterCSDL("QueQuan", QueQuan.Trim());
+                    ParameterCSDL[] pArray = { pMaTG, pHoTenTG, pGioiTinh, pQueQuan };
+                    List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+                    LstParams.AddRange(pArray);
 
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+                    int RowsAffected = TacGiaBUS.InsertData(LstParams);
 
                     if (RowsAffected > 0)
                     {
                         MessageBox.Show("Thêm thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        ResetDuLieuNhap();
+                        ResetAll();
                     }
                 }
                 else
@@ -209,34 +226,34 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (result == DialogResult.Yes)
             {
                 string MaTG, HoTenTG, GioiTinh, QueQuan;
-                MaTG = txtAuthorId.Text;
-                HoTenTG = txtAuthorName.Text;
-                GioiTinh = (radMale.Checked) ? "Nam" : "Nữ";
-                QueQuan = txtHometown.Text;
-
-                string ThongBao = "";
-                if (HoTenTG == "") ThongBao += "Vui lòng nhập họ tên!";
-
-                if (QueQuan == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập quê quán!";
-                }
+                string ThongBao = CheckValidInput(out MaTG, out HoTenTG, out GioiTinh, out QueQuan);
 
                 if (ThongBao == "")
                 {
-                    string query = "UPDATE TacGia SET HoTenTG = N'" + HoTenTG + "',";
-                    query += " GioiTinh = N'" + GioiTinh + "', QueQuan = N'" + QueQuan + "'";
-                    query += " WHERE MaTG = '" + MaTG + "'";
+                    ParameterCSDL pMaTG = new ParameterCSDL("MaTG", MaTG);
+                    ParameterCSDL pHoTenTG = new ParameterCSDL("HoTenTG", HoTenTG.Trim());
+                    ParameterCSDL pGioiTinh = new ParameterCSDL("GioiTinh", GioiTinh);
+                    ParameterCSDL pQueQuan = new ParameterCSDL("QueQuan", QueQuan.Trim());
+                    ParameterCSDL[] pArray = { pMaTG, pHoTenTG, pGioiTinh, pQueQuan };
+                    List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+                    LstParams.AddRange(pArray);
+                    // Kiểm tra xem nội dung sửa có khác ban đầu ko
+                    string query = $"SELECT * FROM TacGia WHERE MaTG = '{MaTG}' AND HoTenTG = N'{HoTenTG}'";
+                    query += $" AND GioiTinh = N'{GioiTinh}' AND QueQuan = N'{QueQuan}'";
 
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
-
-                    if (RowsAffected > 0)
+                    int NotChangeData = TacGiaBUS.GetData(query).Rows.Count;
+                    // Khi nội dung sửa khác ban đầu thì cập nhật lại
+                    if (NotChangeData == 0)
                     {
-                        MessageBox.Show("Sửa thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        int RowsAffected = TacGiaBUS.UpdateData(LstParams);
 
-                        ResetDuLieuNhap();
+                        if (RowsAffected > 0)
+                        {
+                            MessageBox.Show("Sửa thành công!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            ResetAll();
+                        }
                     }
                 }
                 else
@@ -257,48 +274,16 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 string MaTG;
                 MaTG = txtAuthorId.Text;
 
-                string query = "UPDATE TacGia SET TrangThai = 0 WHERE MaTG = '" + MaTG + "'";
-
-                int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+                int RowsAffected = TacGiaBUS.DeleteData(MaTG);
 
                 if (RowsAffected > 0)
                 {
                     MessageBox.Show("Xóa thành công!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    ResetDuLieuNhap();
+                    ResetAll();
                 }
             }
-        }
-
-        private void txtAuthorName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) &&
-                !char.IsWhiteSpace(e.KeyChar))
-            {
-                e.Handled = true;
-                lblCheckName.Text = "Họ tên không hợp lệ!";
-            }
-        }
-
-        private void txtAuthorName_TextChanged(object sender, EventArgs e)
-        {
-            string HoTen = txtAuthorName.Text;
-            if (HoTen == "")
-            {
-                lblCheckName.Text = "Vui lòng nhập họ tên!";
-            }
-            else lblCheckName.Text = "";
-        }
-
-        private void txtHometown_TextChanged(object sender, EventArgs e)
-        {
-            string Quequan = txtHometown.Text;
-            if (Quequan == "")
-            {
-                lblCheckHometown.Text = "Vui lòng nhập quê quán!";
-            }
-            else lblCheckHometown.Text = "";
         }
     }
 }

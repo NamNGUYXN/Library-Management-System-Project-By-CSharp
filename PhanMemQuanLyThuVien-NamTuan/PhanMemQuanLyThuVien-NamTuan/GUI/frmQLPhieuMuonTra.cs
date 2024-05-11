@@ -16,6 +16,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using System.Reflection;
 using System.Collections;
 using PhanMemQuanLyThuVien_NamTuan.GUI;
+using PhanMemQuanLyThuVien_NamTuan.DTO;
+using PhanMemQuanLyThuVien_NamTuan.DAO;
 
 namespace PhanMemQuanLyThuVien_NamTuan
 {
@@ -27,22 +29,21 @@ namespace PhanMemQuanLyThuVien_NamTuan
             InitializeComponent();
         }
 
-        void HienThiMaDocGia()
+        void DisplayLibraryCardId()
         {
             DateTime dt = DateTime.Now;
-            string HienTai = dt.ToString("yyyy/MM/dd");
-            string query = "SELECT MaTDG FROM TheDocGia WHERE TrangThai != 0 AND NgayHetHan > '" + HienTai + "'";
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
-            cboLibraryCardId.DataSource = data;
+            string NgayHienTai = dt.ToString("yyyy/MM/dd");
+            string query = "SELECT MaTDG FROM TheDocGia WHERE TrangThai = 1 AND NgayHetHan > '" + NgayHienTai + "'";
+            cboLibraryCardId.DataSource = TheDocGiaBus.GetData(query);
             cboLibraryCardId.ValueMember = "MaTDG";
             cboLibraryCardId.DisplayMember = "MaTDG";
             // Xóa việc chương trình tự chọn hàng đầu tiên trong cboReaderId
             cboLibraryCardId.Text = "";
         }
 
-        void HienThiMaSach(string query = "SELECT MaSach FROM Sach WHERE TrangThai = 1")
+        void DisplayBookId(DataTable data = null, string query = null)
         {
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            if (data == null) data = SachBUS.GetData();
             clbBooks.DataSource = data;
             clbBooks.DisplayMember = "MaSach";
             clbBooks.ValueMember = "MaSach";
@@ -50,7 +51,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             clbBooks.ClearSelected();
         }
 
-        void HienThiMaTK()
+        void DisplayLibrarianId()
         {
             txtLibrarianId.Text = frmDangNhap.MaTK.ToUpper();
         }
@@ -68,34 +69,15 @@ namespace PhanMemQuanLyThuVien_NamTuan
             dtpTerm.Text = AfterDate.ToString();
         }
 
-        void HienThiMaPhieuKeTiep()
+        void DisplayNextLoanCardId()
         {
-            // Tìm mã phiếu cao nhất trong csdl
-            string query = "SELECT MAX(MaPhieu) FROM PhieuMuonTra";
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
-            string MaPhieuMax = data.Rows[0][0].ToString();
-
-            if (MaPhieuMax == "")
-                txtLoanCardId.Text = "P001";
-            else
-            {
-                // Tách ra phần chuỗi và số
-                string StringPart = Regex.Match(MaPhieuMax, @"[A-Z]+").Value;
-                int NumberPart = int.Parse(Regex.Match(MaPhieuMax, @"\d+").Value);
-
-                // Tăng phần số lên 1 đơn vị
-                NumberPart++;
-
-                // Nối phần chuỗi và số lại
-                string MaPhieuKeTiep = StringPart + NumberPart.ToString("D3");
-                txtLoanCardId.Text = MaPhieuKeTiep;
-            } 
-                
+            txtLoanCardId.Text = TuDongTao.MaKeTiep("MaPhieu", "PhieuMuonTra", "P");
         }
 
-        void HienThiBangPhieuMuon(string query = "SELECT * FROM PhieuMuonTra")
+        void DisplayLoanCard(DataTable data = null)
         {
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            if (data == null) data = PhieuMuonTraBUS.GetData();
+
             dgvDataList.DataSource = data;
             txtQuantity.Text = data.Rows.Count.ToString();
 
@@ -132,12 +114,12 @@ namespace PhanMemQuanLyThuVien_NamTuan
             cboFilterLibraryCardId.SelectedIndex = 0;
             cboFilterLibrarianId.SelectedIndex = 0;
 
-            HienThiBangPhieuMuon();
-            HienThiMaDocGia();
-            HienThiMaTK();
-            HienThiMaSach();
+            DisplayLoanCard();
+            DisplayLibraryCardId();
+            DisplayLibrarianId();
+            DisplayBookId();
             HienThiHanTra();
-            HienThiMaPhieuKeTiep();
+            DisplayNextLoanCardId();
         }
 
         // Sửa cách hiển thị dữ liệu của cột đã trả
@@ -201,7 +183,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             string query = "SELECT s.MaSach";
             query += " FROM Sach s INNER JOIN CTPhieuMuonTra ctpmt ";
             query += " ON s.MaSach = ctpmt.MaSach WHERE MaPhieu = '" + MaPhieu + "'";
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            DataTable data = PhieuMuonTraBUS.GetData(query);
             foreach (DataRow dr in data.Rows)
             {
                 lstBooks.Items.Add(dr[0].ToString());
@@ -210,7 +192,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             // Lấy thông tin độc giả đưa vào phần thông tin độc giả
             query = "SELECT HoTenDG, SDT";
             query += " FROM TheDocGia WHERE MaTDG = '" + MaTDG + "'";
-            data = ThucThiTruyVanBus.LayDuLieu(query);
+            data = TheDocGiaBus.GetData(query);
             if (data.Rows.Count > 0)
             {
                 txtReaderName.Text = data.Rows[0][0].ToString();
@@ -228,8 +210,11 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 string MaTDG = cboLibraryCardId.SelectedValue.ToString();
                 // Lấy thông tin độc giả từ csdl và đưa vào phần thông tin độc giả
                 string query = "SELECT HoTenDG, SDT";
-                query += " FROM TheDocGia WHERE MaTDG = '" + MaTDG + "'";
-                DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+                query += " FROM TheDocGia WHERE MaTDG = @MaTDG";
+                ParameterCSDL param = new ParameterCSDL("MaTDG", MaTDG);
+                List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+                LstParams.Add(param);
+                DataTable data = TheDocGiaBus.GetData(query, LstParams);
                 if (data.Rows.Count > 0)
                 {
                     txtReaderName.Text = data.Rows[0][0].ToString();
@@ -260,7 +245,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 query += " FROM Sach s INNER JOIN TheLoai tl ON s.MaTL = tl.MaTL ";
                 query += " INNER JOIN TacGia tg ON s.MaTG = tg.MaTG ";
                 query += " WHERE MaSach = '" + MaSach + "'";
-                DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+                DataTable data = SachBUS.GetData(query);
                 if (data.Rows.Count > 0)
                 {
                     txtBookName.Text = data.Rows[0][0].ToString();
@@ -283,7 +268,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 query += " FROM Sach s INNER JOIN TheLoai tl ON s.MaTL = tl.MaTL ";
                 query += " INNER JOIN TacGia tg ON s.MaTG = tg.MaTG ";
                 query += " WHERE MaSach = '" + MaSach + "'";
-                DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+                DataTable data = SachDAO.GetData(query);
                 if (data.Rows.Count > 0)
                 {
                     txtBookName.Text = data.Rows[0][0].ToString();
@@ -355,7 +340,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (txtSearchBook.Text == "")
             {
                 // Hiển thị lại các mã sách trong clbBooks
-                HienThiMaSach();
+                DisplayBookId();
                 // Tạo list lưu các index mà được checked bên lstBooks
                 List<int> lstIndex = new List<int>();
 
@@ -395,9 +380,12 @@ namespace PhanMemQuanLyThuVien_NamTuan
             {
                 // Lấy mã sách đã nhập và tìm trên csdl rồi đưa dữ liệu vào clbBooks
                 string MaSach = txtSearchBook.Text;
-                string query = "SELECT MaSach FROM Sach";
-                query += " WHERE MaSach = '" + MaSach + "'";
-                HienThiMaSach(query);
+                string query = "SELECT MaSach FROM Sach WHERE MaSach = @MaSach";
+                ParameterCSDL param = new ParameterCSDL("MaSach", MaSach);
+                List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+                LstParams.Add(param);
+                DataTable data = SachDAO.GetData(query, LstParams);
+                DisplayBookId(data);
 
                 // Số lượng dữ liệu trong clbBooks khi này phải > 0
                 if (clbBooks.Items.Count > 0)
@@ -418,7 +406,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             }
         }
 
-        void ResetDuLieuNhap()
+        void ResetAll()
         {
             // Reset biến global SoLuongSachMax
             SoLuongSachMax = 0;
@@ -443,10 +431,10 @@ namespace PhanMemQuanLyThuVien_NamTuan
             clbBooks.Items.Clear();
 
             // Hiển thị lại vài thông tin
-            HienThiBangPhieuMuon();
-            HienThiMaPhieuKeTiep();
-            HienThiMaTK();
-            HienThiMaSach();
+            DisplayLoanCard();
+            DisplayNextLoanCardId();
+            DisplayLibrarianId();
+            DisplayBookId();
             HienThiHanTra();
 
             cboFilterDate.SelectedIndex = 0;
@@ -458,20 +446,14 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
+            ResetAll();
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM PhieuMuonTra";
-            query += " WHERE MaPhieu LIKE '%" + NoiDungTim + "%'";
-            HienThiBangPhieuMuon(query);
-            cboFilterDate.SelectedIndex = 0;
-            cboCompleted.SelectedIndex = 0;
-            cboFilterLibraryCardId.SelectedIndex = 0;
-            cboFilterLibrarianId.SelectedIndex = 0;
-            chkLate.Checked = false;
+            ResetAll();
+            DataTable data = PhieuMuonTraBUS.SearchData("MaPhieu", txtSearch.Text);
+            DisplayLoanCard(data);
         }
 
         private void cboFilterDate_SelectedIndexChanged(object sender, EventArgs e)
@@ -509,47 +491,47 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void btnFilter_Click(object sender, EventArgs e)
         {
-            string IDDGQuery, IDTKQuery, DateType, DateQuery, StartDate, EndDate;
-            string LateQuery, CompletedQuery;
-            StartDate = dtpStartDate.Value.ToString("yyyy/MM/dd");
-            EndDate = dtpEndDate.Value.ToString("yyyy/MM/dd");
+            //string IDDGQuery, IDTKQuery, DateType, DateQuery, StartDate, EndDate;
+            //string LateQuery, CompletedQuery;
+            //StartDate = dtpStartDate.Value.ToString("yyyy/MM/dd");
+            //EndDate = dtpEndDate.Value.ToString("yyyy/MM/dd");
 
-            switch (cboFilterDate.SelectedIndex)
-            {
-                case 1: DateType = "NgayTao"; break;
-                case 2: DateType = "HanTra"; break;
-                case 3: DateType = "NgayTra"; break;
-                default: DateType = ""; break;
-            }
+            //switch (cboFilterDate.SelectedIndex)
+            //{
+            //    case 1: DateType = "NgayTao"; break;
+            //    case 2: DateType = "HanTra"; break;
+            //    case 3: DateType = "NgayTra"; break;
+            //    default: DateType = ""; break;
+            //}
 
-            if (DateType != "")
-                DateQuery = DateType + " BETWEEN '" + StartDate + "' AND '" + EndDate + "'";
-            else DateQuery = "1 = 1";
+            //if (DateType != "")
+            //    DateQuery = DateType + " BETWEEN '" + StartDate + "' AND '" + EndDate + "'";
+            //else DateQuery = "1 = 1";
 
-            if (cboFilterLibraryCardId.Text == cboFilterLibraryCardId.Items[0].ToString())
-                IDDGQuery = "1 = 1";
-            else IDDGQuery = "MaTDG = '" + cboFilterLibraryCardId.Text + "'";
+            //if (cboFilterLibraryCardId.Text == cboFilterLibraryCardId.Items[0].ToString())
+            //    IDDGQuery = "1 = 1";
+            //else IDDGQuery = "MaTDG = '" + cboFilterLibraryCardId.Text + "'";
 
-            if (cboFilterLibrarianId.Text == cboFilterLibrarianId.Items[0].ToString())
-                IDTKQuery = "1 = 1";
-            else IDTKQuery = "MaTK = '" + cboFilterLibrarianId.Text + "'";
+            //if (cboFilterLibrarianId.Text == cboFilterLibrarianId.Items[0].ToString())
+            //    IDTKQuery = "1 = 1";
+            //else IDTKQuery = "MaTK = '" + cboFilterLibrarianId.Text + "'";
 
-            switch(cboCompleted.SelectedIndex)
-            {
-                case 1: CompletedQuery = "DaTra = 0"; break;
-                case 2: CompletedQuery = "DaTra = 1"; break;
-                default: CompletedQuery = "1 = 1"; break;
-            }
+            //switch(cboCompleted.SelectedIndex)
+            //{
+            //    case 1: CompletedQuery = "DaTra = 0"; break;
+            //    case 2: CompletedQuery = "DaTra = 1"; break;
+            //    default: CompletedQuery = "1 = 1"; break;
+            //}
 
-            DateTime dt = DateTime.Now;
-            string CurrentDate = dt.ToString("yyyy/MM/dd");
-            if (chkLate.Checked == true)
-                LateQuery = "(NgayTra > HanTra OR (DaTra = 0 AND '" + CurrentDate + "' > HanTra))";
-            else LateQuery = "1 = 1";
-            //MessageBox.Show("SELECT * FROM PhieuMuonTra WHERE " + DateQuery + " AND " +
+            //DateTime dt = DateTime.Now;
+            //string CurrentDate = dt.ToString("yyyy/MM/dd");
+            //if (chkLate.Checked == true)
+            //    LateQuery = "(NgayTra > HanTra OR (DaTra = 0 AND '" + CurrentDate + "' > HanTra))";
+            //else LateQuery = "1 = 1";
+            ////MessageBox.Show("SELECT * FROM PhieuMuonTra WHERE " + DateQuery + " AND " +
+            ////    IDDGQuery + " AND " + IDTKQuery + " AND " + CompletedQuery + " AND " + LateQuery);
+            //DisplayLoanCard("SELECT * FROM PhieuMuonTra WHERE " + DateQuery + " AND " +
             //    IDDGQuery + " AND " + IDTKQuery + " AND " + CompletedQuery + " AND " + LateQuery);
-            HienThiBangPhieuMuon("SELECT * FROM PhieuMuonTra WHERE " + DateQuery + " AND " +
-                IDDGQuery + " AND " + IDTKQuery + " AND " + CompletedQuery + " AND " + LateQuery);
         }
 
         private void btnReturn_Click(object sender, EventArgs e)
@@ -558,133 +540,133 @@ namespace PhanMemQuanLyThuVien_NamTuan
             frmXacNhanTra.MaPhieu = dgvDataList.CurrentRow.Cells["MaPhieu"].Value.ToString();
             frmXacNhanTra.MaTDG = dgvDataList.CurrentRow.Cells["MaTDG"].Value.ToString();
             frmXacNhanTra.ShowDialog();
-            ResetDuLieuNhap();
+            ResetAll();
         }
 
         private void btnBorrow_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Đồng ý cho mượn?", "Thông báo",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //DialogResult result = MessageBox.Show("Đồng ý cho mượn?", "Thông báo",
+            //    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (result == DialogResult.Yes)
-            {
-                string query, MaPhieu, MaTDG, MaTK, NgayTao, HanTra, NgayTra, GhiChu;
-                int DaTra;
-                ListView lst = lstBooks;
-                MaPhieu = txtLoanCardId.Text;
-                MaTDG = cboLibraryCardId.Text;
-                MaTK = txtLibrarianId.Text;
-                DateTime dt = DateTime.Now;
-                NgayTao = dt.ToString("yyyy/MM/dd");
-                HanTra = dtpTerm.Value.ToString("yyyy/MM/dd");
-                NgayTra = "null";
-                DaTra = 0;
-                GhiChu = txtNote.Text;
+            //if (result == DialogResult.Yes)
+            //{
+            //    string query, MaPhieu, MaTDG, MaTK, NgayTao, HanTra, NgayTra, GhiChu;
+            //    int DaTra;
+            //    ListView lst = lstBooks;
+            //    MaPhieu = txtLoanCardId.Text;
+            //    MaTDG = cboLibraryCardId.Text;
+            //    MaTK = txtLibrarianId.Text;
+            //    DateTime dt = DateTime.Now;
+            //    NgayTao = dt.ToString("yyyy/MM/dd");
+            //    HanTra = dtpTerm.Value.ToString("yyyy/MM/dd");
+            //    NgayTra = "null";
+            //    DaTra = 0;
+            //    GhiChu = txtNote.Text;
 
-                string ThongBao = "";
-                if (MaTDG == "") ThongBao += "Vui lòng chọn thẻ độc giả!";
+            //    string ThongBao = "";
+            //    if (MaTDG == "") ThongBao += "Vui lòng chọn thẻ độc giả!";
 
-                if (lst.Items.Count < 1)
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng chọn sách!";
-                }
+            //    if (lst.Items.Count < 1)
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        ThongBao += "Vui lòng chọn sách!";
+            //    }
 
-                //
-                query = "SELECT COUNT(*) FROM PhieuMuonTra p INNER JOIN CTPhieuMuonTra ct";
-                query += " ON p.MaPhieu = ct.MaPhieu WHERE MaTDG = '" + MaTDG + "' AND DaTra = 0";
-                int SoSachDaMuon = (int)ThucThiTruyVanBus.LayDuLieu(query).Rows[0][0];
-                int SoSachDuocMuon = 3 - SoSachDaMuon;
-                if (lst.Items.Count > SoSachDuocMuon)
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    if (SoSachDuocMuon == 0)
-                        ThongBao += "Độc giả này đã hết lượt mượn sách!";
-                    else
-                        ThongBao += "Độc giả này chỉ được mượn thêm " + SoSachDuocMuon + " cuốn!";
-                }
+            //    //
+            //    query = "SELECT COUNT(*) FROM PhieuMuonTra p INNER JOIN CTPhieuMuonTra ct";
+            //    query += " ON p.MaPhieu = ct.MaPhieu WHERE MaTDG = '" + MaTDG + "' AND DaTra = 0";
+            //    int SoSachDaMuon = (int)ThucThiTruyVanBus.LayDuLieu(query).Rows[0][0];
+            //    int SoSachDuocMuon = 3 - SoSachDaMuon;
+            //    if (lst.Items.Count > SoSachDuocMuon)
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        if (SoSachDuocMuon == 0)
+            //            ThongBao += "Độc giả này đã hết lượt mượn sách!";
+            //        else
+            //            ThongBao += "Độc giả này chỉ được mượn thêm " + SoSachDuocMuon + " cuốn!";
+            //    }
 
-                if (ThongBao == "")
-                {
-                    query = "INSERT INTO PhieuMuonTra (MaPhieu, MaTDG, MaTK, NgayTao,";
-                    query += " HanTra, NgayTra, DaTra, GhiChu) VALUES ('" + MaPhieu + "',";
-                    query += " '" + MaTDG + "', '" + MaTK + "', '" + NgayTao + "',";
-                    query += " '" + HanTra + "', " + NgayTra + ", " + DaTra + ", '" + GhiChu + "')";
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+            //    if (ThongBao == "")
+            //    {
+            //        query = "INSERT INTO PhieuMuonTra (MaPhieu, MaTDG, MaTK, NgayTao,";
+            //        query += " HanTra, NgayTra, DaTra, GhiChu) VALUES ('" + MaPhieu + "',";
+            //        query += " '" + MaTDG + "', '" + MaTK + "', '" + NgayTao + "',";
+            //        query += " '" + HanTra + "', " + NgayTra + ", " + DaTra + ", '" + GhiChu + "')";
+            //        int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
 
-                    foreach (ListViewItem item in lst.Items)
-                    {
-                        query = "INSERT INTO CTPhieuMuonTra (MaPhieu, MaSach) VALUES ('" + MaPhieu + "',";
-                        query += " '" + item.Text + "')";
-                        RowsAffected += ThucThiTruyVanBus.ThaoTacDuLieu(query);
+            //        foreach (ListViewItem item in lst.Items)
+            //        {
+            //            query = "INSERT INTO CTPhieuMuonTra (MaPhieu, MaSach) VALUES ('" + MaPhieu + "',";
+            //            query += " '" + item.Text + "')";
+            //            RowsAffected += ThucThiTruyVanBus.ThaoTacDuLieu(query);
 
-                        //
-                        query = "SELECT SoLuong FROM Sach WHERE MaSach = '" + item.Text + "'";
-                        int SoLuong = (int)ThucThiTruyVanBus.LayDuLieu(query).Rows[0][0];
-                        SoLuong--;
-                        query = "UPDATE Sach SET SoLuong = " + SoLuong + " WHERE MaSach = '" + item.Text + "'";
-                        RowsAffected += ThucThiTruyVanBus.ThaoTacDuLieu(query);
-                    }
+            //            //
+            //            query = "SELECT SoLuong FROM Sach WHERE MaSach = '" + item.Text + "'";
+            //            int SoLuong = (int)ThucThiTruyVanBus.LayDuLieu(query).Rows[0][0];
+            //            SoLuong--;
+            //            query = "UPDATE Sach SET SoLuong = " + SoLuong + " WHERE MaSach = '" + item.Text + "'";
+            //            RowsAffected += ThucThiTruyVanBus.ThaoTacDuLieu(query);
+            //        }
 
-                    if (RowsAffected > 0)
-                    {
-                        MessageBox.Show("Cho mượn thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        if (RowsAffected > 0)
+            //        {
+            //            MessageBox.Show("Cho mượn thành công!", "Thông báo",
+            //                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        ResetDuLieuNhap();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(ThongBao, "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+            //            ResetAll();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show(ThongBao, "Thông báo",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    }
+            //}
         }
 
         private void btnExtend_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Đồng ý gia hạn?", "Thông báo",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //DialogResult result = MessageBox.Show("Đồng ý gia hạn?", "Thông báo",
+            //    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (result == DialogResult.Yes)
-            {
-                string MaPhieu, HanTra, ThongBao = "";
-                MaPhieu = txtLoanCardId.Text;
-                DateTime dt = DateTime.Now;
-                TimNgayThangNam TimNTN1 = new TimNgayThangNam(dt.Day, dt.Month, dt.Year);
-                HanTra = TimNTN1.SauSoNgay(7).ToString("yyyy/MM/dd");
+            //if (result == DialogResult.Yes)
+            //{
+            //    string MaPhieu, HanTra, ThongBao = "";
+            //    MaPhieu = txtLoanCardId.Text;
+            //    DateTime dt = DateTime.Now;
+            //    TimNgayThangNam TimNTN1 = new TimNgayThangNam(dt.Day, dt.Month, dt.Year);
+            //    HanTra = TimNTN1.SauSoNgay(7).ToString("yyyy/MM/dd");
 
-                string query = "SELECT HanTra FROM PhieuMuonTra WHERE MaPhieu = '" + MaPhieu + "'";
-                DateTime HanTraTrongCSDL = (DateTime)ThucThiTruyVanBus.LayDuLieu(query).Rows[0][0];
-                TimNgayThangNam TimNTN2 = new TimNgayThangNam(HanTraTrongCSDL);
-                DateTime NgayToiDaDuocGiaHan = TimNTN2.SauSoNgay(5);
-                if (dt > NgayToiDaDuocGiaHan)
-                {
-                    ThongBao += "Thời hạn độc giả được gia hạn đã hơn 5 ngày!";
-                }
+            //    string query = "SELECT HanTra FROM PhieuMuonTra WHERE MaPhieu = '" + MaPhieu + "'";
+            //    DateTime HanTraTrongCSDL = (DateTime)ThucThiTruyVanBus.LayDuLieu(query).Rows[0][0];
+            //    TimNgayThangNam TimNTN2 = new TimNgayThangNam(HanTraTrongCSDL);
+            //    DateTime NgayToiDaDuocGiaHan = TimNTN2.SauSoNgay(5);
+            //    if (dt > NgayToiDaDuocGiaHan)
+            //    {
+            //        ThongBao += "Thời hạn độc giả được gia hạn đã hơn 5 ngày!";
+            //    }
 
-                if (ThongBao == "")
-                {
-                    query = "UPDATE PhieuMuonTra SET HanTra = '" + HanTra + "'";
-                    query += " WHERE MaPhieu = '" + MaPhieu + "'";
+            //    if (ThongBao == "")
+            //    {
+            //        query = "UPDATE PhieuMuonTra SET HanTra = '" + HanTra + "'";
+            //        query += " WHERE MaPhieu = '" + MaPhieu + "'";
 
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+            //        int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
 
-                    if (RowsAffected > 0)
-                    {
-                        MessageBox.Show("Gia hạn thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        if (RowsAffected > 0)
+            //        {
+            //            MessageBox.Show("Gia hạn thành công!", "Thông báo",
+            //                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        ResetDuLieuNhap();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(ThongBao, "Thông báo", MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                }
-            }
+            //            ResetAll();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show(ThongBao, "Thông báo", MessageBoxButtons.OK,
+            //            MessageBoxIcon.Warning);
+            //    }
+            //}
         }
     }
 }

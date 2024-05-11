@@ -212,6 +212,7 @@
             this.Name = "frmDoiMatKhau";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đổi mật khẩu";
+            this.Load += new System.EventHandler(this.frmDoiMatKhau_Load);
             this.panPresentPassword.ResumeLayout(false);
             this.panPresentPassword.PerformLayout();
             this.panNewPassword.ResumeLayout(false);

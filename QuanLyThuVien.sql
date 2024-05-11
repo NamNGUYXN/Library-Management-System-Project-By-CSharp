@@ -204,9 +204,9 @@ INSERT INTO TheDocGia VALUES ('TDG001', N'Trần Văn Vàng', N'Nam', N'TP Đà 
 							 ('TDG003', N'Phạm Tinh Anh', N'Nữ', N'Quận 12, TP Hồ Chí Minh', 
 							  '0123345678', '029144325819', '2024/02/05', '2024/08/03', 1),
 							 ('TDG004', N'Võ Chí Tôn', N'Nam', N'Rạch Giá, Kiên Giang', 
-							  '0912311178', '028195743283', '2023/11/07', '2024/05/05', 1),
+							  '0123445678', '028195743283', '2023/11/07', '2024/05/05', 1),
 							 ('TDG005', N'Lê Kim Cương', N'Nam', N'Quận Bình Thạnh, TP Hồ Chí Minh', 
-							  '0123345678', '829314552216', '2024/03/29', '2024/09/25', 1)
+							  '0123455678', '829314552216', '2024/03/29', '2024/09/25', 1)
 
 --Thêm dữ liệu cho bảng phiếu mượn trả
 INSERT INTO PhieuMuonTra VALUES ('P001', 'TDG002', 'TK003', '2023/12/04', '2023/12/25', null, 0, null),

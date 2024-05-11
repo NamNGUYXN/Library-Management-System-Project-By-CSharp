@@ -1,5 +1,7 @@
 ﻿using PhanMemQuanLyThuVien_NamTuan.BUS;
+using PhanMemQuanLyThuVien_NamTuan.DTO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,28 +26,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
             this.Close();
         }
 
-        void HienThiMaTDGKeTiep()
+        void DisplayNextLibraryCardId()
         {
-            // Tìm mã thẻ độc giả cao nhất trong csdl
-            string query = "SELECT MAX(MaTDG) FROM TheDocGia";
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
-            string MaTDGMax = data.Rows[0][0].ToString();
-
-            if (MaTDGMax == "")
-                txtLibraryCardId.Text = "TDG001";
-            else
-            {
-                // Tách ra phần chuỗi và số
-                string StringPart = Regex.Match(MaTDGMax, @"[A-Z]+").Value;
-                int NumberPart = int.Parse(Regex.Match(MaTDGMax, @"\d+").Value);
-
-                // Tăng phần số lên 1 đơn vị
-                NumberPart++;
-
-                // Nối phần chuỗi và số lại
-                string MaTDGKeTiep = StringPart + NumberPart.ToString("D3");
-                txtLibraryCardId.Text = MaTDGKeTiep;
-            }
+            txtLibraryCardId.Text = TuDongTao.MaKeTiep("MaTDG", "TheDocGia", "TDG");
         }
 
         void HienThiNgayHetHan()
@@ -61,9 +44,11 @@ namespace PhanMemQuanLyThuVien_NamTuan
             dtpExpiryDate.Text = AfterDate.ToString();
         }
 
-        void HienThiBangTheDG(string query = "SELECT * FROM TheDocGia WHERE TrangThai = 1")
+        void DisplayLibraryCard(DataTable data = null, string query = null)
         {
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            if (data == null) data = TheDocGiaBus.GetData();
+            if (query != null) data = TheDocGiaBus.GetData(query);
+
             dgvDataList.DataSource = data;
             txtQuantity.Text = data.Rows.Count.ToString();
 
@@ -75,21 +60,22 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             // Không tự động tạo các cột tiêu đề
             dgvDataList.AutoGenerateColumns = false;
-
-            HienThiBangTheDG();
-            HienThiMaTDGKeTiep();
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
+            btnExtend.Enabled = false;
+            // Hiện dữ liệu thẻ độc giả vào DataGridView
+            DisplayLibraryCard();
             HienThiNgayHetHan();
-
+            // Hiện mã thẻ độc giả kế tiếp
+            DisplayNextLibraryCardId();
+            // Hiện lời nhắc dưới ô nhập
             lblCheckName.Text = "Vui lòng nhập họ tên!";
             lblCheckAddress.Text = "Vui lòng nhập địa chỉ!";
             lblCheckPhone.Text = "Vui lòng nhập họ tên!";
             lblCheckIdCard.Text = "Vui lòng nhập CCCD!";
-
-            btnUpdate.Enabled = false;
-            btnDelete.Enabled = false;
-            btnExtend.Enabled = false;
         }
 
+        // Sự kiện xảy ra khi chọn vào 1 dòng trong DataGridView
         private void dgvDataList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             btnAdd.Enabled = false;
@@ -126,80 +112,60 @@ namespace PhanMemQuanLyThuVien_NamTuan
             }
         }
 
+        // Chọn tìm theo mã
         private void radReaderId_CheckedChanged(object sender, EventArgs e)
         {
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM TheDocGia WHERE TrangThai = 1";
-            query += " AND MaTDG LIKE '%" + NoiDungTim + "%'";
-            HienThiBangTheDG(query);
+            ResetAll();
+            DataTable data = TheDocGiaBus.SearchData("MaTDG", txtSearch.Text);
+            DisplayLibraryCard(data);
         }
 
+        // Chọn tìm theo tên
         private void radReaderName_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM TheDocGia WHERE TrangThai = 1";
-            query += " AND HoTenDG LIKE N'%" + NoiDungTim + "%'";
-            HienThiBangTheDG(query);
+            ResetAll();
+            DataTable data = TheDocGiaBus.SearchData("HoTenDG", txtSearch.Text);
+            DisplayLibraryCard(data);
         }
 
+        // Chọn tìm theo cccd
         private void radIdCard_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM TheDocGia WHERE TrangThai = 1";
-            query += " AND CCCD LIKE '%" + NoiDungTim + "%'";
-            HienThiBangTheDG(query);
+            ResetAll();
+            DataTable data = TheDocGiaBus.SearchData("CCCD", txtSearch.Text);
+            DisplayLibraryCard(data);
         }
 
+        // Chọn tìm theo sdt
         private void radPhone_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM TheDocGia WHERE TrangThai = 1";
-            query += " AND SDT LIKE '%" + NoiDungTim + "%'";
-            HienThiBangTheDG(query);
+            ResetAll();
+            DataTable data = TheDocGiaBus.SearchData("SDT", txtSearch.Text);
+            DisplayLibraryCard(data);
         }
 
+        // Sự kiện xảy ra khi nội dung tìm thay đổi
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query;
-
             if (radReaderId.Checked)
-            {
-                query = "SELECT * FROM TheDocGia WHERE TrangThai = 1";
-                query += " AND MaTDG LIKE '%" + NoiDungTim + "%'";
-
-            }
+                radReaderId_CheckedChanged(sender, e);
             else if (radReaderName.Checked)
-            {
-                query = "SELECT * FROM TheDocGia WHERE TrangThai = 1";
-                query += " AND HoTenDG LIKE N'%" + NoiDungTim + "%'";
-            }
+                radReaderName_CheckedChanged(sender, e);
             else if (radIdCard.Checked)
-            {
-                query = "SELECT * FROM TheDocGia WHERE TrangThai = 1";
-                query += " AND CCCD LIKE '%" + NoiDungTim + "%'";
-            }
+                radIdCard_CheckedChanged(sender, e);
             else
-            {
-                query = "SELECT * FROM TheDocGia WHERE TrangThai = 1";
-                query += " AND SDT LIKE '%" + NoiDungTim + "%'";
-            }
-
-            HienThiBangTheDG(query);
+                radPhone_CheckedChanged(sender, e);
         }
 
-        void ResetDuLieuNhap()
+        // Reset form
+        void ResetAll()
         {
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
             btnExtend.Enabled = false;
-            HienThiBangTheDG();
-            HienThiMaTDGKeTiep();
+            DisplayLibraryCard();
+            DisplayNextLibraryCardId();
             HienThiNgayHetHan();
             txtReaderName.Text = "";
             radMale.Checked = true;
@@ -210,7 +176,143 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
+            ResetAll();
+        }
+
+        // Ngăn ko cho nhập họ tên ko hợp lệ
+        private void txtReaderName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            bool KeyDelete = (e.KeyChar == (char)Keys.Delete);
+            bool KeyBackspace = (e.KeyChar == (char)Keys.Back);
+            if (!char.IsWhiteSpace(e.KeyChar) && !char.IsLetter(e.KeyChar) &&
+                !KeyDelete && !KeyBackspace)
+            {
+                e.Handled = true;
+            }
+        }
+
+        // Ngăn ko cho nhập sdt ko hợp lệ
+        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            string SDT = txtPhone.Text;
+            if (!char.IsControl(e.KeyChar) && SDT.Length >= 12)
+            {
+                e.Handled = true;
+                lblCheckPhone.Text = "SĐT tối đa 12 số";
+            }
+        }
+
+        // Ngăn ko cho nhập cccd ko hợp lệ
+        private void txtIdCard_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            bool KeyDelete = (e.KeyChar == (char)Keys.Delete);
+            bool KeyBackspace = (e.KeyChar == (char)Keys.Back);
+            if (!KeyDelete && !KeyBackspace && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            string CCCD = txtIdCard.Text;
+            if (!char.IsControl(e.KeyChar) && CCCD.Length >= 12)
+            {
+                e.Handled = true;
+                lblCheckIdCard.Text = "CCCD tối đa 12 số";
+            }
+        }
+
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
+        private void txtReaderName_TextChanged(object sender, EventArgs e)
+        {
+            string HoTen = txtReaderName.Text;
+            if (HoTen == "")
+                lblCheckName.Text = "Vui lòng nhập họ tên!";
+            else 
+                lblCheckName.Text = "";
+        }
+
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
+        private void txtAddress_TextChanged(object sender, EventArgs e)
+        {
+            string DiaChi = txtAddress.Text;
+            if (DiaChi == "")
+                lblCheckAddress.Text = "Vui lòng nhập địa chỉ!";
+            else 
+                lblCheckAddress.Text = "";
+        }
+
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
+        private void txtPhone_TextChanged(object sender, EventArgs e)
+        {
+            string SDT = txtPhone.Text;
+            // Kiểm tra số điện thoại đã tồn tại
+            string query = $"SELECT SDT FROM TheDocGia WHERE SDT = '{SDT}' AND MaTDG <> '{txtLibraryCardId.Text}'";
+            int ExistPhone = TheDocGiaBus.GetData(query).Rows.Count;
+            if (SDT == "")
+                lblCheckPhone.Text = "Vui lòng nhập họ tên!";
+            else if (ExistPhone > 0)
+                lblCheckPhone.Text = "SĐT đã tồn tại!";
+            else
+                lblCheckPhone.Text = "";
+        }
+
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
+        private void txtIdCard_TextChanged(object sender, EventArgs e)
+        {
+            string CCCD = txtIdCard.Text;
+            if (CCCD == "")
+                lblCheckIdCard.Text = "Vui lòng nhập CCCD!";
+            else 
+                lblCheckIdCard.Text = "";
+        }
+
+        string CheckValidInput(out string MaTDG, out string HoTenDG, out string GioiTinh, out string DiaChi,
+            out string SDT, out string CCCD, out string NgayTao, out string NgayHetHan)
+        {
+            MaTDG = txtLibraryCardId.Text;
+            HoTenDG = txtReaderName.Text;
+            GioiTinh = (radMale.Checked) ? "Nam" : "Nữ";
+            DiaChi = txtAddress.Text;
+            SDT = txtPhone.Text;
+            CCCD = txtIdCard.Text;
+            DateTime dt = DateTime.Now;
+            NgayTao = dt.ToString();
+            NgayHetHan = dtpExpiryDate.Value.ToString("yyyy/MM/dd");
+
+            string ThongBao = "";
+            if (HoTenDG == "") ThongBao += "Vui lòng nhập họ tên!";
+
+            if (DiaChi == "")
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "Vui lòng nhập địa chỉ!";
+            }
+
+            if (SDT == "")
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "Vui lòng nhập SĐT!";
+            }
+
+            string query = $"SELECT SDT FROM TheDocGia WHERE SDT = '{SDT}' AND MaTDG <> '{txtLibraryCardId.Text}'";
+            int ExistPhone = TheDocGiaBus.GetData(query).Rows.Count;
+            if (ExistPhone > 0)
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "SĐT đã tồn tại!";
+            }
+
+            if (CCCD == "")
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "Vui lòng nhập CCCD!";
+            }
+
+            return ThongBao;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -221,53 +323,32 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (result == DialogResult.Yes)
             {
                 string MaTDG, HoTenDG, GioiTinh, DiaChi, SDT, CCCD, NgayTao, NgayHetHan;
-                MaTDG = txtLibraryCardId.Text;
-                HoTenDG = txtReaderName.Text;
-                GioiTinh = (radMale.Checked) ? "Nam" : "Nữ";
-                DiaChi = txtAddress.Text;
-                SDT = txtPhone.Text;
-                CCCD = txtIdCard.Text;
-                DateTime dt = DateTime.Now;
-                NgayTao = dt.ToString();
-                NgayHetHan = dtpExpiryDate.Value.ToString("yyyy/MM/dd");
 
-                string ThongBao = "";
-                if (HoTenDG == "") ThongBao += "Vui lòng nhập họ tên!";
-
-                if (DiaChi == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập địa chỉ!";
-                }
-
-                if (SDT == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập SĐT!";
-                }
-
-                if (CCCD == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập CCCD!";
-                }
+                string ThongBao = CheckValidInput(out MaTDG, out HoTenDG, out GioiTinh, out DiaChi,
+                    out SDT, out CCCD, out NgayTao, out NgayHetHan);
 
                 if (ThongBao == "")
                 {
-                    string query = "INSERT INTO TheDocGia (MaTDG, HoTenDG, GioiTinh, DiaChi,";
-                    query += " SDT, CCCD, NgayTao, NgayHetHan, TrangThai) VALUES";
-                    query += " ('" + MaTDG + "', N'" + HoTenDG + "', N'" + GioiTinh + "',";
-                    query += " N'" + DiaChi + "', '" + SDT + "', '" + CCCD + "',";
-                    query += " '" + NgayTao + "', '" + NgayHetHan + "', 1)";
+                    ParameterCSDL pMaTDG = new ParameterCSDL("MaTDG", MaTDG);
+                    ParameterCSDL pHoTenDG = new ParameterCSDL("HoTenDG", HoTenDG);
+                    ParameterCSDL pGioiTinh = new ParameterCSDL("GioiTinh", GioiTinh);
+                    ParameterCSDL pDiaChi = new ParameterCSDL("DiaChi", DiaChi);
+                    ParameterCSDL pSDT = new ParameterCSDL("SDT", SDT);
+                    ParameterCSDL pCCCD = new ParameterCSDL("CCCD", CCCD);
+                    ParameterCSDL pNgayTao = new ParameterCSDL("NgayTao", NgayTao);
+                    ParameterCSDL pNgayHetHan = new ParameterCSDL("NgayHetHan", NgayHetHan);
+                    ParameterCSDL[] pArray = { pMaTDG, pHoTenDG, pGioiTinh, pDiaChi, pSDT, pCCCD, pNgayTao, pNgayHetHan };
+                    List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+                    LstParams.AddRange(pArray);
 
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+                    int RowsAffected = TheDocGiaBus.InsertData(LstParams);
 
                     if (RowsAffected > 0)
                     {
                         MessageBox.Show("Thêm thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        ResetDuLieuNhap();
+                        ResetAll();
                     }
                 }
                 else
@@ -285,50 +366,41 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
             if (result == DialogResult.Yes)
             {
-                string MaTDG, HoTenDG, GioiTinh, DiaChi, SDT, CCCD;
-                MaTDG = txtLibraryCardId.Text;
-                HoTenDG = txtReaderName.Text;
-                GioiTinh = (radMale.Checked) ? "Nam" : "Nữ";
-                DiaChi = txtAddress.Text;
-                SDT = txtPhone.Text;
-                CCCD = txtIdCard.Text;
+                string MaTDG, HoTenDG, GioiTinh, DiaChi, SDT, CCCD, NgayTao, NgayHetHan;
 
-                string ThongBao = "";
-                if (HoTenDG == "") ThongBao += "Vui lòng nhập họ tên!";
-
-                if (DiaChi == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập địa chỉ!";
-                }
-
-                if (SDT == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập SĐT!";
-                }
-
-                if (CCCD == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng nhập CCCD!";
-                }
+                string ThongBao = CheckValidInput(out MaTDG, out HoTenDG, out GioiTinh, out DiaChi,
+                    out SDT, out CCCD, out NgayTao, out NgayHetHan);
 
                 if (ThongBao == "")
                 {
-                    string query = "UPDATE TheDocGia SET HoTenDG = N'" + HoTenDG + "',";
-                    query += " GioiTinh = N'" + GioiTinh + "', DiaChi = N'" + DiaChi + "',";
-                    query += " SDT = '" + SDT + "', CCCD = '" + CCCD + "'";
-                    query += " WHERE MaTDG = '" + MaTDG + "'";
+                    ParameterCSDL pMaTDG = new ParameterCSDL("MaTDG", MaTDG);
+                    ParameterCSDL pHoTenDG = new ParameterCSDL("HoTenDG", HoTenDG);
+                    ParameterCSDL pGioiTinh = new ParameterCSDL("GioiTinh", GioiTinh);
+                    ParameterCSDL pDiaChi = new ParameterCSDL("DiaChi", DiaChi);
+                    ParameterCSDL pSDT = new ParameterCSDL("SDT", SDT);
+                    ParameterCSDL pCCCD = new ParameterCSDL("CCCD", CCCD);
+                    ParameterCSDL pNgayTao = new ParameterCSDL("NgayTao", NgayTao);
+                    ParameterCSDL pNgayHetHan = new ParameterCSDL("NgayHetHan", NgayHetHan);
+                    ParameterCSDL[] pArray = { pMaTDG, pHoTenDG, pGioiTinh, pDiaChi, pSDT, pCCCD, pNgayTao, pNgayHetHan };
+                    List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+                    LstParams.AddRange(pArray);
+                    // Kiểm tra xem nội dung sửa có khác ban đầu ko
+                    string query = $"SELECT * FROM TheDocGia WHERE MaTDG = '{MaTDG}' AND HoTenDG = N'{HoTenDG}'";
+                    query += $" AND GioiTinh = N'{GioiTinh}' AND DiaChi = N'{DiaChi}' AND SDT = '{SDT}'";
+                    query += $" AND CCCD = '{CCCD}' AND NgayTao = '{NgayTao}' AND NgayHetHan = '{NgayHetHan}'";
 
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
-
-                    if (RowsAffected > 0)
+                    int NotChangeData = TheDocGiaBus.GetData(query).Rows.Count;
+                    // Khi nội dung sửa khác ban đầu thì cập nhật lại
+                    if (NotChangeData == 0)
                     {
-                        MessageBox.Show("Sửa thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        int RowsAffected = TheDocGiaBus.UpdateData(LstParams);
+                        if (RowsAffected > 0)
+                        {
+                            MessageBox.Show("Sửa thành công!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        ResetDuLieuNhap();
+                            ResetAll();
+                        }
                     }
                 }
                 else
@@ -349,146 +421,61 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 string MaTDG;
                 MaTDG = txtLibraryCardId.Text;
 
-                string query = "UPDATE TheDocGia SET TrangThai = 0";
-                query += " WHERE MaTDG = '" + MaTDG + "'";
-
-                int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+                int RowsAffected = TheDocGiaBus.DeleteData(MaTDG);
 
                 if (RowsAffected > 0)
                 {
                     MessageBox.Show("Xóa thành công!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    ResetDuLieuNhap();
+                    ResetAll();
                 }
             }
         }
 
         private void btnExtend_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Đồng ý gia hạn?", "Thông báo",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //DialogResult result = MessageBox.Show("Đồng ý gia hạn?", "Thông báo",
+            //    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (result == DialogResult.Yes)
-            {
-                string MaTDG, NgayHetHan, ThongBao = "";
-                MaTDG = txtLibraryCardId.Text;
-                DateTime dt = DateTime.Now;
-                TimNgayThangNam TimNTN1 = new TimNgayThangNam(dt.Day, dt.Month, dt.Year);
-                NgayHetHan = TimNTN1.SauSoNgay(180).ToString("yyyy/MM/dd");
+            //if (result == DialogResult.Yes)
+            //{
+            //    string MaTDG, NgayHetHan, ThongBao = "";
+            //    MaTDG = txtLibraryCardId.Text;
+            //    DateTime dt = DateTime.Now;
+            //    TimNgayThangNam TimNTN1 = new TimNgayThangNam(dt.Day, dt.Month, dt.Year);
+            //    NgayHetHan = TimNTN1.SauSoNgay(180).ToString("yyyy/MM/dd");
 
-                string query = "SELECT NgayHetHan FROM TheDocGia WHERE MaTDG = '" + MaTDG + "'";
-                DateTime NgayHetHanTrongCSDL = (DateTime)ThucThiTruyVanBus.LayDuLieu(query).Rows[0][0];
-                TimNgayThangNam TimNTN2 = new TimNgayThangNam(NgayHetHanTrongCSDL);
-                DateTime NgayToiDaDuocGiaHan = TimNTN2.SauSoNgay(10);
-                if (dt > NgayToiDaDuocGiaHan)
-                {
-                    ThongBao += "Thời hạn độc giả được gia hạn đã hơn 10 ngày!";
-                }
+            //    string query = "SELECT NgayHetHan FROM TheDocGia WHERE MaTDG = '" + MaTDG + "'";
+            //    DateTime NgayHetHanTrongCSDL = (DateTime)TheDocGiaBus.GetData(query).Rows[0][0];
+            //    TimNgayThangNam TimNTN2 = new TimNgayThangNam(NgayHetHanTrongCSDL);
+            //    DateTime NgayToiDaDuocGiaHan = TimNTN2.SauSoNgay(10);
+            //    if (dt > NgayToiDaDuocGiaHan)
+            //    {
+            //        ThongBao += "Thời hạn độc giả được gia hạn đã hơn 10 ngày!";
+            //    }
 
-                if (ThongBao == "")
-                {
-                    query = "UPDATE TheDocGia SET NgayHetHan = '" + NgayHetHan + "'";
-                    query += " WHERE MaTDG = '" + MaTDG + "'";
+            //    if (ThongBao == "")
+            //    {
+            //        query = "UPDATE TheDocGia SET NgayHetHan = '" + NgayHetHan + "'";
+            //        query += " WHERE MaTDG = '" + MaTDG + "'";
 
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+            //        int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
 
-                    if (RowsAffected > 0)
-                    {
-                        MessageBox.Show("Gia hạn thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        if (RowsAffected > 0)
+            //        {
+            //            MessageBox.Show("Gia hạn thành công!", "Thông báo",
+            //                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        ResetDuLieuNhap();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(ThongBao, "Thông báo", MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                }
-            }
-        }
-
-        private void txtReaderName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) &&
-                !char.IsWhiteSpace(e.KeyChar))
-            {
-                e.Handled = true;
-                lblCheckName.Text = "Họ tên không hợp lệ!";
-            }
-        }
-
-        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-                lblCheckPhone.Text = "SĐT không hợp lệ!";
-            }
-
-            string SDT = txtPhone.Text;
-            if (!char.IsControl(e.KeyChar) && SDT.Length >= 12)
-            {
-                e.Handled = true;
-                lblCheckPhone.Text = "SĐT tối đa 12 số";
-            }
-        }
-
-        private void txtIdCard_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-                lblCheckIdCard.Text = "CCCD không hợp lệ!";
-            }
-
-            string CCCD = txtIdCard.Text;
-            if (!char.IsControl(e.KeyChar) && CCCD.Length >= 12)
-            {
-                e.Handled = true;
-                lblCheckIdCard.Text = "CCCD tối đa 12 số";
-            }
-        }
-
-        private void txtReaderName_TextChanged(object sender, EventArgs e)
-        {
-            string HoTen = txtReaderName.Text;
-            if (HoTen == "")
-            {
-                lblCheckName.Text = "Vui lòng nhập họ tên!";
-            }
-            else lblCheckName.Text = "";
-        }
-
-        private void txtAddress_TextChanged(object sender, EventArgs e)
-        {
-            string DiaChi = txtAddress.Text;
-            if (DiaChi == "")
-            {
-                lblCheckAddress.Text = "Vui lòng nhập địa chỉ!";
-            }
-            else lblCheckAddress.Text = "";
-        }
-
-        private void txtPhone_TextChanged(object sender, EventArgs e)
-        {
-            string SDT = txtPhone.Text;
-            if (SDT == "")
-            {
-                lblCheckPhone.Text = "Vui lòng nhập họ tên!";
-            }
-            else lblCheckPhone.Text = "";
-        }
-
-        private void txtIdCard_TextChanged(object sender, EventArgs e)
-        {
-            string CCCD = txtIdCard.Text;
-            if (CCCD == "")
-            {
-                lblCheckIdCard.Text = "Vui lòng nhập CCCD!";
-            }
-            else lblCheckIdCard.Text = "";
+            //            ResetAll();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show(ThongBao, "Thông báo", MessageBoxButtons.OK,
+            //            MessageBoxIcon.Warning);
+            //    }
+            //}
         }
     }
 }

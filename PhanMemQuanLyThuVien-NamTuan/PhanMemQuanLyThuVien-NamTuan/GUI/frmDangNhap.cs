@@ -43,7 +43,7 @@ namespace GUI
             // Trường hợp nhập liệu hợp lệ
             if (ThongBao == "")
             {
-                bool KTDangNhap = DangNhapBUS.KTDangNhap(MatKhau);
+                bool KTDangNhap = DangNhapBUS.CheckLogin(MatKhau);
 
                 // Trường hợp đăng nhập đúng
                 if (KTDangNhap == true)
@@ -82,8 +82,6 @@ namespace GUI
                         txtLibrarianId.Text = "";
                         txtPassword.Text = "";
                         chkShowPassword.Checked = false;
-                        MaTK = "";
-                        MatKhau = "";
                         Quyen = false;
                         // Tự chọn vào textbox
                         txtLibrarianId.Select();

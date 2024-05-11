@@ -11,28 +11,28 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
 {
     public class TuDongTao
     {
-        public static string MaKeTiep(string LoaiMa, string LoaiBang, string KiTuDau)
+        public static string MaKeTiep(string TypeId, string table, string FirstChar)
         {
-            string MaKeTiep = KiTuDau + "001";
+            string NextId = FirstChar + "001";
             // Tìm mã cao nhất trong csdl
-            string query = "SELECT MAX(" + LoaiMa + ") FROM " + LoaiBang;
-            DataTable data = DataProvider.LayDuLieu(query);
-            string MaToiDa = data.Rows[0][0].ToString();
+            string query = "SELECT MAX(" + TypeId + ") FROM " + table;
+            DataTable data = DataProvider.GetData(query, null);
+            string MaxId = data.Rows[0][0].ToString();
 
-            if (MaToiDa != "")
+            if (MaxId != "")
             {
                 // Tách ra phần chuỗi và số
-                string StringPart = Regex.Match(MaToiDa, @"[A-Z]+").Value;
-                int NumberPart = int.Parse(Regex.Match(MaToiDa, @"\d+").Value);
+                string StringPart = Regex.Match(MaxId, @"[A-Z]+").Value;
+                int NumberPart = int.Parse(Regex.Match(MaxId, @"\d+").Value);
 
                 // Tăng phần số lên 1 đơn vị
                 NumberPart++;
 
                 // Nối phần chuỗi và số lại
-                MaKeTiep = StringPart + NumberPart.ToString("D3");
+                NextId = StringPart + NumberPart.ToString("D3");
             }
 
-            return MaKeTiep;
+            return NextId;
         }
     }
 }

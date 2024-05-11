@@ -1,5 +1,7 @@
 ﻿using PhanMemQuanLyThuVien_NamTuan.BUS;
+using PhanMemQuanLyThuVien_NamTuan.DTO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PhanMemQuanLyThuVien_NamTuan
 {
@@ -24,33 +27,16 @@ namespace PhanMemQuanLyThuVien_NamTuan
             this.Close();
         }
 
-        void HienThiMaTLKeTiep()
+        void DisplayNextCategoryId()
         {
-            // Tìm mã thể loại cao nhất trong csdl
-            string query = "SELECT MAX(MaTL) FROM TheLoai";
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
-            string MaTLMax = data.Rows[0][0].ToString();
-
-            if (MaTLMax == "")
-                txtCategoryId.Text = "TL001";
-            else
-            {
-                // Tách ra phần chuỗi và số
-                string StringPart = Regex.Match(MaTLMax, @"[A-Z]+").Value;
-                int NumberPart = int.Parse(Regex.Match(MaTLMax, @"\d+").Value);
-
-                // Tăng phần số lên 1 đơn vị
-                NumberPart++;
-
-                // Nối phần chuỗi và số lại
-                string MaTLKeTiep = StringPart + NumberPart.ToString("D3");
-                txtCategoryId.Text = MaTLKeTiep;
-            }
+            txtCategoryId.Text = TuDongTao.MaKeTiep("MaTL", "TheLoai", "TL");
         }
 
-        void HienThiBangTheLoai(string query = "SELECT * FROM TheLoai WHERE TrangThai = 1")
+        void DisplayCategory(DataTable data = null, string query = null)
         {
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            if (data == null) data = TheLoaiBUS.GetData();
+            if (query != null) data = TheLoaiBUS.GetData(query);
+
             dgvDataList.DataSource = data;
             txtQuantity.Text = data.Rows.Count.ToString();
 
@@ -62,16 +48,17 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             // Không tự động tạo các cột tiêu đề
             dgvDataList.AutoGenerateColumns = false;
-
-            HienThiBangTheLoai();
-            HienThiMaTLKeTiep();
-
-            lblCheckCategoryName.Text = "Vui lòng nhập tên thể loại!";
-
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
+            // Hiện dữ liệu thể loại vào DataGridView
+            DisplayCategory();
+            // Hiện mã thể loại kế tiếp
+            DisplayNextCategoryId();
+            // Hiện lời nhắc dưới ô nhập
+            lblCheckCategoryName.Text = "Vui lòng nhập tên thể loại!";
         }
 
+        // Sự kiện xảy ra khi chọn vào 1 dòng dữ liệu trong DataGridView
         private void dgvDataList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             btnAdd.Enabled = false;
@@ -92,57 +79,76 @@ namespace PhanMemQuanLyThuVien_NamTuan
             }
         }
 
+        // Chọn tìm theo mã
         private void radCategoryId_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM TheLoai WHERE TrangThai = 1";
-            query += " AND MaTL LIKE '%" + NoiDungTim + "%'";
-            HienThiBangTheLoai(query);
+            ResetAll();
+            DataTable data = TheLoaiBUS.SearchData("MaTL", txtSearch.Text);
+            DisplayCategory(data);
         }
 
+        // Chọn tìm theo tên
         private void radCategoryName_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM TheLoai WHERE TrangThai = 1";
-            query += " AND TenTL LIKE N'%" + NoiDungTim + "%'";
-            HienThiBangTheLoai(query);
+            ResetAll();
+            DataTable data = TheLoaiBUS.SearchData("TenTL", txtSearch.Text);
+            DisplayCategory(data);
         }
 
+        // Sự kiện xảy ra khi nội dung tìm thay đổi
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query;
-
             if (radCategoryId.Checked)
-            {
-                query = "SELECT * FROM TheLoai WHERE TrangThai = 1";
-                query += " AND MaTL LIKE '%" + NoiDungTim + "%'";
-            }
+                radCategoryId_CheckedChanged(sender, e);
             else
-            {
-                query = "SELECT * FROM TheLoai WHERE TrangThai = 1";
-                query += " AND TenTL LIKE N'%" + NoiDungTim + "%'";
-            }
-
-            HienThiBangTheLoai(query);
+                radCategoryName_CheckedChanged(sender, e);
         }
 
-        void ResetDuLieuNhap()
+        // Reset form
+        void ResetAll()
         {
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
-            HienThiMaTLKeTiep();
-            HienThiBangTheLoai();
+            DisplayNextCategoryId();
+            DisplayCategory();
             txtCategoryName.Text = "";
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
+            ResetAll();
+        }
+
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
+        private void txtCategoryName_TextChanged(object sender, EventArgs e)
+        {
+            string TheLoai = txtCategoryName.Text;
+            if (TheLoai == "")
+            {
+                lblCheckCategoryName.Text = "Vui lòng nhập tên thể loại!";
+            }
+            else lblCheckCategoryName.Text = "";
+        }
+
+        // Ngăn ko cho nhập tên thể loại ko hợp lệ
+        private void txtCategoryName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        string CheckValidInput(out string MaTL, out string TenTL)
+        {
+            MaTL = txtCategoryId.Text;
+            TenTL = txtCategoryName.Text;
+
+            string ThongBao = "";
+            if (TenTL == "") ThongBao += "Vui lòng nhập tên thể loại!";
+
+            return ThongBao;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -153,25 +159,24 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (result == DialogResult.Yes)
             {
                 string MaTL, TenTL;
-                MaTL = txtCategoryId.Text;
-                TenTL = txtCategoryName.Text;
-
-                string ThongBao = "";
-                if (TenTL == "") ThongBao += "Vui lòng nhập tên thể loại!";
+                string ThongBao = CheckValidInput(out MaTL, out TenTL);
 
                 if (ThongBao == "")
                 {
-                    string query = "INSERT INTO TheLoai (MaTL, TenTL, TrangThai)";
-                    query += " VALUES ('" + MaTL + "', N'" + TenTL + "', 1)";
+                    ParameterCSDL pMaTL = new ParameterCSDL("MaTL", MaTL);
+                    ParameterCSDL pTenTL = new ParameterCSDL("TenTL", TenTL.Trim());
+                    ParameterCSDL[] pArray = { pMaTL, pTenTL };
+                    List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+                    LstParams.AddRange(pArray);
 
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+                    int RowsAffected = TheLoaiBUS.InsertData(LstParams);
 
                     if (RowsAffected > 0)
                     {
                         MessageBox.Show("Thêm thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        ResetDuLieuNhap();
+                        ResetAll();
                     }
                 }
                 else
@@ -190,25 +195,31 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (result == DialogResult.Yes)
             {
                 string MaTL, TenTL;
-                MaTL = txtCategoryId.Text;
-                TenTL = txtCategoryName.Text;
-
-                string ThongBao = "";
-                if (TenTL == "") ThongBao += "Vui lòng nhập tên thể loại!";
+                string ThongBao = CheckValidInput(out MaTL, out TenTL);
 
                 if (ThongBao == "")
                 {
-                    string query = "UPDATE TheLoai SET TenTL = N'" + TenTL + "'";
-                    query += " WHERE MaTL = '" + MaTL + "'";
+                    ParameterCSDL pMaTL = new ParameterCSDL("MaTL", MaTL);
+                    ParameterCSDL pTenTL = new ParameterCSDL("TenTL", TenTL.Trim());
+                    ParameterCSDL[] pArray = { pMaTL, pTenTL };
+                    List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+                    LstParams.AddRange(pArray);
+                    // Kiểm tra xem nội dung sửa có khác ban đầu ko
+                    string query = $"SELECT * FROM TheLoai WHERE MaTL = '{MaTL}' AND TenTL = N'{TenTL}'";
 
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
-
-                    if (RowsAffected > 0)
+                    int NotChangeData = TheLoaiBUS.GetData(query).Rows.Count;
+                    // Khi nội dung sửa khác ban đầu thì cập nhật lại
+                    if (NotChangeData == 0)
                     {
-                        MessageBox.Show("Sửa thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        int RowsAffected = TheLoaiBUS.UpdateData(LstParams);
 
-                        ResetDuLieuNhap();
+                        if (RowsAffected > 0)
+                        {
+                            MessageBox.Show("Sửa thành công!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            ResetAll();
+                        }
                     }
                 }
                 else
@@ -229,37 +240,15 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 string MaTL;
                 MaTL = txtCategoryId.Text;
 
-                string query = "UPDATE TheLoai SET TrangThai = 0";
-                query += " WHERE MaTL = '" + MaTL + "'";
-
-                int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+                int RowsAffected = TheLoaiBUS.DeleteData(MaTL);
 
                 if (RowsAffected > 0)
                 {
                     MessageBox.Show("Xóa thành công!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    ResetDuLieuNhap();
+                    ResetAll();
                 }
-            }
-        }
-
-        private void txtCategoryName_TextChanged(object sender, EventArgs e)
-        {
-            string TheLoai = txtCategoryName.Text;
-            if (TheLoai == "")
-            {
-                lblCheckCategoryName.Text = "Vui lòng nhập tên thể loại!";
-            }
-            else lblCheckCategoryName.Text = "";
-        }
-
-        private void txtCategoryName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-                lblCheckCategoryName.Text = "Tên thể loại không hợp lệ!";
             }
         }
     }

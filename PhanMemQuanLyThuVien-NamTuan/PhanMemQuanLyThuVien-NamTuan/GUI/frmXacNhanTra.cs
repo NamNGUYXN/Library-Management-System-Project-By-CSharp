@@ -36,7 +36,7 @@ namespace PhanMemQuanLyThuVien_NamTuan.GUI
         {
             string query = "SELECT MaSach FROM CTPhieuMuonTra";
             query += " WHERE MaPhieu = '" + MaPhieu + "'";
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            DataTable data = CTPhieuMuonTraBUS.GetData(query);
             foreach (DataRow dr in data.Rows)
             {
                 DSMaSach.Add(dr[0].ToString());
@@ -73,7 +73,7 @@ namespace PhanMemQuanLyThuVien_NamTuan.GUI
                 query += " FROM Sach s INNER JOIN TheLoai tl ON s.MaTL = tl.MaTL ";
                 query += " INNER JOIN TacGia tg ON s.MaTG = tg.MaTG ";
                 query += " WHERE MaSach = '" + MaSach + "'";
-                DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+                DataTable data = SachBUS.GetData(query);
                 if (data.Rows.Count > 0)
                 {
                     txtBookName.Text = data.Rows[0][0].ToString();
@@ -187,47 +187,47 @@ namespace PhanMemQuanLyThuVien_NamTuan.GUI
             //}
             //MessageBox.Show(txt);
 
-            DialogResult result = MessageBox.Show("Đồng ý xác nhận trả?", "Thông báo",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                int RowsAffected = 0;
-                string query = "";
-                DateTime dt = DateTime.Now;
-                string NgayTra = dt.ToString("yyyy/MM/dd");
+            //DialogResult result = MessageBox.Show("Đồng ý xác nhận trả?", "Thông báo",
+            //    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //if (result == DialogResult.Yes)
+            //{
+            //    int RowsAffected = 0;
+            //    string query = "";
+            //    DateTime dt = DateTime.Now;
+            //    string NgayTra = dt.ToString("yyyy/MM/dd");
 
-                foreach (SachHong itemSH in DSSachHong)
-                {
-                    string MaSH = MaSachHongKeTiep();
-                    string MaSach = itemSH.MaSach;
-                    string MoTa = itemSH.MoTa;
-                    query = "INSERT INTO SachHong (MaSH, MaSach, MaTDG, MoTa, NgayBaoHong, TrangThai)";
-                    query += " VALUES ('" + MaSH + "', '" + MaSach + "', '" + MaTDG + "',";
-                    query += " N'" + MoTa + "', '" + NgayTra + "', 1)";
-                    RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
-                }
+            //    foreach (SachHong itemSH in DSSachHong)
+            //    {
+            //        string MaSH = MaSachHongKeTiep();
+            //        string MaSach = itemSH.MaSach;
+            //        string MoTa = itemSH.MoTa;
+            //        query = "INSERT INTO SachHong (MaSH, MaSach, MaTDG, MoTa, NgayBaoHong, TrangThai)";
+            //        query += " VALUES ('" + MaSH + "', '" + MaSach + "', '" + MaTDG + "',";
+            //        query += " N'" + MoTa + "', '" + NgayTra + "', 1)";
+            //        RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+            //    }
 
-                foreach (string itemMS in DSMaSach)
-                {
-                    query = "SELECT SoLuong FROM Sach WHERE MaSach = '" + itemMS + "'";
-                    int SoLuong = (int)ThucThiTruyVanBus.LayDuLieu(query).Rows[0][0];
-                    SoLuong++;
+            //    foreach (string itemMS in DSMaSach)
+            //    {
+            //        query = "SELECT SoLuong FROM Sach WHERE MaSach = '" + itemMS + "'";
+            //        int SoLuong = (int)ThucThiTruyVanBus.LayDuLieu(query).Rows[0][0];
+            //        SoLuong++;
 
-                    query = "UPDATE Sach SET SoLuong = " + SoLuong + " WHERE MaSach = '" + itemMS + "'";
-                    RowsAffected += ThucThiTruyVanBus.ThaoTacDuLieu(query);
-                }
+            //        query = "UPDATE Sach SET SoLuong = " + SoLuong + " WHERE MaSach = '" + itemMS + "'";
+            //        RowsAffected += ThucThiTruyVanBus.ThaoTacDuLieu(query);
+            //    }
 
-                query = "UPDATE PhieuMuonTra SET DaTra = 1, NgayTra = '" + NgayTra + "'";
-                query += " WHERE MaPhieu = '" + MaPhieu + "'";
-                RowsAffected += ThucThiTruyVanBus.ThaoTacDuLieu(query);
+            //    query = "UPDATE PhieuMuonTra SET DaTra = 1, NgayTra = '" + NgayTra + "'";
+            //    query += " WHERE MaPhieu = '" + MaPhieu + "'";
+            //    RowsAffected += ThucThiTruyVanBus.ThaoTacDuLieu(query);
 
-                if (RowsAffected > 0)
-                {
-                    MessageBox.Show("Xác nhận trả thành công!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
-                }
-            }
+            //    if (RowsAffected > 0)
+            //    {
+            //        MessageBox.Show("Xác nhận trả thành công!", "Thông báo",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        this.Close();
+            //    }
+            //}
         }
     }
 

@@ -46,13 +46,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\CTPhieuMuonTraBUS.cs" />
     <Compile Include="BUS\DangNhapBUS.cs" />
     <Compile Include="BUS\DoDuLieu.cs" />
     <Compile Include="BUS\DoiMatKhauBUS.cs" />
+    <Compile Include="BUS\NhaXuatBanBUS.cs" />
+    <Compile Include="BUS\PhieuMuonTraBUS.cs" />
+    <Compile Include="BUS\SachBUS.cs" />
+    <Compile Include="BUS\SachHongBUS.cs" />
+    <Compile Include="BUS\TacGiaBUS.cs" />
+    <Compile Include="BUS\TaiKhoanBUS.cs" />
+    <Compile Include="BUS\TheDocGiaBus.cs" />
+    <Compile Include="BUS\TheLoaiBUS.cs" />
     <Compile Include="BUS\TuDongTao.cs" />
-    <Compile Include="BUS\ThucThiTruyVanBus.cs" />
     <Compile Include="BUS\TimNgayThangNam.cs" />
+    <Compile Include="DAO\CTPhieuMuonTraDAO.cs" />
+    <Compile Include="DAO\DangNhapDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />
+    <Compile Include="DAO\DoiMatKhauDAO.cs" />
+    <Compile Include="DAO\NhaXuatBanDAO.cs" />
+    <Compile Include="DAO\PhieuMuonTraDAO.cs" />
+    <Compile Include="DAO\SachDAO.cs" />
+    <Compile Include="DAO\SachHongDAO.cs" />
+    <Compile Include="DAO\TacGiaDAO.cs" />
+    <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DAO\TheDocGiaDAO.cs" />
+    <Compile Include="DAO\TheLoaiDAO.cs" />
+    <Compile Include="DTO\ParameterCSDL.cs" />
     <Compile Include="GUI\frmDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>

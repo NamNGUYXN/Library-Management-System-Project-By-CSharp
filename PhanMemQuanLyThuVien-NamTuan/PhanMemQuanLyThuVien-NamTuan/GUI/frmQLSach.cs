@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -21,60 +22,70 @@ namespace PhanMemQuanLyThuVien_NamTuan
             InitializeComponent();
         }
 
-        void HienThiTheLoai()
+        void DisplayCategory()
         {
-            string query = "SELECT MaTL, TenTL FROM TheLoai WHERE TrangThai = 1";
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            DataTable data = TheLoaiBUS.GetData();
             cboCategory.DataSource = data;
             cboCategory.DisplayMember = "TenTL";
             cboCategory.ValueMember = "MaTL";
         }
 
-        void HienThiNhaXuatBan()
+        void DisplayFilterCategory()
         {
-            string query = "SELECT MaNXB, TenNXB FROM NhaXuatBan WHERE TrangThai = 1";
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
-            cboManufacturer.DataSource = data;
-            cboManufacturer.DisplayMember = "TenNXB";
-            cboManufacturer.ValueMember = "MaNXB";
+            DataTable data = TheLoaiBUS.GetData();
+            cboFilterCategory.Items.Add("Tất cả");
+            foreach (DataRow dr in data.Rows)
+            {
+                cboFilterCategory.Items.Add(dr[1]);
+            }
         }
 
-        void HienThiTacGia()
+        void DisplayAuthor()
         {
-            string query = "SELECT MaTG, HoTenTG FROM TacGia WHERE TrangThai = 1";
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            DataTable data = TacGiaBUS.GetData();
             cboAuthor.DataSource = data;
             cboAuthor.DisplayMember = "HoTenTG";
             cboAuthor.ValueMember = "MaTG";
         }
 
-        void HienThiMaSachKeTiep()
+        void DisplayFilterAuthor()
         {
-            // Tìm mã sách cao nhất trong csdl
-            string query = "SELECT MAX(MaSach) FROM Sach";
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
-            string MaSachMax = data.Rows[0][0].ToString();
-
-            if (MaSachMax == "")
-                txtBookId.Text = "S001";
-            else
+            DataTable data = TacGiaBUS.GetData();
+            cboFilterAuthor.Items.Add("Tất cả");
+            foreach (DataRow dr in data.Rows)
             {
-                // Tách ra phần chuỗi và số
-                string StringPart = Regex.Match(MaSachMax, @"[A-Z]+").Value;
-                int NumberPart = int.Parse(Regex.Match(MaSachMax, @"\d+").Value);
-
-                // Tăng phần số lên 1 đơn vị
-                NumberPart++;
-
-                // Nối phần chuỗi và số lại
-                string MaSachKeTiep = StringPart + NumberPart.ToString("D3");
-                txtBookId.Text = MaSachKeTiep;
+                cboFilterAuthor.Items.Add(dr[1]);
             }
         }
 
-        void HienThiBangSach(string query = "SELECT * FROM Sach s INNER JOIN TheLoai tl ON s.MaTL = tl.MaTL INNER JOIN NhaXuatBan nxb ON s.MaNXB = nxb.MaNXB INNER JOIN TacGia tg ON s.MaTG = tg.MaTG WHERE s.TrangThai = 1")
+        void DisplayPublisher()
         {
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            DataTable data = NhaXuatBanBUS.GetData();
+            cboPublisher.DataSource = data;
+            cboPublisher.DisplayMember = "TenNXB";
+            cboPublisher.ValueMember = "MaNXB";
+        }
+
+        void DisplayFilterPublisher()
+        {
+            DataTable data = NhaXuatBanBUS.GetData();
+            cboFilterPublisher.Items.Add("Tất cả");
+            foreach (DataRow dr in data.Rows)
+            {
+                cboFilterPublisher.Items.Add(dr[1]);
+            }
+        }
+
+        void DisplayNextBookId()
+        {
+            txtBookId.Text = TuDongTao.MaKeTiep("MaSach", "Sach", "S");
+        }
+
+        void DisplayBook(DataTable data = null, string query = null)
+        {
+            if (data == null) data = SachBUS.GetData();
+            if (query != null) data = SachBUS.GetData(query);
+
             dgvDataList.DataSource = data;
             txtQuantity.Text = data.Rows.Count.ToString();
 
@@ -91,35 +102,33 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             // Không tự động tạo các cột tiêu đề
             dgvDataList.AutoGenerateColumns = false;
-
-            HienThiBangSach();
-            HienThiTheLoai();
-            HienThiNhaXuatBan();
-            HienThiTacGia();
-            HienThiMaSachKeTiep();
-
-            cboFilterCategory.Items.Add("Tất cả");
-            cboFilterAuthor.Items.Add("Tất cả");
-            cboFilterManufacturer.Items.Add("Tất cả");
-            DoDuLieu.DoDuLieucbo("TenTL", "TheLoai", cboFilterCategory);
-            DoDuLieu.DoDuLieucbo("HoTenTG", "TacGia", cboFilterAuthor);
-            DoDuLieu.DoDuLieucbo("TenNXB", "NhaXuatBan", cboFilterManufacturer);
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
+            // Hiện dữ liệu sách vào DataGridView
+            DisplayBook();
+            // Hiện mã sách kế tiếp
+            DisplayNextBookId();
+            // Hiện dữ liệu trong combobox ở phần nhập liệu
+            DisplayCategory();
+            DisplayAuthor();
+            DisplayPublisher();
+            cboCategory.SelectedIndex = -1;
+            cboAuthor.SelectedIndex = -1;
+            cboPublisher.SelectedIndex = -1;
+            // Hiện dữ liệu trong combobox ở phần bộ lọc
+            DisplayFilterCategory();
+            DisplayFilterAuthor();
+            DisplayFilterPublisher();
             cboFilterCategory.SelectedIndex = 0;
             cboFilterAuthor.SelectedIndex = 0;
-            cboFilterManufacturer.SelectedIndex = 0;
-
-            cboAuthor.SelectedIndex = -1;
-            cboCategory.SelectedIndex = -1;
-            cboManufacturer.SelectedIndex = -1;
-
+            cboFilterPublisher.SelectedIndex = 0;
+            // Hiện lời nhắc dưới ô nhập
             lblCheckBookName.Text = "Vui lòng nhập tên sách!";
             lblCheckPublicationDate.Text = "Vui lòng nhập năm xuất bản!";
             lblCheckInStock.Text = "Vui lòng nhập số lượng!";
-
-            btnUpdate.Enabled = false;
-            btnDelete.Enabled = false;
         }
 
+        // Sự kiện xảy ra khi chọn vào 1 dòng dữ liệu trong DataGridView
         private void dgvDataList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             btnAdd.Enabled = false;
@@ -141,311 +150,66 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 txtBookName.Text = TenSach;
                 cboCategory.SelectedValue = TheLoai;
                 cboAuthor.SelectedValue = TacGia;
-                cboManufacturer.SelectedValue = NXB;
+                cboPublisher.SelectedValue = NXB;
                 txtPublicationDate.Text = NamXuatBan.ToString();
                 txtInStock.Text = SoLuong.ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Lỗi. Chi tiết: " + ex.Message);
             }
         }
 
+        // Chọn tìm theo mã
         private void radBookId_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM Sach s INNER JOIN TheLoai tl";
-            query += " ON s.MaTL = tl.MaTL INNER JOIN NhaXuatBan nxb";
-            query += " ON s.MaNXB = nxb.MaNXB INNER JOIN TacGia tg";
-            query += " ON s.MaTG = tg.MaTG WHERE s.TrangThai = 1";
-            query += " AND MaSach LIKE '%" + NoiDungTim + "%'";
-            HienThiBangSach(query);
+            ResetAll();
+            DataTable data = SachBUS.SearchData("MaSach", txtSearch.Text);
+            DisplayBook(data);
         }
 
+        // Chọn tìm theo tên
         private void radBookName_CheckedChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query = "SELECT * FROM Sach s INNER JOIN TheLoai tl";
-            query += " ON s.MaTL = tl.MaTL INNER JOIN NhaXuatBan nxb";
-            query += " ON s.MaNXB = nxb.MaNXB INNER JOIN TacGia tg";
-            query += " ON s.MaTG = tg.MaTG WHERE s.TrangThai = 1";
-            query += " AND TenSach LIKE N'%" + NoiDungTim + "%'";
-            HienThiBangSach(query);
+            ResetAll();
+            DataTable data = SachBUS.SearchData("TenSach", txtSearch.Text);
+            DisplayBook(data);
         }
 
+        // Sự kiện xảy ra khi nội dung tìm thay đổi
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
-            string NoiDungTim = txtSearch.Text;
-            string query;
-
             if (radBookId.Checked)
-            {
-                query = "SELECT * FROM Sach s INNER JOIN TheLoai tl";
-                query += " ON s.MaTL = tl.MaTL INNER JOIN NhaXuatBan nxb";
-                query += " ON s.MaNXB = nxb.MaNXB INNER JOIN TacGia tg";
-                query += " ON s.MaTG = tg.MaTG WHERE s.TrangThai = 1";
-                query += " AND MaSach LIKE '%" + NoiDungTim + "%'";
-            }
+                radBookId_CheckedChanged(sender, e);
             else
-            {
-                query = "SELECT * FROM Sach s INNER JOIN TheLoai tl";
-                query += " ON s.MaTL = tl.MaTL INNER JOIN NhaXuatBan nxb";
-                query += " ON s.MaNXB = nxb.MaNXB INNER JOIN TacGia tg";
-                query += " ON s.MaTG = tg.MaTG WHERE s.TrangThai = 1";
-                query += " AND TenSach LIKE N'%" + NoiDungTim + "%'";
-            }
-
-            HienThiBangSach(query);
+                radBookName_CheckedChanged(sender, e);
         }
 
-        void ResetDuLieuNhap()
+        // Reset form
+        void ResetAll()
         {
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
-            HienThiMaSachKeTiep();
-            HienThiBangSach();
+            DisplayBook();
+            DisplayNextBookId();
+            cboFilterCategory.SelectedIndex = 0;
+            cboFilterAuthor.SelectedIndex = 0;
+            cboFilterPublisher.SelectedIndex = 0;
+            cboAuthor.SelectedIndex = -1;
+            cboCategory.SelectedIndex = -1;
+            cboPublisher.SelectedIndex = -1;
             txtBookName.Text = "";
             txtPublicationDate.Text = "";
             txtInStock.Text = "";
-            cboFilterCategory.SelectedIndex = 0;
-            cboFilterAuthor.SelectedIndex = 0;
-            cboFilterManufacturer.SelectedIndex = 0;
-            cboAuthor.SelectedIndex = -1;
-            cboCategory.SelectedIndex = -1;
-            cboManufacturer.SelectedIndex = -1;
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            ResetDuLieuNhap();
+            ResetAll();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Đồng ý thêm?", "Thông báo",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                string MaSach, TenSach, MaTL, MaTG, MaNXB;
-                int NamXuatBan, SoLuong;
-                MaSach = txtBookId.Text;
-                TenSach = txtBookName.Text;
-                MaTL = (cboCategory.SelectedIndex != -1) ? 
-                    cboCategory.SelectedValue.ToString() : "";
-                MaTG = (cboAuthor.SelectedIndex != -1) ?
-                    cboAuthor.SelectedValue.ToString() : "";
-                MaNXB = (cboManufacturer.SelectedIndex != -1) ?
-                    cboManufacturer.SelectedValue.ToString() : "";
-                NamXuatBan = (txtPublicationDate.Text != "") ?
-                    int.Parse(txtPublicationDate.Text) : 0;
-                SoLuong = (txtInStock.Text != "") ? 
-                    int.Parse(txtInStock.Text) : -1;
-
-                string ThongBao = "";
-                if (TenSach == "") ThongBao += "Vui lòng nhập tên sách!";
-
-                if (MaTL == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng chọn thể loại!";
-                }
-
-                if (MaTG == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng chọn tác giả!";
-                }
-
-                if (MaNXB == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng chọn nhà xuất bản!";
-                }
-
-                DateTime dt = DateTime.Now;
-                int NamHienTai = dt.Year;
-                if (NamXuatBan > NamHienTai || NamXuatBan < 1)
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Năm xuất bản không hợp lệ!";
-                }
-
-                if (SoLuong < 0)
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Số lượng không hợp lệ";
-                }
-
-                if (ThongBao == "")
-                {
-                    string query = "INSERT INTO Sach (MaSach, TenSach,";
-                    query += " MaTL, MaTG, MaNXB, NamXuatBan, SoLuong, TrangThai)";
-                    query += " VALUES ('" + MaSach + "', N'" + TenSach + "',";
-                    query += " '" + MaTL + "', '" + MaTG + "', '" + MaNXB + "',";
-                    query += " " + NamXuatBan + ", " + SoLuong + ", 1)";
-
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
-
-                    if (RowsAffected > 0)
-                    {
-                        MessageBox.Show("Thêm thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        ResetDuLieuNhap();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(ThongBao, "Thông báo", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }    
-            }
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Đồng ý sửa?", "Thông báo",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                string MaSach, TenSach, MaTL, MaTG, MaNXB;
-                int NamXuatBan, SoLuong;
-                MaSach = txtBookId.Text;
-                TenSach = txtBookName.Text;
-                MaTL = (cboCategory.SelectedIndex != -1) ?
-                    cboCategory.SelectedValue.ToString() : "";
-                MaTG = (cboAuthor.SelectedIndex != -1) ?
-                    cboAuthor.SelectedValue.ToString() : "";
-                MaNXB = (cboManufacturer.SelectedIndex != -1) ?
-                    cboManufacturer.SelectedValue.ToString() : "";
-                NamXuatBan = (txtPublicationDate.Text != "") ?
-                    int.Parse(txtPublicationDate.Text) : 0;
-                SoLuong = (txtInStock.Text != "") ?
-                    int.Parse(txtInStock.Text) : -1;
-
-                string ThongBao = "";
-                if (TenSach == "") ThongBao += "Vui lòng nhập tên sách!";
-
-                if (MaTL == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng chọn thể loại!";
-                } 
-
-                if (MaTG == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng chọn tác giả!";
-                }
-
-                if (MaNXB == "")
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Vui lòng chọn nhà xuất bản!";
-                }
-
-                DateTime dt = DateTime.Now;
-                int NamHienTai = dt.Year;
-                if (NamXuatBan > NamHienTai || NamXuatBan < 1)
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Năm xuất bản không hợp lệ!";
-                }    
-
-                if (SoLuong < 0)
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Số lượng không hợp lệ";
-                }
-
-                if (ThongBao == "")
-                {
-                    string query = "UPDATE Sach SET TenSach = N'" + TenSach + "',";
-                    query += " MaTL = '" + MaTL + "', MaTG = '" + MaTG + "',";
-                    query += " MaNXB = '" + MaNXB + "', NamXuatBan = " + NamXuatBan + ",";
-                    query += " SoLuong = " + SoLuong + " WHERE MaSach = '" + MaSach + "'";
-
-                    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
-
-                    if (RowsAffected > 0)
-                    {
-                        MessageBox.Show("Sửa thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        ResetDuLieuNhap();
-                    }
-                }    
-                else
-                {
-                    MessageBox.Show(ThongBao, "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }    
-            }
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Đồng ý xóa?", "Thông báo",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                string MaSach = txtBookId.Text;
-
-                string query = "UPDATE Sach SET TrangThai = 0";
-                query += " WHERE MaSach = '" + MaSach + "'";
-
-                int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
-
-                if (RowsAffected > 0)
-                {
-                    MessageBox.Show("Xóa thành công!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    ResetDuLieuNhap();
-                }
-            }
-        }
-
-        private void btnFilter_Click(object sender, EventArgs e)
-        {
-            string FilterCategory = "", FilterAuthor = "", FilterManufacturer = "";
-            if (cboFilterCategory.Text == cboFilterCategory.Items[0].ToString())
-            {
-                FilterCategory = "%%";
-            }
-            else
-            {
-                FilterCategory = cboFilterCategory.Text;
-            }
-
-            if(cboFilterAuthor.Text == cboFilterAuthor.Items[0].ToString())
-            {
-                FilterAuthor = "%%";
-            }
-            else
-            {
-                FilterAuthor = cboFilterAuthor.Text;
-            }
-
-            if(cboFilterManufacturer.Text == cboFilterManufacturer.Items[0].ToString())
-            {
-                FilterManufacturer = "%%";
-            }
-            else
-            {
-                FilterManufacturer = cboFilterManufacturer.Text;
-            }
-
-            HienThiBangSach("SELECT * FROM Sach s INNER JOIN TheLoai tl ON s.MaTL = tl.MaTL INNER JOIN NhaXuatBan nxb ON s.MaNXB = nxb.MaNXB INNER JOIN TacGia tg ON s.MaTG = tg.MaTG WHERE s.TrangThai = 1 AND nxb.TenNXB LIKE N'"+FilterManufacturer+"' AND tg.HoTenTG LIKE N'" + FilterAuthor+ "' AND tl.TenTL LIKE N'"+FilterCategory+"'");
-        }
-
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
         private void txtBookName_TextChanged(object sender, EventArgs e)
         {
             string TenSach = txtBookName.Text;
@@ -456,6 +220,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             else lblCheckBookName.Text = "";
         }
 
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
         private void txtPublicationDate_TextChanged(object sender, EventArgs e)
         {
             string NamXuatBan = txtPublicationDate.Text;
@@ -466,6 +231,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             else lblCheckPublicationDate.Text = "";
         }
 
+        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
         private void txtInStock_TextChanged(object sender, EventArgs e)
         {
             string SoLuong = txtInStock.Text;
@@ -476,6 +242,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             else lblCheckInStock.Text = "";
         }
 
+        // Khi ô chọn thay đổi nếu rỗng hiện lời nhắc
         private void cboCategory_TextChanged(object sender, EventArgs e)
         {
             string TheLoai = cboCategory.Text;
@@ -486,6 +253,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             else lblCheckCategory.Text = "";
         }
 
+        // Khi ô chọn thay đổi nếu rỗng hiện lời nhắc
         private void cboAuthor_TextChanged(object sender, EventArgs e)
         {
             string TacGia = cboAuthor.Text;
@@ -496,9 +264,10 @@ namespace PhanMemQuanLyThuVien_NamTuan
             else lblCheckAuthor.Text = "";
         }
 
+        // Khi ô chọn thay đổi nếu rỗng hiện lời nhắc
         private void cboManufacturer_TextChanged(object sender, EventArgs e)
         {
-            string NXB = cboManufacturer.Text;
+            string NXB = cboPublisher.Text;
             if (NXB == "")
             {
                 lblCheckManufacturer.Text = "Vui lòng chọn nhà xuất bản!";
@@ -506,6 +275,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             else lblCheckManufacturer.Text = "";
         }
 
+        // Ngăn ko cho nhập năm xuất bản ko hợp lệ
         private void txtPublicationDate_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -515,6 +285,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             }
         }
 
+        // Ngăn ko cho nhập số lượng ko hợp lệ
         private void txtInStock_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -522,6 +293,223 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 e.Handled = true;
                 lblCheckInStock.Text = "Số lượng không hợp lệ!";
             }
+        }
+
+        // Chức năng bộ lọc
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            string category, author, publisher;
+
+            if (cboFilterCategory.Text == cboFilterCategory.Items[0].ToString())
+                category = "1 = 1";
+            else
+                category = $"tl.TenTL = N'{cboFilterCategory.Text}'";
+
+            if (cboFilterAuthor.Text == cboFilterAuthor.Items[0].ToString())
+                author = "1 = 1";
+            else
+                author = $"tg.HoTenTG = N'{cboFilterAuthor.Text}'";
+
+            if (cboFilterPublisher.Text == cboFilterPublisher.Items[0].ToString())
+                publisher = "1 = 1";
+            else 
+                publisher = $"nxb.TenNXB = N'{cboFilterPublisher.Text}'";
+
+            string query = "SELECT * FROM Sach s INNER JOIN TheLoai tl ON s.MaTL = tl.MaTL";
+            query += " INNER JOIN NhaXuatBan nxb ON s.MaNXB = nxb.MaNXB";
+            query += " INNER JOIN TacGia tg ON s.MaTG = tg.MaTG";
+            query += $" WHERE s.TrangThai = 1 AND {category} AND {author} AND {publisher}";
+
+            DisplayBook(null, query);
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            //DialogResult result = MessageBox.Show("Đồng ý thêm?", "Thông báo",
+            //    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            //if (result == DialogResult.Yes)
+            //{
+            //    string MaSach, TenSach, MaTL, MaTG, MaNXB;
+            //    int NamXuatBan, SoLuong;
+            //    MaSach = txtBookId.Text;
+            //    TenSach = txtBookName.Text;
+            //    MaTL = (cboCategory.SelectedIndex != -1) ?
+            //        cboCategory.SelectedValue.ToString() : "";
+            //    MaTG = (cboAuthor.SelectedIndex != -1) ?
+            //        cboAuthor.SelectedValue.ToString() : "";
+            //    MaNXB = (cboManufacturer.SelectedIndex != -1) ?
+            //        cboManufacturer.SelectedValue.ToString() : "";
+            //    NamXuatBan = (txtPublicationDate.Text != "") ?
+            //        int.Parse(txtPublicationDate.Text) : 0;
+            //    SoLuong = (txtInStock.Text != "") ?
+            //        int.Parse(txtInStock.Text) : -1;
+
+            //    string ThongBao = "";
+            //    if (TenSach == "") ThongBao += "Vui lòng nhập tên sách!";
+
+            //    if (MaTL == "")
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        ThongBao += "Vui lòng chọn thể loại!";
+            //    }
+
+            //    if (MaTG == "")
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        ThongBao += "Vui lòng chọn tác giả!";
+            //    }
+
+            //    if (MaNXB == "")
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        ThongBao += "Vui lòng chọn nhà xuất bản!";
+            //    }
+
+            //    DateTime dt = DateTime.Now;
+            //    int NamHienTai = dt.Year;
+            //    if (NamXuatBan > NamHienTai || NamXuatBan < 1)
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        ThongBao += "Năm xuất bản không hợp lệ!";
+            //    }
+
+            //    if (SoLuong < 0)
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        ThongBao += "Số lượng không hợp lệ";
+            //    }
+
+            //    if (ThongBao == "")
+            //    {
+            //        string query = "INSERT INTO Sach (MaSach, TenSach,";
+            //        query += " MaTL, MaTG, MaNXB, NamXuatBan, SoLuong, TrangThai)";
+            //        query += " VALUES ('" + MaSach + "', N'" + TenSach + "',";
+            //        query += " '" + MaTL + "', '" + MaTG + "', '" + MaNXB + "',";
+            //        query += " " + NamXuatBan + ", " + SoLuong + ", 1)";
+
+            //        int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+
+            //        if (RowsAffected > 0)
+            //        {
+            //            MessageBox.Show("Thêm thành công!", "Thông báo",
+            //                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //            ResetDuLieuNhap();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show(ThongBao, "Thông báo",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    }
+            //}
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            //DialogResult result = MessageBox.Show("Đồng ý sửa?", "Thông báo",
+            //    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            //if (result == DialogResult.Yes)
+            //{
+            //    string MaSach, TenSach, MaTL, MaTG, MaNXB;
+            //    int NamXuatBan, SoLuong;
+            //    MaSach = txtBookId.Text;
+            //    TenSach = txtBookName.Text;
+            //    MaTL = (cboCategory.SelectedIndex != -1) ?
+            //        cboCategory.SelectedValue.ToString() : "";
+            //    MaTG = (cboAuthor.SelectedIndex != -1) ?
+            //        cboAuthor.SelectedValue.ToString() : "";
+            //    MaNXB = (cboManufacturer.SelectedIndex != -1) ?
+            //        cboManufacturer.SelectedValue.ToString() : "";
+            //    NamXuatBan = (txtPublicationDate.Text != "") ?
+            //        int.Parse(txtPublicationDate.Text) : 0;
+            //    SoLuong = (txtInStock.Text != "") ?
+            //        int.Parse(txtInStock.Text) : -1;
+
+            //    string ThongBao = "";
+            //    if (TenSach == "") ThongBao += "Vui lòng nhập tên sách!";
+
+            //    if (MaTL == "")
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        ThongBao += "Vui lòng chọn thể loại!";
+            //    }
+
+            //    if (MaTG == "")
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        ThongBao += "Vui lòng chọn tác giả!";
+            //    }
+
+            //    if (MaNXB == "")
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        ThongBao += "Vui lòng chọn nhà xuất bản!";
+            //    }
+
+            //    DateTime dt = DateTime.Now;
+            //    int NamHienTai = dt.Year;
+            //    if (NamXuatBan > NamHienTai || NamXuatBan < 1)
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        ThongBao += "Năm xuất bản không hợp lệ!";
+            //    }
+
+            //    if (SoLuong < 0)
+            //    {
+            //        ThongBao += (ThongBao != "") ? "\n" : "";
+            //        ThongBao += "Số lượng không hợp lệ";
+            //    }
+
+            //    if (ThongBao == "")
+            //    {
+            //        string query = "UPDATE Sach SET TenSach = N'" + TenSach + "',";
+            //        query += " MaTL = '" + MaTL + "', MaTG = '" + MaTG + "',";
+            //        query += " MaNXB = '" + MaNXB + "', NamXuatBan = " + NamXuatBan + ",";
+            //        query += " SoLuong = " + SoLuong + " WHERE MaSach = '" + MaSach + "'";
+
+            //        int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+
+            //        if (RowsAffected > 0)
+            //        {
+            //            MessageBox.Show("Sửa thành công!", "Thông báo",
+            //                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //            ResetDuLieuNhap();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show(ThongBao, "Thông báo",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    }
+            //}
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            //DialogResult result = MessageBox.Show("Đồng ý xóa?", "Thông báo",
+            //    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            //if (result == DialogResult.Yes)
+            //{
+            //    string MaSach = txtBookId.Text;
+
+            //    string query = "UPDATE Sach SET TrangThai = 0";
+            //    query += " WHERE MaSach = '" + MaSach + "'";
+
+            //    int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+
+            //    if (RowsAffected > 0)
+            //    {
+            //        MessageBox.Show("Xóa thành công!", "Thông báo",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //        ResetDuLieuNhap();
+            //    }
+            //}
         }
     }
 }

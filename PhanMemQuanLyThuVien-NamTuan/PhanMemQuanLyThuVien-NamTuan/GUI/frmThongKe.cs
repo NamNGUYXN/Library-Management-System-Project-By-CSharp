@@ -52,22 +52,22 @@ namespace PhanMemQuanLyThuVien_NamTuan
             dgvDataList.Columns.Add(colMoTa);
             dgvDataList.Columns.Add(colNgayBaoHong);
 
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            DataTable data = SachHongBUS.GetData(query);
             dgvDataList.DataSource = data;
             dgvDataList.ClearSelection();
         }
 
-        int Tong(string query)
-        {
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
-            return (int)data.Rows[0][0];
-        }
+        //int Tong(string query)
+        //{
+        //    DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+        //    return (int)data.Rows[0][0];
+        //}
 
         private void btnDSTDGHH_Click(object sender, EventArgs e)
         {
             dgvDataList.Columns.Clear();
             string today = DateTime.Now.ToString("yyyy/MM/dd");
-            string query = "select * from TheDocGia where NgayHetHan < '" + today +"'";
+            string query = "select * from TheDocGia where NgayHetHan < '" + today + "'";
             dgvDataList.AutoGenerateColumns = false;
             DataGridViewTextBoxColumn colMaTDG = new DataGridViewTextBoxColumn();
             colMaTDG.DataPropertyName = "MaTDG";
@@ -103,7 +103,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             dgvDataList.Columns.Add(colNgayTao);
             dgvDataList.Columns.Add(colNgayHetHan);
 
-            DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
+            DataTable data = TheDocGiaBus.GetData(query);
             dgvDataList.DataSource = data;
             dgvDataList.ClearSelection();
         }
@@ -115,43 +115,43 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void cboFilter_TextChanged(object sender, EventArgs e)
         {
-            string day, month, year;
+            //string day, month, year;
 
-            day = DateTime.Now.ToString("yyyy/MM/dd");
-            month = DateTime.Now.ToString("MM");
-            year = DateTime.Now.ToString("yyyy");
+            //day = DateTime.Now.ToString("yyyy/MM/dd");
+            //month = DateTime.Now.ToString("MM");
+            //year = DateTime.Now.ToString("yyyy");
 
-            switch (cboFilter.SelectedIndex)
-            {
-                case 0:
-                    {
-                        txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra").ToString();
-                        txtTongSachMuon.Text = Tong("select COUNT(MaPhieu) from CTPhieuMuonTra").ToString();
-                        txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong").ToString();
-                    }
-                    break;
-                case 1:
-                    {
-                        txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra where NgayTao = '"+day+"'").ToString();
-                        txtTongSachMuon.Text = Tong("select COUNT(MaSach) from PhieuMuonTra inner join CTPhieuMuonTra on PhieuMuonTra.MaPhieu = CTPhieuMuonTra.MaPhieu where NgayTao = '"+day+"'").ToString();
-                        txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong where NgayBaoHong = '" + day+"'").ToString();
-                    }
-                    break;
-                case 2:
-                    {
-                        txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra where YEAR(NgayTao) = '" + year + "' and MONTH(NgayTao) = '"+month+"'").ToString();
-                        txtTongSachMuon.Text = Tong("select COUNT(MaSach) from PhieuMuonTra inner join CTPhieuMuonTra on PhieuMuonTra.MaPhieu = CTPhieuMuonTra.MaPhieu where YEAR(NgayTao) = '" + year + "' and MONTH(NgayTao) = '"+month+"'").ToString();
-                        txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong where  YEAR(NgayBaoHong) = '" + year + "' and MONTH(NgayBaoHong) = '" + month + "'").ToString();
-                    }
-                    break;
-                case 3:
-                    {
-                        txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra where YEAR(NgayTao) = '" + year + "'").ToString();
-                        txtTongSachMuon.Text = Tong("select COUNT(MaSach) from PhieuMuonTra inner join CTPhieuMuonTra on PhieuMuonTra.MaPhieu = CTPhieuMuonTra.MaPhieu where YEAR(NgayTao) = '" + year + "'").ToString();
-                        txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong where  YEAR(NgayBaoHong) = '" + year + "'").ToString();
-                    }
-                    break;
-            }
+            //switch (cboFilter.SelectedIndex)
+            //{
+            //    case 0:
+            //        {
+            //            txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra").ToString();
+            //            txtTongSachMuon.Text = Tong("select COUNT(MaPhieu) from CTPhieuMuonTra").ToString();
+            //            txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong").ToString();
+            //        }
+            //        break;
+            //    case 1:
+            //        {
+            //            txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra where NgayTao = '" + day + "'").ToString();
+            //            txtTongSachMuon.Text = Tong("select COUNT(MaSach) from PhieuMuonTra inner join CTPhieuMuonTra on PhieuMuonTra.MaPhieu = CTPhieuMuonTra.MaPhieu where NgayTao = '" + day + "'").ToString();
+            //            txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong where NgayBaoHong = '" + day + "'").ToString();
+            //        }
+            //        break;
+            //    case 2:
+            //        {
+            //            txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra where YEAR(NgayTao) = '" + year + "' and MONTH(NgayTao) = '" + month + "'").ToString();
+            //            txtTongSachMuon.Text = Tong("select COUNT(MaSach) from PhieuMuonTra inner join CTPhieuMuonTra on PhieuMuonTra.MaPhieu = CTPhieuMuonTra.MaPhieu where YEAR(NgayTao) = '" + year + "' and MONTH(NgayTao) = '" + month + "'").ToString();
+            //            txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong where  YEAR(NgayBaoHong) = '" + year + "' and MONTH(NgayBaoHong) = '" + month + "'").ToString();
+            //        }
+            //        break;
+            //    case 3:
+            //        {
+            //            txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra where YEAR(NgayTao) = '" + year + "'").ToString();
+            //            txtTongSachMuon.Text = Tong("select COUNT(MaSach) from PhieuMuonTra inner join CTPhieuMuonTra on PhieuMuonTra.MaPhieu = CTPhieuMuonTra.MaPhieu where YEAR(NgayTao) = '" + year + "'").ToString();
+            //            txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong where  YEAR(NgayBaoHong) = '" + year + "'").ToString();
+            //        }
+            //        break;
+            //}
         }
 
         private void dgvDataList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

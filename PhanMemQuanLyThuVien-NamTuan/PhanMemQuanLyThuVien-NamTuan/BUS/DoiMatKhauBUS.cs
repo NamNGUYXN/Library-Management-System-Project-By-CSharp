@@ -9,9 +9,9 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
 {
     public class DoiMatKhauBUS
     {
-        public static bool KTDoiMatKhau(string MatKhauHienTai, string MatKhauMoi)
+        public static bool CheckChangePassword(string MatKhauHienTai, string MatKhauMoi)
         {
-            return DataProvider.KTDoiMatKhau(MatKhauHienTai, MatKhauMoi);
+            return DoiMatKhauDAO.CheckChangePassword(MatKhauHienTai, MatKhauMoi);
         }
     }
 }
