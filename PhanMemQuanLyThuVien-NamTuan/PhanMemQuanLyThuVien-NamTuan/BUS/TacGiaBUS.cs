@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PhanMemQuanLyThuVien_NamTuan.BUS
 {
@@ -15,7 +16,7 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
         public static DataTable GetData(string query = null, List<ParameterCSDL> LstParams = null)
         {
             if (query == null) query = "SELECT * FROM TacGia WHERE TrangThai = 1";
-            return TacGiaDAO.GetData(query);
+            return TacGiaDAO.GetData(query, LstParams);
         }
 
         public static int InsertData(List<ParameterCSDL> LstParams)
@@ -40,12 +41,11 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
 
         public static DataTable SearchData(string key, string value)
         {
-            string query = "SELECT * FROM TacGia WHERE TrangThai = 1";
-            query += " AND " + key + " LIKE @" + key;
-            ParameterCSDL param = new ParameterCSDL(key, "%" + value + "%");
-            List<ParameterCSDL> LstParam = new List<ParameterCSDL>();
-            LstParam.Add(param);
-            return TacGiaDAO.GetData(query, LstParam);
+            string query = $"SELECT * FROM TacGia WHERE TrangThai = 1 AND {key} LIKE @{key}";
+            ParameterCSDL param = new ParameterCSDL(key, $"%{value}%");
+            List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+            LstParams.Add(param);
+            return TacGiaDAO.GetData(query, LstParams);
         }
 
         public static string CreateNextId()
@@ -53,7 +53,7 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
             string NextId = "TG001";
             // Tìm mã cao nhất trong csdl
             string query = $"SELECT MAX(MaTG) FROM TacGia";
-            DataTable data = TacGiaDAO.GetData(query);
+            DataTable data = DataProvider.GetData(query);
             string MaxId = data.Rows[0][0].ToString();
 
             if (MaxId != "")

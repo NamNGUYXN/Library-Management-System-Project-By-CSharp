@@ -87,18 +87,18 @@ namespace PhanMemQuanLyThuVien_NamTuan
         }
 
         // Chọn tìm theo mã
-        private void radBookId_CheckedChanged(object sender, EventArgs e)
+        private void radAuthorId_CheckedChanged(object sender, EventArgs e)
         {
             ResetAll();
-            DataTable data = TacGiaBUS.SearchData("MaSach", txtSearch.Text);
+            DataTable data = TacGiaBUS.SearchData("MaTG", txtSearch.Text);
             DisplayAuthor(data);
         }
 
         // Chọn tìm theo tên
-        private void radBookName_CheckedChanged(object sender, EventArgs e)
+        private void radAuthorName_CheckedChanged(object sender, EventArgs e)
         {
             ResetAll();
-            DataTable data = TacGiaBUS.SearchData("TenSach", txtSearch.Text);
+            DataTable data = TacGiaBUS.SearchData("HoTenTG", txtSearch.Text);
             DisplayAuthor(data);
         }
 
@@ -106,9 +106,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             if (radAuthorId.Checked)
-                radBookId_CheckedChanged(sender, e);
+                radAuthorId_CheckedChanged(sender, e);
             else
-                radBookName_CheckedChanged(sender, e);
+                radAuthorName_CheckedChanged(sender, e);
         }
 
         // Reset form
@@ -126,6 +126,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            txtSearch.Text = "";
             ResetAll();
         }
 

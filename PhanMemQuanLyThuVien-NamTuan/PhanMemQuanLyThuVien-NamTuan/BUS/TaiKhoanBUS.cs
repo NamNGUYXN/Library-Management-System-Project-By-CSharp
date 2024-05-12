@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -47,6 +48,30 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
             List<ParameterCSDL> LstParam = new List<ParameterCSDL>();
             LstParam.Add(param);
             return TaiKhoanDAO.GetData(query, LstParam);
+        }
+
+        public static string CreateNextId()
+        {
+            string NextId = "TK001";
+            // Tìm mã cao nhất trong csdl
+            string query = $"SELECT MAX(MaTK) FROM TaiKhoan";
+            DataTable data = DataProvider.GetData(query);
+            string MaxId = data.Rows[0][0].ToString();
+
+            if (MaxId != "")
+            {
+                // Tách ra phần chuỗi và số
+                string StringPart = Regex.Match(MaxId, @"[A-Z]+").Value;
+                int NumberPart = int.Parse(Regex.Match(MaxId, @"\d+").Value);
+
+                // Tăng phần số lên 1 đơn vị
+                NumberPart++;
+
+                // Nối phần chuỗi và số lại
+                NextId = StringPart + NumberPart.ToString("D3");
+            }
+
+            return NextId;
         }
     }
 }

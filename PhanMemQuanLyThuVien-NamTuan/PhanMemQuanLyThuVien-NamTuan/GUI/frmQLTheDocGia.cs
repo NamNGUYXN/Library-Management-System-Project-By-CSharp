@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -28,20 +29,13 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         void DisplayNextLibraryCardId()
         {
-            txtLibraryCardId.Text = TuDongTao.MaKeTiep("MaTDG", "TheDocGia", "TDG");
+            txtLibraryCardId.Text = TheDocGiaBus.CreateNextId();
         }
 
         void HienThiNgayHetHan()
         {
-            DateTime CurrentDate = DateTime.Now;
-            int NgayHT = CurrentDate.Day;
-            int ThangHT = CurrentDate.Month;
-            int NamHT = CurrentDate.Year;
-
-            // Class này tự viết
-            TimNgayThangNam timNTN = new TimNgayThangNam(NgayHT, ThangHT, NamHT);
-            DateTime AfterDate = timNTN.SauSoNgay(180); // 6 tháng
-            dtpExpiryDate.Text = AfterDate.ToString();
+            DateTime dtNow = DateTime.Now;
+            dtpExpiryDate.Text = TheDocGiaBus.SauSoNgay(dtNow, 180).ToString();
         }
 
         void DisplayLibraryCard(DataTable data = null, string query = null)
@@ -176,6 +170,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            txtSearch.Text = "";
             ResetAll();
         }
 
@@ -203,7 +198,6 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (!char.IsControl(e.KeyChar) && SDT.Length >= 12)
             {
                 e.Handled = true;
-                lblCheckPhone.Text = "SĐT tối đa 12 số";
             }
         }
 
@@ -221,7 +215,6 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (!char.IsControl(e.KeyChar) && CCCD.Length >= 12)
             {
                 e.Handled = true;
-                lblCheckIdCard.Text = "CCCD tối đa 12 số";
             }
         }
 
@@ -250,12 +243,15 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             string SDT = txtPhone.Text;
             // Kiểm tra số điện thoại đã tồn tại
-            string query = $"SELECT SDT FROM TheDocGia WHERE SDT = '{SDT}' AND MaTDG <> '{txtLibraryCardId.Text}'";
+            string query = $"SELECT SDT FROM TheDocGia WHERE TrangThai = 1 AND SDT = '{SDT}'";
+            query += $" AND MaTDG <> '{txtLibraryCardId.Text}'";
             int ExistPhone = TheDocGiaBus.GetData(query).Rows.Count;
             if (SDT == "")
-                lblCheckPhone.Text = "Vui lòng nhập họ tên!";
+                lblCheckPhone.Text = "Vui lòng nhập SĐT!";
             else if (ExistPhone > 0)
                 lblCheckPhone.Text = "SĐT đã tồn tại!";
+            else if (SDT.Length < 10)
+                lblCheckPhone.Text = "SĐT chưa hợp lệ!";
             else
                 lblCheckPhone.Text = "";
         }
@@ -264,9 +260,17 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void txtIdCard_TextChanged(object sender, EventArgs e)
         {
             string CCCD = txtIdCard.Text;
+            // Kiểm tra cccd đã tồn tại
+            string query = $"SELECT CCCD FROM TheDocGia WHERE TrangThai = 1 AND CCCD = '{CCCD}'";
+            query += $" AND MaTDG <> '{txtLibraryCardId.Text}'";
+            int ExistIdCard = TheDocGiaBus.GetData(query).Rows.Count;
             if (CCCD == "")
                 lblCheckIdCard.Text = "Vui lòng nhập CCCD!";
-            else 
+            else if (ExistIdCard > 0)
+                lblCheckIdCard.Text = "CCCD đã tồn tại!";
+            else if (CCCD.Length < 12)
+                lblCheckIdCard.Text = "CCCD chưa hợp lệ!";
+            else
                 lblCheckIdCard.Text = "";
         }
 
@@ -298,7 +302,14 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 ThongBao += "Vui lòng nhập SĐT!";
             }
 
-            string query = $"SELECT SDT FROM TheDocGia WHERE SDT = '{SDT}' AND MaTDG <> '{txtLibraryCardId.Text}'";
+            if (SDT.Length < 10)
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "SĐT chưa hợp lệ!";
+            }
+
+            string query = $"SELECT SDT FROM TheDocGia WHERE TrangThai = 1 AND SDT = '{SDT}'";
+            query += $" AND MaTDG <> '{txtLibraryCardId.Text}'";
             int ExistPhone = TheDocGiaBus.GetData(query).Rows.Count;
             if (ExistPhone > 0)
             {
@@ -310,6 +321,21 @@ namespace PhanMemQuanLyThuVien_NamTuan
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Vui lòng nhập CCCD!";
+            }
+
+            if (CCCD.Length < 10)
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "CCCD chưa hợp lệ!";
+            }
+
+            query = $"SELECT CCCD FROM TheDocGia WHERE TrangThai = 1 AND CCCD = '{CCCD}'";
+            query += $" AND MaTDG <> '{txtLibraryCardId.Text}'";
+            int ExistIdCard = TheDocGiaBus.GetData(query).Rows.Count;
+            if (ExistIdCard > 0)
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "CCCD đã tồn tại!";
             }
 
             return ThongBao;
@@ -379,15 +405,13 @@ namespace PhanMemQuanLyThuVien_NamTuan
                     ParameterCSDL pDiaChi = new ParameterCSDL("DiaChi", DiaChi);
                     ParameterCSDL pSDT = new ParameterCSDL("SDT", SDT);
                     ParameterCSDL pCCCD = new ParameterCSDL("CCCD", CCCD);
-                    ParameterCSDL pNgayTao = new ParameterCSDL("NgayTao", NgayTao);
-                    ParameterCSDL pNgayHetHan = new ParameterCSDL("NgayHetHan", NgayHetHan);
-                    ParameterCSDL[] pArray = { pMaTDG, pHoTenDG, pGioiTinh, pDiaChi, pSDT, pCCCD, pNgayTao, pNgayHetHan };
+                    ParameterCSDL[] pArray = { pMaTDG, pHoTenDG, pGioiTinh, pDiaChi, pSDT, pCCCD };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                     LstParams.AddRange(pArray);
                     // Kiểm tra xem nội dung sửa có khác ban đầu ko
                     string query = $"SELECT * FROM TheDocGia WHERE MaTDG = '{MaTDG}' AND HoTenDG = N'{HoTenDG}'";
                     query += $" AND GioiTinh = N'{GioiTinh}' AND DiaChi = N'{DiaChi}' AND SDT = '{SDT}'";
-                    query += $" AND CCCD = '{CCCD}' AND NgayTao = '{NgayTao}' AND NgayHetHan = '{NgayHetHan}'";
+                    query += $" AND CCCD = '{CCCD}'";
 
                     int NotChangeData = TheDocGiaBus.GetData(query).Rows.Count;
                     // Khi nội dung sửa khác ban đầu thì cập nhật lại
@@ -435,47 +459,42 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void btnExtend_Click(object sender, EventArgs e)
         {
-            //DialogResult result = MessageBox.Show("Đồng ý gia hạn?", "Thông báo",
-            //    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Đồng ý gia hạn?", "Thông báo",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            //if (result == DialogResult.Yes)
-            //{
-            //    string MaTDG, NgayHetHan, ThongBao = "";
-            //    MaTDG = txtLibraryCardId.Text;
-            //    DateTime dt = DateTime.Now;
-            //    TimNgayThangNam TimNTN1 = new TimNgayThangNam(dt.Day, dt.Month, dt.Year);
-            //    NgayHetHan = TimNTN1.SauSoNgay(180).ToString("yyyy/MM/dd");
+            if (result == DialogResult.Yes)
+            {
+                string MaTDG, NgayHetHan, ThongBao = "";
+                MaTDG = txtLibraryCardId.Text;
+                DateTime dtNow = DateTime.Now;
+                NgayHetHan = TuDongTao.SauSoNgay(dtNow, 180).ToString("yyyy/MM/dd");
 
-            //    string query = "SELECT NgayHetHan FROM TheDocGia WHERE MaTDG = '" + MaTDG + "'";
-            //    DateTime NgayHetHanTrongCSDL = (DateTime)TheDocGiaBus.GetData(query).Rows[0][0];
-            //    TimNgayThangNam TimNTN2 = new TimNgayThangNam(NgayHetHanTrongCSDL);
-            //    DateTime NgayToiDaDuocGiaHan = TimNTN2.SauSoNgay(10);
-            //    if (dt > NgayToiDaDuocGiaHan)
-            //    {
-            //        ThongBao += "Thời hạn độc giả được gia hạn đã hơn 10 ngày!";
-            //    }
+                string query = $"SELECT NgayHetHan FROM TheDocGia WHERE MaTDG = '{MaTDG}'";
+                DateTime NgayHetHanTrongCSDL = (DateTime)TheDocGiaBus.GetData(query).Rows[0][0];
+                DateTime NgayToiDaDuocGiaHan = TheDocGiaBus.SauSoNgay(NgayHetHanTrongCSDL, 10);
+                if (dtNow > NgayToiDaDuocGiaHan)
+                {
+                    ThongBao += "Thời hạn độc giả được gia hạn đã hơn 10 ngày!";
+                }
 
-            //    if (ThongBao == "")
-            //    {
-            //        query = "UPDATE TheDocGia SET NgayHetHan = '" + NgayHetHan + "'";
-            //        query += " WHERE MaTDG = '" + MaTDG + "'";
+                if (ThongBao == "")
+                {
+                    int RowsAffected = TheDocGiaBus.Extend(MaTDG, NgayHetHan);
 
-            //        int RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
+                    if (RowsAffected > 0)
+                    {
+                        MessageBox.Show("Gia hạn thành công!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            //        if (RowsAffected > 0)
-            //        {
-            //            MessageBox.Show("Gia hạn thành công!", "Thông báo",
-            //                MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            //            ResetAll();
-            //        }
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show(ThongBao, "Thông báo", MessageBoxButtons.OK,
-            //            MessageBoxIcon.Warning);
-            //    }
-            //}
+                        ResetAll();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(ThongBao, "Thông báo", MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
+            }
         }
     }
 }

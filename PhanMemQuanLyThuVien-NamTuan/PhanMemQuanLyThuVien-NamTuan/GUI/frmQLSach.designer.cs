@@ -42,6 +42,8 @@
             this.lblInStock = new System.Windows.Forms.Label();
             this.lblBookName = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.nudInStock = new System.Windows.Forms.NumericUpDown();
             this.lblCheckManufacturer = new System.Windows.Forms.Label();
             this.lblCheckAuthor = new System.Windows.Forms.Label();
             this.lblCheckCategory = new System.Windows.Forms.Label();
@@ -91,6 +93,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -198,6 +201,8 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.Teal;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.dateTimePicker1);
+            this.panel4.Controls.Add(this.nudInStock);
             this.panel4.Controls.Add(this.lblCheckManufacturer);
             this.panel4.Controls.Add(this.lblCheckAuthor);
             this.panel4.Controls.Add(this.lblCheckCategory);
@@ -224,6 +229,27 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(327, 532);
             this.panel4.TabIndex = 10;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = "yyyy";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(105, 346);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(207, 22);
+            this.dateTimePicker1.TabIndex = 15;
+            // 
+            // nudInStock
+            // 
+            this.nudInStock.Location = new System.Drawing.Point(105, 408);
+            this.nudInStock.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudInStock.Name = "nudInStock";
+            this.nudInStock.Size = new System.Drawing.Size(207, 22);
+            this.nudInStock.TabIndex = 14;
             // 
             // lblCheckManufacturer
             // 
@@ -281,6 +307,8 @@
             // 
             // cboAuthor
             // 
+            this.cboAuthor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboAuthor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboAuthor.FormattingEnabled = true;
             this.cboAuthor.Location = new System.Drawing.Point(105, 215);
             this.cboAuthor.Name = "cboAuthor";
@@ -290,6 +318,8 @@
             // 
             // cboPublisher
             // 
+            this.cboPublisher.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboPublisher.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboPublisher.FormattingEnabled = true;
             this.cboPublisher.Location = new System.Drawing.Point(105, 283);
             this.cboPublisher.Name = "cboPublisher";
@@ -299,6 +329,8 @@
             // 
             // cboCategory
             // 
+            this.cboCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboCategory.FormattingEnabled = true;
             this.cboCategory.Location = new System.Drawing.Point(105, 150);
             this.cboCategory.Name = "cboCategory";
@@ -308,7 +340,7 @@
             // 
             // txtPublicationDate
             // 
-            this.txtPublicationDate.Location = new System.Drawing.Point(105, 348);
+            this.txtPublicationDate.Location = new System.Drawing.Point(105, 479);
             this.txtPublicationDate.Name = "txtPublicationDate";
             this.txtPublicationDate.Size = new System.Drawing.Size(207, 22);
             this.txtPublicationDate.TabIndex = 1;
@@ -317,11 +349,10 @@
             // 
             // txtInStock
             // 
-            this.txtInStock.Location = new System.Drawing.Point(105, 408);
+            this.txtInStock.Location = new System.Drawing.Point(105, 436);
             this.txtInStock.Name = "txtInStock";
             this.txtInStock.Size = new System.Drawing.Size(207, 22);
             this.txtInStock.TabIndex = 1;
-            this.txtInStock.TextChanged += new System.EventHandler(this.txtInStock_TextChanged);
             this.txtInStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtInStock_KeyPress);
             // 
             // txtBookId
@@ -757,6 +788,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1038, 645);
@@ -769,6 +801,7 @@
             this.panel1.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInStock)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -840,5 +873,7 @@
         private System.Windows.Forms.Label lblCheckManufacturer;
         private System.Windows.Forms.Label lblCheckAuthor;
         private System.Windows.Forms.Label lblCheckCategory;
+        private System.Windows.Forms.NumericUpDown nudInStock;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

@@ -271,7 +271,7 @@
             this.radAuthorName.TabIndex = 6;
             this.radAuthorName.Text = "Họ tên";
             this.radAuthorName.UseVisualStyleBackColor = true;
-            this.radAuthorName.CheckedChanged += new System.EventHandler(this.radBookName_CheckedChanged);
+            this.radAuthorName.CheckedChanged += new System.EventHandler(this.radAuthorName_CheckedChanged);
             // 
             // radAuthorId
             // 
@@ -286,7 +286,7 @@
             this.radAuthorId.TabStop = true;
             this.radAuthorId.Text = "Mã";
             this.radAuthorId.UseVisualStyleBackColor = true;
-            this.radAuthorId.CheckedChanged += new System.EventHandler(this.radBookId_CheckedChanged);
+            this.radAuthorId.CheckedChanged += new System.EventHandler(this.radAuthorId_CheckedChanged);
             // 
             // panel3
             // 
@@ -490,6 +490,7 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1038, 645);

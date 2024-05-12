@@ -32,7 +32,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         void DisplayNextLibrarianId()
         {
-            txtLibrarianId.Text = TuDongTao.MaKeTiep("MaTK", "TaiKhoan", "TK");
+            txtLibrarianId.Text = TaiKhoanBUS.CreateNextId();
         }
 
         void DisplayLibrarian(DataTable data = null, string query = null)
@@ -187,6 +187,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            txtSearch.Text = "";
             ResetAll();
         }
 
@@ -204,7 +205,6 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (!KeyDelete && !KeyBackspace && SDT.Length >= 12)
             {
                 e.Handled = true;
-                lblCheckPhone.Text = "SĐT tối đa 12 số";
             }
         }
 
@@ -239,6 +239,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
             int ExistPhone = TaiKhoanBUS.GetData(query).Rows.Count;
             if (SDT == "")
                 lblCheckPhone.Text = "Vui lòng nhập SĐT!";
+            else if (SDT.Length < 10)
+                lblCheckPhone.Text = "SĐT chưa hợp lệ!";
             else if (ExistPhone > 0)
                 lblCheckPhone.Text = "SĐT đã tồn tại!";
             else
@@ -281,6 +283,12 @@ namespace PhanMemQuanLyThuVien_NamTuan
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Vui lòng nhập SĐT!";
+            }
+
+            if (SDT.Length < 10)
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "SĐT chưa hợp lệ!";
             }
 
             if (MatKhau == "")

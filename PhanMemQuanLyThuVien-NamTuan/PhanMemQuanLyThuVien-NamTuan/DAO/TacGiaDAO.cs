@@ -11,7 +11,7 @@ namespace PhanMemQuanLyThuVien_NamTuan.DAO
 {
     public class TacGiaDAO
     {
-        public static DataTable GetData(string query, List<ParameterCSDL> LstParams = null)
+        public static DataTable GetData(string query, List<ParameterCSDL> LstParams)
         {
             return DataProvider.GetData(query, LstParams);
         }

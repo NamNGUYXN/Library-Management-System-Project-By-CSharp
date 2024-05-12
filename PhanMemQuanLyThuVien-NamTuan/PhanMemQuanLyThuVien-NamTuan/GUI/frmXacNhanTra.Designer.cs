@@ -271,6 +271,7 @@
             this.ClientSize = new System.Drawing.Size(381, 298);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmXacNhanTra";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Xác nhận trả sách";

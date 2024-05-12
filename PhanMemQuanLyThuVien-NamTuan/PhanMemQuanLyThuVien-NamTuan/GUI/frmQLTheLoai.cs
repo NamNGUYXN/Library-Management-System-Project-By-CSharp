@@ -29,7 +29,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         void DisplayNextCategoryId()
         {
-            txtCategoryId.Text = TuDongTao.MaKeTiep("MaTL", "TheLoai", "TL");
+            txtCategoryId.Text = TheLoaiBUS.CreateNextId();
         }
 
         void DisplayCategory(DataTable data = null, string query = null)
@@ -117,6 +117,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            txtSearch.Text = "";
             ResetAll();
         }
 

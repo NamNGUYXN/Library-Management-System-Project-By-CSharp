@@ -160,7 +160,6 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (SDT.Length >= 12 && !KeyDelete && !KeyBackspace)
             {
                 e.Handled = true;
-                lblCheckPhone.Text = "SĐT tối đa 12 số!";
             }
         }
 
@@ -193,9 +192,11 @@ namespace PhanMemQuanLyThuVien_NamTuan
             int ExistPhone = NhaXuatBanBUS.GetData(query).Rows.Count;
             if (SDT == "")
                 lblCheckPhone.Text = "Vui lòng nhập SĐT!";
+            else if (SDT.Length < 10)
+                lblCheckPhone.Text = "SĐT chưa hợp lệ!";
             else if (ExistPhone > 0)
                 lblCheckPhone.Text = "SĐT đã tồn tại!";
-            else 
+            else
                 lblCheckPhone.Text = "";
         }
 
@@ -219,6 +220,12 @@ namespace PhanMemQuanLyThuVien_NamTuan
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Vui lòng nhập SĐT!";
+            }
+
+            if (SDT.Length < 10)
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "SĐT chưa hợp lệ!";
             }
 
             string query = $"SELECT SDT FROM NhaXuatBan WHERE SDT = '{SDT}' AND MaNXB <> '{MaNXB}'";
@@ -271,6 +278,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             }
         }
 
+        // Chức năng sửa
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Đồng ý sửa?", "Thông báo",
@@ -317,6 +325,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             }
         }
 
+        // Chức năng xóa
         private void btnDelete_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Đồng ý xóa?", "Thông báo",

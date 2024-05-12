@@ -30,6 +30,22 @@ namespace PhanMemQuanLyThuVien_NamTuan
             cboCategory.ValueMember = "MaTL";
         }
 
+        void DisplayAuthor()
+        {
+            DataTable data = TacGiaBUS.GetData();
+            cboAuthor.DataSource = data;
+            cboAuthor.DisplayMember = "HoTenTG";
+            cboAuthor.ValueMember = "MaTG";
+        }
+
+        void DisplayPublisher()
+        {
+            DataTable data = NhaXuatBanBUS.GetData();
+            cboPublisher.DataSource = data;
+            cboPublisher.DisplayMember = "TenNXB";
+            cboPublisher.ValueMember = "MaNXB";
+        }
+
         void DisplayFilterCategory()
         {
             DataTable data = TheLoaiBUS.GetData();
@@ -40,14 +56,6 @@ namespace PhanMemQuanLyThuVien_NamTuan
             }
         }
 
-        void DisplayAuthor()
-        {
-            DataTable data = TacGiaBUS.GetData();
-            cboAuthor.DataSource = data;
-            cboAuthor.DisplayMember = "HoTenTG";
-            cboAuthor.ValueMember = "MaTG";
-        }
-
         void DisplayFilterAuthor()
         {
             DataTable data = TacGiaBUS.GetData();
@@ -56,14 +64,6 @@ namespace PhanMemQuanLyThuVien_NamTuan
             {
                 cboFilterAuthor.Items.Add(dr[1]);
             }
-        }
-
-        void DisplayPublisher()
-        {
-            DataTable data = NhaXuatBanBUS.GetData();
-            cboPublisher.DataSource = data;
-            cboPublisher.DisplayMember = "TenNXB";
-            cboPublisher.ValueMember = "MaNXB";
         }
 
         void DisplayFilterPublisher()
@@ -78,7 +78,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         void DisplayNextBookId()
         {
-            txtBookId.Text = TuDongTao.MaKeTiep("MaSach", "Sach", "S");
+            txtBookId.Text = SachBUS.CreateNextId();
         }
 
         void DisplayBook(DataTable data = null, string query = null)
@@ -152,7 +152,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 cboAuthor.SelectedValue = TacGia;
                 cboPublisher.SelectedValue = NXB;
                 txtPublicationDate.Text = NamXuatBan.ToString();
-                txtInStock.Text = SoLuong.ToString();
+                nudInStock.Value = SoLuong;
             }
             catch (Exception ex)
             {
@@ -214,10 +214,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             string TenSach = txtBookName.Text;
             if (TenSach == "")
-            {
                 lblCheckBookName.Text = "Vui lòng nhập tên sách!";
-            }
-            else lblCheckBookName.Text = "";
+            else 
+                lblCheckBookName.Text = "";
         }
 
         // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
@@ -225,21 +224,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             string NamXuatBan = txtPublicationDate.Text;
             if (NamXuatBan == "")
-            {
                 lblCheckPublicationDate.Text = "Vui lòng nhập năm xuất bản!";
-            }
-            else lblCheckPublicationDate.Text = "";
-        }
-
-        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
-        private void txtInStock_TextChanged(object sender, EventArgs e)
-        {
-            string SoLuong = txtInStock.Text;
-            if (SoLuong == "")
-            {
-                lblCheckInStock.Text = "Vui lòng nhập số lượng!";
-            }
-            else lblCheckInStock.Text = "";
+            else 
+                lblCheckPublicationDate.Text = "";
         }
 
         // Khi ô chọn thay đổi nếu rỗng hiện lời nhắc

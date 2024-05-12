@@ -40,12 +40,11 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
 
         public static DataTable SearchData(string key, string value)
         {
-            string query = "SELECT * FROM NhaXuatBan WHERE TrangThai = 1";
-            query += " AND " + key + " LIKE @" + key;
-            ParameterCSDL param = new ParameterCSDL(key, "%" + value + "%");
-            List<ParameterCSDL> LstParam = new List<ParameterCSDL>();
-            LstParam.Add(param);
-            return NhaXuatBanDAO.GetData(query, LstParam);
+            string query = $"SELECT * FROM NhaXuatBan WHERE TrangThai = 1 AND {key} LIKE @{key}";
+            ParameterCSDL param = new ParameterCSDL(key, $"%{value}%");
+            List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+            LstParams.Add(param);
+            return NhaXuatBanDAO.GetData(query, LstParams);
         }
 
         public static string CreateNextId()
@@ -53,7 +52,7 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
             string NextId = "NXB001";
             // Tìm mã cao nhất trong csdl
             string query = $"SELECT MAX(MaNXB) FROM NhaXuatBan";
-            DataTable data = TacGiaDAO.GetData(query);
+            DataTable data = DataProvider.GetData(query);
             string MaxId = data.Rows[0][0].ToString();
 
             if (MaxId != "")

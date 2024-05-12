@@ -207,6 +207,7 @@
             this.Controls.Add(this.panNewPassword);
             this.Controls.Add(this.panFunction);
             this.Controls.Add(this.panPresentPassword);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(440, 268);
             this.MinimumSize = new System.Drawing.Size(440, 268);
             this.Name = "frmDoiMatKhau";
