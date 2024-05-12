@@ -38,10 +38,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
             dtpExpiryDate.Text = TheDocGiaBus.SauSoNgay(dtNow, 180).ToString();
         }
 
-        void DisplayLibraryCard(DataTable data = null, string query = null)
+        void DisplayLibraryCard(DataTable data = null)
         {
             if (data == null) data = TheDocGiaBus.GetData();
-            if (query != null) data = TheDocGiaBus.GetData(query);
 
             dgvDataList.DataSource = data;
             txtQuantity.Text = data.Rows.Count.ToString();
@@ -171,6 +170,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtSearch.Text = "";
+            radIdCard.Checked = true;
             ResetAll();
         }
 
@@ -278,9 +278,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
             out string SDT, out string CCCD, out string NgayTao, out string NgayHetHan)
         {
             MaTDG = txtLibraryCardId.Text;
-            HoTenDG = txtReaderName.Text;
+            HoTenDG = txtReaderName.Text.Trim();
             GioiTinh = (radMale.Checked) ? "Nam" : "Nữ";
-            DiaChi = txtAddress.Text;
+            DiaChi = txtAddress.Text.Trim();
             SDT = txtPhone.Text;
             CCCD = txtIdCard.Text;
             DateTime dt = DateTime.Now;

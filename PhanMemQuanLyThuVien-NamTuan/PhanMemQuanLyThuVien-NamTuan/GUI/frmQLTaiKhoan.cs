@@ -35,10 +35,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
             txtLibrarianId.Text = TaiKhoanBUS.CreateNextId();
         }
 
-        void DisplayLibrarian(DataTable data = null, string query = null)
+        void DisplayLibrarian(DataTable data = null)
         {
             if (data == null) data = TaiKhoanBUS.GetData();
-            if (query != null) data = TaiKhoanBUS.GetData(query);
 
             dgvDataList.DataSource = data;
             txtQuantity.Text = data.Rows.Count.ToString();
@@ -188,6 +187,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtSearch.Text = "";
+            radLibrarianId.Checked = true;
             ResetAll();
         }
 
@@ -270,7 +270,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             out string GioiTinh, out string SDT, out string MatKhau)
         {
             MaTK = txtLibrarianId.Text;
-            HoTen = txtLibrarianName.Text;
+            HoTen = txtLibrarianName.Text.Trim();
             NgaySinh = dtpBirth.Value.ToString("yyyy/MM/dd");
             GioiTinh = (radMale.Checked) ? "Nam" : "Nữ";
             SDT = txtPhone.Text;
@@ -322,7 +322,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 if (ThongBao == "")
                 {
                     ParameterCSDL pMaTK = new ParameterCSDL("MaTK", MaTK);
-                    ParameterCSDL pHoTen = new ParameterCSDL("HoTen", HoTen.Trim());
+                    ParameterCSDL pHoTen = new ParameterCSDL("HoTen", HoTen);
                     ParameterCSDL pNgaySinh = new ParameterCSDL("NgaySinh", NgaySinh);
                     ParameterCSDL pGioiTinh = new ParameterCSDL("GioiTinh", GioiTinh);
                     ParameterCSDL pSDT = new ParameterCSDL("SDT", SDT);
@@ -363,7 +363,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 if (ThongBao == "")
                 {
                     ParameterCSDL pMaTK = new ParameterCSDL("MaTK", MaTK);
-                    ParameterCSDL pHoTen = new ParameterCSDL("HoTen", HoTen.Trim());
+                    ParameterCSDL pHoTen = new ParameterCSDL("HoTen", HoTen);
                     ParameterCSDL pNgaySinh = new ParameterCSDL("NgaySinh", NgaySinh);
                     ParameterCSDL pGioiTinh = new ParameterCSDL("GioiTinh", GioiTinh);
                     ParameterCSDL pSDT = new ParameterCSDL("SDT", SDT);

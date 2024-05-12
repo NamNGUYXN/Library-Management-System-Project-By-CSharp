@@ -42,19 +42,16 @@
             this.lblInStock = new System.Windows.Forms.Label();
             this.lblBookName = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.nudInStock = new System.Windows.Forms.NumericUpDown();
-            this.lblCheckManufacturer = new System.Windows.Forms.Label();
+            this.lblCheckPublisher = new System.Windows.Forms.Label();
             this.lblCheckAuthor = new System.Windows.Forms.Label();
             this.lblCheckCategory = new System.Windows.Forms.Label();
-            this.lblCheckInStock = new System.Windows.Forms.Label();
             this.lblCheckPublicationDate = new System.Windows.Forms.Label();
             this.lblCheckBookName = new System.Windows.Forms.Label();
             this.cboAuthor = new System.Windows.Forms.ComboBox();
             this.cboPublisher = new System.Windows.Forms.ComboBox();
             this.cboCategory = new System.Windows.Forms.ComboBox();
             this.txtPublicationDate = new System.Windows.Forms.TextBox();
-            this.txtInStock = new System.Windows.Forms.TextBox();
             this.txtBookId = new System.Windows.Forms.TextBox();
             this.lblPublicationDate = new System.Windows.Forms.Label();
             this.lblBookId = new System.Windows.Forms.Label();
@@ -201,19 +198,16 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.Teal;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.dateTimePicker1);
             this.panel4.Controls.Add(this.nudInStock);
-            this.panel4.Controls.Add(this.lblCheckManufacturer);
+            this.panel4.Controls.Add(this.lblCheckPublisher);
             this.panel4.Controls.Add(this.lblCheckAuthor);
             this.panel4.Controls.Add(this.lblCheckCategory);
-            this.panel4.Controls.Add(this.lblCheckInStock);
             this.panel4.Controls.Add(this.lblCheckPublicationDate);
             this.panel4.Controls.Add(this.lblCheckBookName);
             this.panel4.Controls.Add(this.cboAuthor);
             this.panel4.Controls.Add(this.cboPublisher);
             this.panel4.Controls.Add(this.cboCategory);
             this.panel4.Controls.Add(this.txtPublicationDate);
-            this.panel4.Controls.Add(this.txtInStock);
             this.panel4.Controls.Add(this.txtBookId);
             this.panel4.Controls.Add(this.txtBookName);
             this.panel4.Controls.Add(this.lblAuthors);
@@ -230,15 +224,6 @@
             this.panel4.Size = new System.Drawing.Size(327, 532);
             this.panel4.TabIndex = 10;
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.CustomFormat = "yyyy";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(105, 346);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(207, 22);
-            this.dateTimePicker1.TabIndex = 15;
-            // 
             // nudInStock
             // 
             this.nudInStock.Location = new System.Drawing.Point(105, 408);
@@ -249,16 +234,17 @@
             0});
             this.nudInStock.Name = "nudInStock";
             this.nudInStock.Size = new System.Drawing.Size(207, 22);
-            this.nudInStock.TabIndex = 14;
+            this.nudInStock.TabIndex = 6;
+            this.nudInStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nudInStock_KeyPress);
             // 
-            // lblCheckManufacturer
+            // lblCheckPublisher
             // 
-            this.lblCheckManufacturer.AutoSize = true;
-            this.lblCheckManufacturer.ForeColor = System.Drawing.Color.Yellow;
-            this.lblCheckManufacturer.Location = new System.Drawing.Point(102, 310);
-            this.lblCheckManufacturer.Name = "lblCheckManufacturer";
-            this.lblCheckManufacturer.Size = new System.Drawing.Size(0, 16);
-            this.lblCheckManufacturer.TabIndex = 13;
+            this.lblCheckPublisher.AutoSize = true;
+            this.lblCheckPublisher.ForeColor = System.Drawing.Color.Yellow;
+            this.lblCheckPublisher.Location = new System.Drawing.Point(102, 310);
+            this.lblCheckPublisher.Name = "lblCheckPublisher";
+            this.lblCheckPublisher.Size = new System.Drawing.Size(0, 16);
+            this.lblCheckPublisher.TabIndex = 13;
             // 
             // lblCheckAuthor
             // 
@@ -277,15 +263,6 @@
             this.lblCheckCategory.Name = "lblCheckCategory";
             this.lblCheckCategory.Size = new System.Drawing.Size(0, 16);
             this.lblCheckCategory.TabIndex = 13;
-            // 
-            // lblCheckInStock
-            // 
-            this.lblCheckInStock.AutoSize = true;
-            this.lblCheckInStock.ForeColor = System.Drawing.Color.Yellow;
-            this.lblCheckInStock.Location = new System.Drawing.Point(102, 433);
-            this.lblCheckInStock.Name = "lblCheckInStock";
-            this.lblCheckInStock.Size = new System.Drawing.Size(0, 16);
-            this.lblCheckInStock.TabIndex = 12;
             // 
             // lblCheckPublicationDate
             // 
@@ -313,7 +290,7 @@
             this.cboAuthor.Location = new System.Drawing.Point(105, 215);
             this.cboAuthor.Name = "cboAuthor";
             this.cboAuthor.Size = new System.Drawing.Size(207, 24);
-            this.cboAuthor.TabIndex = 2;
+            this.cboAuthor.TabIndex = 3;
             this.cboAuthor.TextChanged += new System.EventHandler(this.cboAuthor_TextChanged);
             // 
             // cboPublisher
@@ -324,8 +301,8 @@
             this.cboPublisher.Location = new System.Drawing.Point(105, 283);
             this.cboPublisher.Name = "cboPublisher";
             this.cboPublisher.Size = new System.Drawing.Size(207, 24);
-            this.cboPublisher.TabIndex = 2;
-            this.cboPublisher.TextChanged += new System.EventHandler(this.cboManufacturer_TextChanged);
+            this.cboPublisher.TabIndex = 4;
+            this.cboPublisher.TextChanged += new System.EventHandler(this.cboPublisher_TextChanged);
             // 
             // cboCategory
             // 
@@ -340,20 +317,12 @@
             // 
             // txtPublicationDate
             // 
-            this.txtPublicationDate.Location = new System.Drawing.Point(105, 479);
+            this.txtPublicationDate.Location = new System.Drawing.Point(105, 348);
             this.txtPublicationDate.Name = "txtPublicationDate";
             this.txtPublicationDate.Size = new System.Drawing.Size(207, 22);
-            this.txtPublicationDate.TabIndex = 1;
+            this.txtPublicationDate.TabIndex = 5;
             this.txtPublicationDate.TextChanged += new System.EventHandler(this.txtPublicationDate_TextChanged);
             this.txtPublicationDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPublicationDate_KeyPress);
-            // 
-            // txtInStock
-            // 
-            this.txtInStock.Location = new System.Drawing.Point(105, 436);
-            this.txtInStock.Name = "txtInStock";
-            this.txtInStock.Size = new System.Drawing.Size(207, 22);
-            this.txtInStock.TabIndex = 1;
-            this.txtInStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtInStock_KeyPress);
             // 
             // txtBookId
             // 
@@ -531,6 +500,7 @@
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(78, 72);
             this.btnBack.TabIndex = 0;
+            this.btnBack.TabStop = false;
             this.btnBack.Text = "Trở lại";
             this.btnBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnBack.UseVisualStyleBackColor = true;
@@ -545,6 +515,7 @@
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(78, 72);
             this.btnReset.TabIndex = 0;
+            this.btnReset.TabStop = false;
             this.btnReset.Text = "Làm mới";
             this.btnReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnReset.UseVisualStyleBackColor = true;
@@ -559,6 +530,7 @@
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(78, 72);
             this.btnUpdate.TabIndex = 0;
+            this.btnUpdate.TabStop = false;
             this.btnUpdate.Text = "Sửa";
             this.btnUpdate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -573,6 +545,7 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(78, 72);
             this.btnDelete.TabIndex = 0;
+            this.btnDelete.TabStop = false;
             this.btnDelete.Text = "Xóa";
             this.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -587,6 +560,7 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(78, 72);
             this.btnAdd.TabIndex = 0;
+            this.btnAdd.TabStop = false;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -616,6 +590,7 @@
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(78, 72);
             this.btnFilter.TabIndex = 0;
+            this.btnFilter.TabStop = false;
             this.btnFilter.Text = "Lọc";
             this.btnFilter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnFilter.UseVisualStyleBackColor = true;
@@ -640,6 +615,7 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(282, 20);
             this.txtSearch.TabIndex = 1;
+            this.txtSearch.TabStop = false;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // panel5
@@ -697,6 +673,7 @@
             this.txtQuantity.ReadOnly = true;
             this.txtQuantity.Size = new System.Drawing.Size(53, 20);
             this.txtQuantity.TabIndex = 1;
+            this.txtQuantity.TabStop = false;
             // 
             // panel7
             // 
@@ -721,6 +698,7 @@
             this.cboFilterPublisher.Name = "cboFilterPublisher";
             this.cboFilterPublisher.Size = new System.Drawing.Size(207, 21);
             this.cboFilterPublisher.TabIndex = 2;
+            this.cboFilterPublisher.TabStop = false;
             // 
             // cboFilterAuthor
             // 
@@ -730,6 +708,7 @@
             this.cboFilterAuthor.Name = "cboFilterAuthor";
             this.cboFilterAuthor.Size = new System.Drawing.Size(207, 21);
             this.cboFilterAuthor.TabIndex = 2;
+            this.cboFilterAuthor.TabStop = false;
             // 
             // cboFilterCategory
             // 
@@ -739,6 +718,7 @@
             this.cboFilterCategory.Name = "cboFilterCategory";
             this.cboFilterCategory.Size = new System.Drawing.Size(207, 21);
             this.cboFilterCategory.TabIndex = 2;
+            this.cboFilterCategory.TabStop = false;
             // 
             // label1
             // 
@@ -827,7 +807,6 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.ComboBox cboPublisher;
         private System.Windows.Forms.ComboBox cboCategory;
-        private System.Windows.Forms.TextBox txtInStock;
         private System.Windows.Forms.ImageList imgIcon;
         private System.Windows.Forms.TextBox txtBookId;
         private System.Windows.Forms.Label lblBookId;
@@ -867,13 +846,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.TextBox txtPublicationDate;
-        private System.Windows.Forms.Label lblCheckInStock;
         private System.Windows.Forms.Label lblCheckPublicationDate;
         private System.Windows.Forms.Label lblCheckBookName;
-        private System.Windows.Forms.Label lblCheckManufacturer;
+        private System.Windows.Forms.Label lblCheckPublisher;
         private System.Windows.Forms.Label lblCheckAuthor;
         private System.Windows.Forms.Label lblCheckCategory;
         private System.Windows.Forms.NumericUpDown nudInStock;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

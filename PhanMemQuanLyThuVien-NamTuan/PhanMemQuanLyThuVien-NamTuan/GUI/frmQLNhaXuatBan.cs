@@ -30,10 +30,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
             txtPublisherId.Text = NhaXuatBanBUS.CreateNextId();
         }
 
-        void DisplayPublisher(DataTable data = null, string query = null)
+        void DisplayPublisher(DataTable data = null)
         {
             if (data == null) data = NhaXuatBanBUS.GetData();
-            if (query != null) data = NhaXuatBanBUS.GetData(query);
 
             dgvDataList.DataSource = data;
             txtQuantity.Text = data.Rows.Count.ToString();
@@ -133,6 +132,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            txtSearch.Text = "";
+            radPublisherId.Checked = true;
             ResetAll();
         }
 
@@ -188,7 +189,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             string SDT = txtPhone.Text;
             // Kiểm tra số điện thoại đã tồn tại
-            string query = $"SELECT SDT FROM NhaXuatBan WHERE SDT = '{SDT}' AND MaNXB <> '{txtPublisherId.Text}'";
+            string query = $"SELECT SDT FROM NhaXuatBan WHERE TrangThai = 1 AND SDT = '{SDT}'";
+            query += $" AND MaNXB <> '{txtPublisherId.Text}'";
             int ExistPhone = NhaXuatBanBUS.GetData(query).Rows.Count;
             if (SDT == "")
                 lblCheckPhone.Text = "Vui lòng nhập SĐT!";
@@ -203,8 +205,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
         string CheckValidInput(out string MaNXB, out string TenNXB, out string DiaChi, out string SDT)
         {
             MaNXB = txtPublisherId.Text;
-            TenNXB = txtPublisherName.Text;
-            DiaChi = txtAddress.Text;
+            TenNXB = txtPublisherName.Text.Trim();
+            DiaChi = txtAddress.Text.Trim();
             SDT = txtPhone.Text;
 
             string ThongBao = "";
@@ -228,7 +230,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 ThongBao += "SĐT chưa hợp lệ!";
             }
 
-            string query = $"SELECT SDT FROM NhaXuatBan WHERE SDT = '{SDT}' AND MaNXB <> '{MaNXB}'";
+            string query = $"SELECT SDT FROM NhaXuatBan WHERE TrangThai = 1 AND SDT = '{SDT}'";
+            query += $" AND MaNXB <> '{txtPublisherId.Text}'";
             int ExistPhone = NhaXuatBanBUS.GetData(query).Rows.Count;
             if (ExistPhone > 0)
             {
@@ -253,8 +256,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 if (ThongBao == "")
                 {
                     ParameterCSDL pMaNXB = new ParameterCSDL("MaNXB", MaNXB);
-                    ParameterCSDL pTenNXB = new ParameterCSDL("TenNXB", TenNXB.Trim());
-                    ParameterCSDL pDiaChi = new ParameterCSDL("DiaChi", DiaChi.Trim());
+                    ParameterCSDL pTenNXB = new ParameterCSDL("TenNXB", TenNXB);
+                    ParameterCSDL pDiaChi = new ParameterCSDL("DiaChi", DiaChi);
                     ParameterCSDL pSDT = new ParameterCSDL("SDT", SDT);
                     ParameterCSDL[] pArray = { pMaNXB, pTenNXB, pDiaChi, pSDT };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
@@ -292,8 +295,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 if (ThongBao == "")
                 {
                     ParameterCSDL pMaNXB = new ParameterCSDL("MaNXB", MaNXB);
-                    ParameterCSDL pTenNXB = new ParameterCSDL("TenNXB", TenNXB.Trim());
-                    ParameterCSDL pDiaChi = new ParameterCSDL("DiaChi", DiaChi.Trim());
+                    ParameterCSDL pTenNXB = new ParameterCSDL("TenNXB", TenNXB);
+                    ParameterCSDL pDiaChi = new ParameterCSDL("DiaChi", DiaChi);
                     ParameterCSDL pSDT = new ParameterCSDL("SDT", SDT);
                     ParameterCSDL[] pArray = { pMaNXB, pTenNXB, pDiaChi, pSDT };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();

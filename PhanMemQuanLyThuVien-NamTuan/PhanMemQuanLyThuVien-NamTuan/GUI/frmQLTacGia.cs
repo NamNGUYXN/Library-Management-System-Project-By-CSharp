@@ -33,10 +33,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
             txtAuthorId.Text = TacGiaBUS.CreateNextId();
         }
 
-        void DisplayAuthor(DataTable data = null, string query = null)
+        void DisplayAuthor(DataTable data = null)
         {
             if (data == null) data = TacGiaBUS.GetData();
-            if (query != null) data = TacGiaBUS.GetData(query);
 
             dgvDataList.DataSource = data;
             txtQuantity.Text = data.Rows.Count.ToString();
@@ -127,6 +126,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtSearch.Text = "";
+            radAuthorId.Checked = true;
             ResetAll();
         }
 
@@ -165,9 +165,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
         string CheckValidInput(out string MaTG, out string HoTenTG, out string GioiTinh, out string QueQuan)
         {
             MaTG = txtAuthorId.Text;
-            HoTenTG = txtAuthorName.Text;
+            HoTenTG = txtAuthorName.Text.Trim();
             GioiTinh = (radMale.Checked) ? "Nam" : "Nữ";
-            QueQuan = txtHometown.Text;
+            QueQuan = txtHometown.Text.Trim();
 
             string ThongBao = "";
             if (HoTenTG == "") ThongBao += "Vui lòng nhập họ tên!";
@@ -194,9 +194,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 if (ThongBao == "")
                 {
                     ParameterCSDL pMaTG = new ParameterCSDL("MaTG", MaTG);
-                    ParameterCSDL pHoTenTG = new ParameterCSDL("HoTenTG", HoTenTG.Trim());
+                    ParameterCSDL pHoTenTG = new ParameterCSDL("HoTenTG", HoTenTG);
                     ParameterCSDL pGioiTinh = new ParameterCSDL("GioiTinh", GioiTinh);
-                    ParameterCSDL pQueQuan = new ParameterCSDL("QueQuan", QueQuan.Trim());
+                    ParameterCSDL pQueQuan = new ParameterCSDL("QueQuan", QueQuan);
                     ParameterCSDL[] pArray = { pMaTG, pHoTenTG, pGioiTinh, pQueQuan };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                     LstParams.AddRange(pArray);
@@ -232,9 +232,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 if (ThongBao == "")
                 {
                     ParameterCSDL pMaTG = new ParameterCSDL("MaTG", MaTG);
-                    ParameterCSDL pHoTenTG = new ParameterCSDL("HoTenTG", HoTenTG.Trim());
+                    ParameterCSDL pHoTenTG = new ParameterCSDL("HoTenTG", HoTenTG);
                     ParameterCSDL pGioiTinh = new ParameterCSDL("GioiTinh", GioiTinh);
-                    ParameterCSDL pQueQuan = new ParameterCSDL("QueQuan", QueQuan.Trim());
+                    ParameterCSDL pQueQuan = new ParameterCSDL("QueQuan", QueQuan);
                     ParameterCSDL[] pArray = { pMaTG, pHoTenTG, pGioiTinh, pQueQuan };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                     LstParams.AddRange(pArray);

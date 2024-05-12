@@ -34,18 +34,18 @@ namespace PhanMemQuanLyThuVien_NamTuan.GUI
 
         void HienThiMaSach()
         {
-            string query = "SELECT MaSach FROM CTPhieuMuonTra";
-            query += " WHERE MaPhieu = '" + MaPhieu + "'";
-            DataTable data = CTPhieuMuonTraBUS.GetData(query);
-            foreach (DataRow dr in data.Rows)
-            {
-                DSMaSach.Add(dr[0].ToString());
-            }
-            clbBooks.DataSource = data;
-            clbBooks.DisplayMember = "MaSach";
-            clbBooks.ValueMember = "MaSach";
-            // Xóa việc chương trình tự chọn hàng đầu tiên trong clbBooks
-            clbBooks.ClearSelected();
+            //string query = "SELECT MaSach FROM CTPhieuMuonTra";
+            //query += " WHERE MaPhieu = '" + MaPhieu + "'";
+            //DataTable data = CTPhieuMuonTraBUS.GetData(query);
+            //foreach (DataRow dr in data.Rows)
+            //{
+            //    DSMaSach.Add(dr[0].ToString());
+            //}
+            //clbBooks.DataSource = data;
+            //clbBooks.DisplayMember = "MaSach";
+            //clbBooks.ValueMember = "MaSach";
+            //// Xóa việc chương trình tự chọn hàng đầu tiên trong clbBooks
+            //clbBooks.ClearSelected();
         }
 
         string MaSachHongKeTiep()

@@ -17,7 +17,6 @@ using System.Reflection;
 using System.Collections;
 using PhanMemQuanLyThuVien_NamTuan.GUI;
 using PhanMemQuanLyThuVien_NamTuan.DTO;
-using PhanMemQuanLyThuVien_NamTuan.DAO;
 
 namespace PhanMemQuanLyThuVien_NamTuan
 {
@@ -268,7 +267,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 query += " FROM Sach s INNER JOIN TheLoai tl ON s.MaTL = tl.MaTL ";
                 query += " INNER JOIN TacGia tg ON s.MaTG = tg.MaTG ";
                 query += " WHERE MaSach = '" + MaSach + "'";
-                DataTable data = SachDAO.GetData(query);
+                DataTable data = SachBUS.GetData(query);
                 if (data.Rows.Count > 0)
                 {
                     txtBookName.Text = data.Rows[0][0].ToString();
@@ -384,7 +383,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 ParameterCSDL param = new ParameterCSDL("MaSach", MaSach);
                 List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                 LstParams.Add(param);
-                DataTable data = SachDAO.GetData(query, LstParams);
+                DataTable data = SachBUS.GetData(query, LstParams);
                 DisplayBookId(data);
 
                 // Số lượng dữ liệu trong clbBooks khi này phải > 0

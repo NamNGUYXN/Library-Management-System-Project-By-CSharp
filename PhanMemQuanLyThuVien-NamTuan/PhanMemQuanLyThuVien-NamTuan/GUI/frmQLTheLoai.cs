@@ -32,10 +32,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
             txtCategoryId.Text = TheLoaiBUS.CreateNextId();
         }
 
-        void DisplayCategory(DataTable data = null, string query = null)
+        void DisplayCategory(DataTable data = null)
         {
             if (data == null) data = TheLoaiBUS.GetData();
-            if (query != null) data = TheLoaiBUS.GetData(query);
 
             dgvDataList.DataSource = data;
             txtQuantity.Text = data.Rows.Count.ToString();
@@ -118,6 +117,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtSearch.Text = "";
+            radCategoryId.Checked = true;
             ResetAll();
         }
 
@@ -144,7 +144,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
         string CheckValidInput(out string MaTL, out string TenTL)
         {
             MaTL = txtCategoryId.Text;
-            TenTL = txtCategoryName.Text;
+            TenTL = txtCategoryName.Text.Trim();
 
             string ThongBao = "";
             if (TenTL == "") ThongBao += "Vui lòng nhập tên thể loại!";
@@ -165,7 +165,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 if (ThongBao == "")
                 {
                     ParameterCSDL pMaTL = new ParameterCSDL("MaTL", MaTL);
-                    ParameterCSDL pTenTL = new ParameterCSDL("TenTL", TenTL.Trim());
+                    ParameterCSDL pTenTL = new ParameterCSDL("TenTL", TenTL);
                     ParameterCSDL[] pArray = { pMaTL, pTenTL };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                     LstParams.AddRange(pArray);
@@ -201,7 +201,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 if (ThongBao == "")
                 {
                     ParameterCSDL pMaTL = new ParameterCSDL("MaTL", MaTL);
-                    ParameterCSDL pTenTL = new ParameterCSDL("TenTL", TenTL.Trim());
+                    ParameterCSDL pTenTL = new ParameterCSDL("TenTL", TenTL);
                     ParameterCSDL[] pArray = { pMaTL, pTenTL };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                     LstParams.AddRange(pArray);
