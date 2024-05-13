@@ -11,20 +11,16 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
 {
     public class CTPhieuMuonTraBUS
     {
-        //public static DataTable GetData(string query = null, List<ParameterCSDL> LstParams = null)
-        //{
-        //    if (query == null) query = "SELECT * FROM CTPhieuMuonTra";
-        //    return SachDAO.GetData(query);
-        //}
+        public static DataTable GetData(string query, List<ParameterCSDL> LstParams = null)
+        {
+            if (query == null) query = "SELECT * FROM CTPhieuMuonTra";
+            return CTPhieuMuonTraDAO.GetData(query, LstParams);
+        }
 
-        //public static int InsertData()
-        //{
-        //    return SachDAO.InsertData();
-        //}
-
-        //public static int UpdateData()
-        //{
-        //    return SachDAO.UpdateData();
-        //}
+        public static int InsertData(string MaPhieu, string MaSach)
+        {
+            string query = $"INSERT INTO CTPhieuMuonTra (MaPhieu, MaSach) VALUES ('{MaPhieu}', '{MaSach}')";
+            return CTPhieuMuonTraDAO.InsertData(query, null);
+        }
     }
 }

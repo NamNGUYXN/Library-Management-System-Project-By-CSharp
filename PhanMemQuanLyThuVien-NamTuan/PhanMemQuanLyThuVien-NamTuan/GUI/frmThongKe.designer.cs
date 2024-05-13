@@ -49,7 +49,7 @@
             this.txtTongSachMuon = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.txtTongPhieu = new System.Windows.Forms.TextBox();
+            this.txtTongPhieuMuon = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgvDataList = new System.Windows.Forms.DataGridView();
@@ -125,7 +125,7 @@
             this.btnBack.Text = "Trở lại";
             this.btnBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click_1);
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // btnDSSachHong
             // 
@@ -188,7 +188,7 @@
             this.cboFilter.Name = "cboFilter";
             this.cboFilter.Size = new System.Drawing.Size(143, 24);
             this.cboFilter.TabIndex = 24;
-            this.cboFilter.TextChanged += new System.EventHandler(this.cboFilter_TextChanged);
+            this.cboFilter.SelectedIndexChanged += new System.EventHandler(this.cboFilter_SelectedIndexChanged);
             // 
             // panel7
             // 
@@ -262,25 +262,25 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.panel5.Controls.Add(this.txtTongPhieu);
+            this.panel5.Controls.Add(this.txtTongPhieuMuon);
             this.panel5.Controls.Add(this.label1);
             this.panel5.Location = new System.Drawing.Point(10, 54);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(178, 102);
             this.panel5.TabIndex = 21;
             // 
-            // txtTongPhieu
+            // txtTongPhieuMuon
             // 
-            this.txtTongPhieu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.txtTongPhieu.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtTongPhieu.Enabled = false;
-            this.txtTongPhieu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTongPhieu.Location = new System.Drawing.Point(61, 42);
-            this.txtTongPhieu.Name = "txtTongPhieu";
-            this.txtTongPhieu.ReadOnly = true;
-            this.txtTongPhieu.Size = new System.Drawing.Size(57, 19);
-            this.txtTongPhieu.TabIndex = 17;
-            this.txtTongPhieu.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTongPhieuMuon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txtTongPhieuMuon.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtTongPhieuMuon.Enabled = false;
+            this.txtTongPhieuMuon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTongPhieuMuon.Location = new System.Drawing.Point(61, 42);
+            this.txtTongPhieuMuon.Name = "txtTongPhieuMuon";
+            this.txtTongPhieuMuon.ReadOnly = true;
+            this.txtTongPhieuMuon.Size = new System.Drawing.Size(57, 19);
+            this.txtTongPhieuMuon.TabIndex = 17;
+            this.txtTongPhieuMuon.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
             // 
@@ -379,7 +379,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TextBox txtTongPhieu;
+        private System.Windows.Forms.TextBox txtTongPhieuMuon;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnDSSachHong;

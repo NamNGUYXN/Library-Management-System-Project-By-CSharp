@@ -20,7 +20,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             InitializeComponent();
         }
 
-        private void btnBack_Click_1(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -28,7 +28,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void btnDSSachHong_Click(object sender, EventArgs e)
         {
             dgvDataList.Columns.Clear();
-            string query = "select MaSH, MaTDG, MaSach, MoTa, NgayBaoHong from SachHong group by MaSH, MaTDG, MaSach, MoTa, NgayBaoHong";
+            string query = "SELECT * FROM SachHong";
             dgvDataList.AutoGenerateColumns = false;
             DataGridViewTextBoxColumn colMaSH = new DataGridViewTextBoxColumn();
             colMaSH.DataPropertyName = "MaSH";
@@ -57,17 +57,11 @@ namespace PhanMemQuanLyThuVien_NamTuan
             dgvDataList.ClearSelection();
         }
 
-        //int Tong(string query)
-        //{
-        //    DataTable data = ThucThiTruyVanBus.LayDuLieu(query);
-        //    return (int)data.Rows[0][0];
-        //}
-
         private void btnDSTDGHH_Click(object sender, EventArgs e)
         {
             dgvDataList.Columns.Clear();
-            string today = DateTime.Now.ToString("yyyy/MM/dd");
-            string query = "select * from TheDocGia where NgayHetHan < '" + today + "'";
+            string dtNow = DateTime.Now.ToString("yyyy/MM/dd");
+            string query = "SELECT * FROM TheDocGia WHERE NgayHetHan < '" + dtNow + "'";
             dgvDataList.AutoGenerateColumns = false;
             DataGridViewTextBoxColumn colMaTDG = new DataGridViewTextBoxColumn();
             colMaTDG.DataPropertyName = "MaTDG";
@@ -110,48 +104,51 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void frmThongKe_Load(object sender, EventArgs e)
         {
-            cboFilter.Text = cboFilter.Items[0].ToString();
+            cboFilter.SelectedIndex = 0;
         }
 
-        private void cboFilter_TextChanged(object sender, EventArgs e)
+        private void cboFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //string day, month, year;
+            string TongPhieuMuon, TongSachMuon, TongSachHong;
 
-            //day = DateTime.Now.ToString("yyyy/MM/dd");
-            //month = DateTime.Now.ToString("MM");
-            //year = DateTime.Now.ToString("yyyy");
-
-            //switch (cboFilter.SelectedIndex)
-            //{
-            //    case 0:
-            //        {
-            //            txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra").ToString();
-            //            txtTongSachMuon.Text = Tong("select COUNT(MaPhieu) from CTPhieuMuonTra").ToString();
-            //            txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong").ToString();
-            //        }
-            //        break;
-            //    case 1:
-            //        {
-            //            txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra where NgayTao = '" + day + "'").ToString();
-            //            txtTongSachMuon.Text = Tong("select COUNT(MaSach) from PhieuMuonTra inner join CTPhieuMuonTra on PhieuMuonTra.MaPhieu = CTPhieuMuonTra.MaPhieu where NgayTao = '" + day + "'").ToString();
-            //            txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong where NgayBaoHong = '" + day + "'").ToString();
-            //        }
-            //        break;
-            //    case 2:
-            //        {
-            //            txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra where YEAR(NgayTao) = '" + year + "' and MONTH(NgayTao) = '" + month + "'").ToString();
-            //            txtTongSachMuon.Text = Tong("select COUNT(MaSach) from PhieuMuonTra inner join CTPhieuMuonTra on PhieuMuonTra.MaPhieu = CTPhieuMuonTra.MaPhieu where YEAR(NgayTao) = '" + year + "' and MONTH(NgayTao) = '" + month + "'").ToString();
-            //            txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong where  YEAR(NgayBaoHong) = '" + year + "' and MONTH(NgayBaoHong) = '" + month + "'").ToString();
-            //        }
-            //        break;
-            //    case 3:
-            //        {
-            //            txtTongPhieu.Text = Tong("select COUNT(MaPhieu) from PhieuMuonTra where YEAR(NgayTao) = '" + year + "'").ToString();
-            //            txtTongSachMuon.Text = Tong("select COUNT(MaSach) from PhieuMuonTra inner join CTPhieuMuonTra on PhieuMuonTra.MaPhieu = CTPhieuMuonTra.MaPhieu where YEAR(NgayTao) = '" + year + "'").ToString();
-            //            txtTongSachHong.Text = Tong("select COUNT(MaSach) from SachHong where  YEAR(NgayBaoHong) = '" + year + "'").ToString();
-            //        }
-            //        break;
-            //}
+            switch (cboFilter.SelectedIndex)
+            {
+                case 0:
+                {
+                    TongPhieuMuon = "SELECT COUNT(MaPhieu) FROM PhieuMuonTra";
+                    TongSachMuon = "SELECT COUNT(MaSach) FROM CTPhieuMuonTra";
+                    TongSachHong = "SELECT COUNT(MaSH) FROM SachHong";
+                }break;
+                case 1:
+                {
+                    TongPhieuMuon = "SELECT COUNT(MaPhieu) FROM PhieuMuonTra WHERE DAY(NgayTao) = DAY(GETDATE())";
+                    TongSachMuon = "SELECT COUNT(MaSach) FROM PhieuMuonTra p INNER JOIN CTPhieuMuonTra ct";
+                    TongSachMuon += " ON p.MaPhieu = ct.MaPhieu WHERE DAY(NgayTao) = DAY(GETDATE())";
+                    TongSachHong = "SELECT COUNT(MaSH) FROM SachHong WHERE DAY(NgayBaoHong) = DAY(GETDATE())";
+                }break;
+                case 2:
+                {
+                    TongPhieuMuon = "SELECT COUNT(MaPhieu) FROM PhieuMuonTra WHERE YEAR(NgayTao) = YEAR(GETDATE())";
+                    TongPhieuMuon += " AND MONTH(NgayTao) = MONTH(GETDATE())";
+                    TongSachMuon = "SELECT COUNT(MaSach) FROM PhieuMuonTra p INNER JOIN CTPhieuMuonTra ct";
+                    TongSachMuon += " ON p.MaPhieu = ct.MaPhieu WHERE YEAR(NgayTao) = YEAR(GETDATE())";
+                    TongSachMuon += " AND MONTH(NgayTao) = MONTH(GETDATE())";
+                    TongSachHong = "SELECT COUNT(MaSH) FROM SachHong WHERE YEAR(NgayBaoHong) = YEAR(GETDATE())";
+                    TongSachHong += " AND MONTH(NgayBaoHong) = MONTH(GETDATE())";
+                }
+                break;
+                case 3:
+                {
+                    TongPhieuMuon = "SELECT COUNT(MaPhieu) FROM PhieuMuonTra WHERE YEAR(NgayTao) = YEAR(GETDATE())";
+                    TongSachMuon = "SELECT COUNT(MaSach) FROM PhieuMuonTra p INNER JOIN CTPhieuMuonTra ct";
+                    TongSachMuon += " ON p.MaPhieu = ct.MaPhieu WHERE YEAR(NgayTao) = YEAR(GETDATE())";
+                    TongSachHong = "SELECT COUNT(MaSH) FROM SachHong WHERE YEAR(NgayBaoHong) = YEAR(GETDATE())";
+                }break;
+                default: TongPhieuMuon = ""; TongSachMuon = ""; TongSachHong = ""; break;
+            }
+            txtTongPhieuMuon.Text = PhieuMuonTraBUS.GetData(TongPhieuMuon).Rows[0][0].ToString();
+            txtTongSachMuon.Text = PhieuMuonTraBUS.GetData(TongSachMuon).Rows[0][0].ToString();
+            txtTongSachHong.Text = SachHongBUS.GetData(TongSachHong).Rows[0][0].ToString();
         }
 
         private void dgvDataList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

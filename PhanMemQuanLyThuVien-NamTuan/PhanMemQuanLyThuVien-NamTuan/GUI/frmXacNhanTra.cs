@@ -1,5 +1,6 @@
 ﻿using GUI;
 using PhanMemQuanLyThuVien_NamTuan.BUS;
+using PhanMemQuanLyThuVien_NamTuan.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +19,7 @@ namespace PhanMemQuanLyThuVien_NamTuan.GUI
         public string MaPhieu = "";
         public string MaTDG = "";
         List<SachHong> DSSachHong = new List<SachHong>();
-        List<string> DSMaSach = new List<string>();
+        List<string> DSSach = new List<string>();
         string MaSach = "";
         string MoTa = "";
 
@@ -32,75 +33,31 @@ namespace PhanMemQuanLyThuVien_NamTuan.GUI
             this.Close();
         }
 
-        void HienThiMaSach()
+        void DisplayBookId()
         {
-            //string query = "SELECT MaSach FROM CTPhieuMuonTra";
-            //query += " WHERE MaPhieu = '" + MaPhieu + "'";
-            //DataTable data = CTPhieuMuonTraBUS.GetData(query);
-            //foreach (DataRow dr in data.Rows)
-            //{
-            //    DSMaSach.Add(dr[0].ToString());
-            //}
-            //clbBooks.DataSource = data;
-            //clbBooks.DisplayMember = "MaSach";
-            //clbBooks.ValueMember = "MaSach";
-            //// Xóa việc chương trình tự chọn hàng đầu tiên trong clbBooks
-            //clbBooks.ClearSelected();
-        }
-
-        string MaSachHongKeTiep()
-        {
-            return TuDongTao.MaKeTiep("MaSH", "SachHong", "SH");
+            string query = $"SELECT MaSach FROM CTPhieuMuonTra WHERE MaPhieu = '{MaPhieu}'";
+            DataTable data = CTPhieuMuonTraBUS.GetData(query);
+            // Đưa các mã sách vào list DSSach
+            foreach (DataRow dr in data.Rows)
+            {
+                DSSach.Add(dr[0].ToString());
+            }
+            clbBooks.DataSource = data;
+            clbBooks.DisplayMember = "MaSach";
+            clbBooks.ValueMember = "MaSach";
+            // Xóa việc chương trình tự chọn hàng đầu tiên trong clbBooks
+            clbBooks.ClearSelected();
         }
 
         private void frmXacNhanTra_Load(object sender, EventArgs e)
         {
             txtDescription.Enabled = false;
             btnSaveDescription.Enabled = false;
-            btnConfirm.Enabled = true;
 
-            HienThiMaSach();
+            DisplayBookId();
         }
 
-        private void clbBooks_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (clbBooks.SelectedIndex != -1)
-            {
-                // Lấy đc mã sách từ giá trị đang đc chọn ở clbBooks
-                string MaSach = clbBooks.SelectedValue.ToString();
-                // Lấy thông tin sách từ csdl và đưa vào phần thông tin sách
-                string query = "SELECT TenSach, TenTL, HoTenTG ";
-                query += " FROM Sach s INNER JOIN TheLoai tl ON s.MaTL = tl.MaTL ";
-                query += " INNER JOIN TacGia tg ON s.MaTG = tg.MaTG ";
-                query += " WHERE MaSach = '" + MaSach + "'";
-                DataTable data = SachBUS.GetData(query);
-                if (data.Rows.Count > 0)
-                {
-                    txtBookName.Text = data.Rows[0][0].ToString();
-                    txtCategory.Text = data.Rows[0][1].ToString();
-                    txtAuthor.Text = data.Rows[0][2].ToString();
-                }
-
-                int index = clbBooks.SelectedIndex;
-                if (!clbBooks.GetItemChecked(index))
-                {
-                    txtDescription.Enabled = false;
-                    btnSaveDescription.Enabled = false;
-                    txtDescription.Text = "";
-                }
-                else
-                {
-                    txtDescription.Enabled = true;
-                    btnSaveDescription.Enabled = true;
-                    foreach (SachHong itemSH in DSSachHong)
-                    {
-                        if (itemSH.MaSach == clbBooks.SelectedValue.ToString())
-                            txtDescription.Text = itemSH.MoTa;
-                    }
-                }
-            }
-        }
-
+        // Sự kiện xảy ra khi nội dung ô mô tả
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
             MoTa = txtDescription.Text;
@@ -113,27 +70,27 @@ namespace PhanMemQuanLyThuVien_NamTuan.GUI
             {
                 txtDescription.Enabled = true;
                 btnSaveDescription.Enabled = true;
-                btnConfirm.Enabled = false;
                 MaSach = clbBooks.SelectedValue.ToString();
                 SachHong sh = new SachHong(MaSach, "");
                 DSSachHong.Add(sh);
 
-                //
+                // Khi sách đó check nghĩa là trong DSSach ta sẽ bỏ mã sách tương ứng
                 int index = 0;
-                foreach (string itemMS in DSMaSach)
+                foreach (string sach in DSSach)
                 {
-                    if (itemMS == clbBooks.SelectedValue.ToString()) break;
+                    if (sach == clbBooks.SelectedValue.ToString()) break;
                     index++;
                 }
-                DSMaSach.RemoveAt(index);
+                DSSach.RemoveAt(index);
             }
+            //Trường hợp bỏ check
             else
             {
                 txtDescription.Text = "";
                 txtDescription.Enabled = false;
                 btnSaveDescription.Enabled = false;
 
-                //
+                // Khi sách đó bỏ check nghĩa là trong DSSachHong ta sẽ bỏ mã sách tương ứng
                 int index = 0;
                 foreach (SachHong itemSH in DSSachHong)
                 {
@@ -142,110 +99,123 @@ namespace PhanMemQuanLyThuVien_NamTuan.GUI
                 }
                 DSSachHong.RemoveAt(index);
 
-                //
+                // Thêm lại sách đó vào DSSach
                 string MaSach = clbBooks.SelectedValue.ToString();
-                DSMaSach.Add(MaSach);
+                DSSach.Add(MaSach);
+            }
+        }
 
-                //
-                int cnt = 0;
-                foreach (SachHong itemSH in DSSachHong)
+        private void clbBooks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (clbBooks.SelectedIndex != -1)
+            {
+                // Lấy đc mã sách từ giá trị đang đc chọn ở clbBooks
+                string MaSach = clbBooks.SelectedValue.ToString();
+                // Lấy thông tin sách từ csdl và đưa vào phần thông tin sách
+                string query = "SELECT TenSach, TenTL, HoTenTG FROM Sach s INNER JOIN TheLoai tl";
+                query += " ON s.MaTL = tl.MaTL INNER JOIN TacGia tg ON s.MaTG = tg.MaTG";
+                query += $" WHERE MaSach = '{MaSach}'";
+                DataTable data = SachBUS.GetData(query);
+                if (data.Rows.Count > 0)
                 {
-                    if (itemSH.MoTa == "") cnt++;
+                    txtBookName.Text = data.Rows[0][0].ToString();
+                    txtCategory.Text = data.Rows[0][1].ToString();
+                    txtAuthor.Text = data.Rows[0][2].ToString();
                 }
-                if (cnt == 0) btnConfirm.Enabled = true;
+
+                int index = clbBooks.SelectedIndex;
+                // Trường hợp tại ô vừa nhấn nếu ko có check
+                if (!clbBooks.GetItemChecked(index))
+                {
+                    txtDescription.Enabled = false;
+                    btnSaveDescription.Enabled = false;
+                    txtDescription.Text = "";
+                }
+                // Trường hợp có check lên
+                else
+                {
+                    txtDescription.Enabled = true;
+                    btnSaveDescription.Enabled = true;
+                    // Tìm mô tả của sách hỏng đó gán cho textbox
+                    foreach (SachHong sh in DSSachHong)
+                    {
+                        if (sh.MaSach == clbBooks.SelectedValue.ToString())
+                            txtDescription.Text = sh.MoTa;
+                    }
+                }
             }
         }
 
         private void btnSaveDescription_Click(object sender, EventArgs e)
         {
+            // Trường hợp tại mã sách đang nhấn có check lên
             int index = clbBooks.SelectedIndex;
             if (clbBooks.GetItemChecked(index))
             {
-                foreach (SachHong itemSH in DSSachHong)
+                // Thì gán mô tả cho sách hỏng đó
+                foreach (SachHong sh in DSSachHong)
                 {
-                    if (itemSH.MaSach == clbBooks.SelectedValue.ToString())
-                        itemSH.MoTa = this.MoTa;
+                    if (sh.MaSach == clbBooks.SelectedValue.ToString())
+                        sh.MoTa = this.MoTa;
                 }
             }
-            if (MoTa != "") btnConfirm.Enabled = true;
-            else
+
+            if (MoTa == "")
             {
                 MessageBox.Show("Mô tả không được để trống!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                btnConfirm.Enabled = false;
             }
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            //string txt = "";
-            //for (int i = 0; i < DSSachHong.Count; i++)
-            //{
-            //    txt += "MaSach: " + DSSachHong[i].MaSach.ToString() + "\n";
-            //    txt += "MoTa: " + DSSachHong[i].MoTa.ToString() + "\n";
-            //    txt += "----------------\n";
-            //}
-            //MessageBox.Show(txt);
+            DialogResult result = MessageBox.Show("Đồng ý xác nhận trả?", "Thông báo",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                string ThongBao = "";
+                foreach (SachHong sh in DSSachHong)
+                {
+                    if (sh.MoTa == "")
+                        ThongBao += $"Mô tả của mã sách {sh.MaSach} chưa nhập!\n";
+                }
+                
+                if (ThongBao == "")
+                {
+                    string NgayTra = DateTime.Now.ToString("yyyy/MM/dd");
+                    int RowsAffected = PhieuMuonTraBUS.UpdateData(MaPhieu, NgayTra);
 
-            //DialogResult result = MessageBox.Show("Đồng ý xác nhận trả?", "Thông báo",
-            //    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //if (result == DialogResult.Yes)
-            //{
-            //    int RowsAffected = 0;
-            //    string query = "";
-            //    DateTime dt = DateTime.Now;
-            //    string NgayTra = dt.ToString("yyyy/MM/dd");
+                    ParameterCSDL pNgayBaoHong = new ParameterCSDL("NgayBaoHong", NgayTra);
+                    foreach (SachHong sh in DSSachHong)
+                    {
+                        string MaSH = SachHongBUS.CreateNextId();
+                        string MaSach = sh.MaSach;
+                        string MoTa = sh.MoTa;
+                        ParameterCSDL pMaSH = new ParameterCSDL("MaSH", MaSH);
+                        ParameterCSDL pMaSach = new ParameterCSDL("MaSach", MaSach);
+                        ParameterCSDL pMaTDG = new ParameterCSDL("MaTDG", MaTDG);
+                        ParameterCSDL pMoTa = new ParameterCSDL("MoTa", MoTa);
+                        ParameterCSDL[] pArray = { pMaSH, pMaSach, pMaTDG, pMoTa, pNgayBaoHong };
+                        List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
+                        LstParams.AddRange(pArray);
+                        SachHongBUS.InsertData(LstParams);
+                    }
 
-            //    foreach (SachHong itemSH in DSSachHong)
-            //    {
-            //        string MaSH = MaSachHongKeTiep();
-            //        string MaSach = itemSH.MaSach;
-            //        string MoTa = itemSH.MoTa;
-            //        query = "INSERT INTO SachHong (MaSH, MaSach, MaTDG, MoTa, NgayBaoHong, TrangThai)";
-            //        query += " VALUES ('" + MaSH + "', '" + MaSach + "', '" + MaTDG + "',";
-            //        query += " N'" + MoTa + "', '" + NgayTra + "', 1)";
-            //        RowsAffected = ThucThiTruyVanBus.ThaoTacDuLieu(query);
-            //    }
+                    foreach (string sach in DSSach)
+                    {
+                        SachBUS.UpdateInStock(sach, 1);
+                    }
 
-            //    foreach (string itemMS in DSMaSach)
-            //    {
-            //        query = "SELECT SoLuong FROM Sach WHERE MaSach = '" + itemMS + "'";
-            //        int SoLuong = (int)ThucThiTruyVanBus.LayDuLieu(query).Rows[0][0];
-            //        SoLuong++;
-
-            //        query = "UPDATE Sach SET SoLuong = " + SoLuong + " WHERE MaSach = '" + itemMS + "'";
-            //        RowsAffected += ThucThiTruyVanBus.ThaoTacDuLieu(query);
-            //    }
-
-            //    query = "UPDATE PhieuMuonTra SET DaTra = 1, NgayTra = '" + NgayTra + "'";
-            //    query += " WHERE MaPhieu = '" + MaPhieu + "'";
-            //    RowsAffected += ThucThiTruyVanBus.ThaoTacDuLieu(query);
-
-            //    if (RowsAffected > 0)
-            //    {
-            //        MessageBox.Show("Xác nhận trả thành công!", "Thông báo",
-            //            MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        this.Close();
-            //    }
-            //}
-        }
-    }
-
-    public class SachHong
-    {
-        public string MaSach { get; set; }
-        public string MoTa { get; set; }
-
-        public SachHong()
-        {
-            MaSach = "";
-            MoTa = "";
-        }
-
-        public SachHong(string MaSach, string MoTa)
-        {
-            this.MaSach = MaSach;
-            this.MoTa = MoTa;
+                    if (RowsAffected > 0)
+                    {
+                        MessageBox.Show("Xác nhận trả thành công!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                }
+                else
+                    MessageBox.Show(ThongBao, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

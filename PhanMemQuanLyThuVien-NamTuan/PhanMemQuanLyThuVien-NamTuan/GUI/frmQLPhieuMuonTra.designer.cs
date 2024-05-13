@@ -37,8 +37,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.imgIcon = new System.Windows.Forms.ImageList(this.components);
             this.panel7 = new System.Windows.Forms.Panel();
-            this.cboCompleted = new System.Windows.Forms.ComboBox();
-            this.chkLate = new System.Windows.Forms.CheckBox();
+            this.cboFilterCompleted = new System.Windows.Forms.ComboBox();
+            this.chkFilterLate = new System.Windows.Forms.CheckBox();
             this.cboFilterLibrarianId = new System.Windows.Forms.ComboBox();
             this.cboFilterLibraryCardId = new System.Windows.Forms.ComboBox();
             this.cboFilterDate = new System.Windows.Forms.ComboBox();
@@ -72,8 +72,8 @@
             this.lblLibrarianId = new System.Windows.Forms.Label();
             this.lblLoanCardId = new System.Windows.Forms.Label();
             this.lblReaderId = new System.Windows.Forms.Label();
-            this.dtpTerm = new System.Windows.Forms.DateTimePicker();
-            this.lblTerm = new System.Windows.Forms.Label();
+            this.dtpDueDate = new System.Windows.Forms.DateTimePicker();
+            this.lblDueDate = new System.Windows.Forms.Label();
             this.txtNote = new System.Windows.Forms.TextBox();
             this.lblNote = new System.Windows.Forms.Label();
             this.grpInfoReader = new System.Windows.Forms.GroupBox();
@@ -134,8 +134,8 @@
             // 
             this.panel7.BackColor = System.Drawing.Color.Teal;
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.cboCompleted);
-            this.panel7.Controls.Add(this.chkLate);
+            this.panel7.Controls.Add(this.cboFilterCompleted);
+            this.panel7.Controls.Add(this.chkFilterLate);
             this.panel7.Controls.Add(this.cboFilterLibrarianId);
             this.panel7.Controls.Add(this.cboFilterLibraryCardId);
             this.panel7.Controls.Add(this.cboFilterDate);
@@ -152,29 +152,31 @@
             this.panel7.Size = new System.Drawing.Size(510, 98);
             this.panel7.TabIndex = 20;
             // 
-            // cboCompleted
+            // cboFilterCompleted
             // 
-            this.cboCompleted.FormattingEnabled = true;
-            this.cboCompleted.Location = new System.Drawing.Point(256, 72);
-            this.cboCompleted.Name = "cboCompleted";
-            this.cboCompleted.Size = new System.Drawing.Size(118, 21);
-            this.cboCompleted.TabIndex = 37;
+            this.cboFilterCompleted.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFilterCompleted.FormattingEnabled = true;
+            this.cboFilterCompleted.Location = new System.Drawing.Point(256, 72);
+            this.cboFilterCompleted.Name = "cboFilterCompleted";
+            this.cboFilterCompleted.Size = new System.Drawing.Size(118, 21);
+            this.cboFilterCompleted.TabIndex = 37;
             // 
-            // chkLate
+            // chkFilterLate
             // 
-            this.chkLate.AutoSize = true;
-            this.chkLate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkLate.ForeColor = System.Drawing.Color.White;
-            this.chkLate.Location = new System.Drawing.Point(384, 72);
-            this.chkLate.Name = "chkLate";
-            this.chkLate.Size = new System.Drawing.Size(79, 20);
-            this.chkLate.TabIndex = 38;
-            this.chkLate.Text = "Trễ hạn";
-            this.chkLate.UseVisualStyleBackColor = true;
+            this.chkFilterLate.AutoSize = true;
+            this.chkFilterLate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFilterLate.ForeColor = System.Drawing.Color.White;
+            this.chkFilterLate.Location = new System.Drawing.Point(384, 72);
+            this.chkFilterLate.Name = "chkFilterLate";
+            this.chkFilterLate.Size = new System.Drawing.Size(79, 20);
+            this.chkFilterLate.TabIndex = 38;
+            this.chkFilterLate.Text = "Trễ hạn";
+            this.chkFilterLate.UseVisualStyleBackColor = true;
             // 
             // cboFilterLibrarianId
             // 
-            this.cboFilterLibrarianId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFilterLibrarianId.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboFilterLibrarianId.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboFilterLibrarianId.FormattingEnabled = true;
             this.cboFilterLibrarianId.Location = new System.Drawing.Point(384, 26);
             this.cboFilterLibrarianId.Name = "cboFilterLibrarianId";
@@ -183,7 +185,8 @@
             // 
             // cboFilterLibraryCardId
             // 
-            this.cboFilterLibraryCardId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFilterLibraryCardId.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboFilterLibraryCardId.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboFilterLibraryCardId.FormattingEnabled = true;
             this.cboFilterLibraryCardId.Location = new System.Drawing.Point(256, 26);
             this.cboFilterLibraryCardId.Name = "cboFilterLibraryCardId";
@@ -422,8 +425,8 @@
             this.panel4.Controls.Add(this.lblLibrarianId);
             this.panel4.Controls.Add(this.lblLoanCardId);
             this.panel4.Controls.Add(this.lblReaderId);
-            this.panel4.Controls.Add(this.dtpTerm);
-            this.panel4.Controls.Add(this.lblTerm);
+            this.panel4.Controls.Add(this.dtpDueDate);
+            this.panel4.Controls.Add(this.lblDueDate);
             this.panel4.Controls.Add(this.txtNote);
             this.panel4.Controls.Add(this.lblNote);
             this.panel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -496,12 +499,14 @@
             // 
             // cboLibraryCardId
             // 
+            this.cboLibraryCardId.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboLibraryCardId.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboLibraryCardId.FormattingEnabled = true;
             this.cboLibraryCardId.Location = new System.Drawing.Point(97, 37);
             this.cboLibraryCardId.Name = "cboLibraryCardId";
             this.cboLibraryCardId.Size = new System.Drawing.Size(202, 24);
             this.cboLibraryCardId.TabIndex = 37;
-            this.cboLibraryCardId.SelectedIndexChanged += new System.EventHandler(this.cboReaderId_SelectedIndexChanged);
+            this.cboLibraryCardId.SelectedIndexChanged += new System.EventHandler(this.cboLibraryCardId_SelectedIndexChanged);
             // 
             // txtLibrarianId
             // 
@@ -552,26 +557,26 @@
             this.lblReaderId.TabIndex = 31;
             this.lblReaderId.Text = "Mã thẻ ĐG";
             // 
-            // dtpTerm
+            // dtpDueDate
             // 
-            this.dtpTerm.CustomFormat = "dd/MM/yyyy";
-            this.dtpTerm.Enabled = false;
-            this.dtpTerm.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpTerm.Location = new System.Drawing.Point(97, 260);
-            this.dtpTerm.Name = "dtpTerm";
-            this.dtpTerm.Size = new System.Drawing.Size(202, 22);
-            this.dtpTerm.TabIndex = 27;
+            this.dtpDueDate.CustomFormat = "dd/MM/yyyy";
+            this.dtpDueDate.Enabled = false;
+            this.dtpDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDueDate.Location = new System.Drawing.Point(97, 260);
+            this.dtpDueDate.Name = "dtpDueDate";
+            this.dtpDueDate.Size = new System.Drawing.Size(202, 22);
+            this.dtpDueDate.TabIndex = 27;
             // 
-            // lblTerm
+            // lblDueDate
             // 
-            this.lblTerm.AutoSize = true;
-            this.lblTerm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTerm.ForeColor = System.Drawing.Color.White;
-            this.lblTerm.Location = new System.Drawing.Point(37, 265);
-            this.lblTerm.Name = "lblTerm";
-            this.lblTerm.Size = new System.Drawing.Size(57, 16);
-            this.lblTerm.TabIndex = 26;
-            this.lblTerm.Text = "Hạn trả";
+            this.lblDueDate.AutoSize = true;
+            this.lblDueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDueDate.ForeColor = System.Drawing.Color.White;
+            this.lblDueDate.Location = new System.Drawing.Point(37, 265);
+            this.lblDueDate.Name = "lblDueDate";
+            this.lblDueDate.Size = new System.Drawing.Size(57, 16);
+            this.lblDueDate.TabIndex = 26;
+            this.lblDueDate.Text = "Hạn trả";
             // 
             // txtNote
             // 
@@ -608,7 +613,6 @@
             // 
             // txtReaderName
             // 
-            this.txtReaderName.Enabled = false;
             this.txtReaderName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtReaderName.Location = new System.Drawing.Point(94, 21);
             this.txtReaderName.Name = "txtReaderName";
@@ -630,7 +634,6 @@
             // 
             // txtPhone
             // 
-            this.txtPhone.Enabled = false;
             this.txtPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPhone.Location = new System.Drawing.Point(94, 49);
             this.txtPhone.Name = "txtPhone";
@@ -825,7 +828,6 @@
             // 
             // txtQuantity
             // 
-            this.txtQuantity.Enabled = false;
             this.txtQuantity.Location = new System.Drawing.Point(77, 7);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.ReadOnly = true;
@@ -864,7 +866,6 @@
             // 
             // txtBookName
             // 
-            this.txtBookName.Enabled = false;
             this.txtBookName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBookName.Location = new System.Drawing.Point(94, 15);
             this.txtBookName.Name = "txtBookName";
@@ -875,7 +876,6 @@
             // 
             // txtCategory
             // 
-            this.txtCategory.Enabled = false;
             this.txtCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCategory.Location = new System.Drawing.Point(94, 45);
             this.txtCategory.Name = "txtCategory";
@@ -919,7 +919,6 @@
             // 
             // txtAuthor
             // 
-            this.txtAuthor.Enabled = false;
             this.txtAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAuthor.Location = new System.Drawing.Point(94, 75);
             this.txtAuthor.Name = "txtAuthor";
@@ -1017,8 +1016,8 @@
         private System.Windows.Forms.Label lblLibrarianId;
         private System.Windows.Forms.Label lblLoanCardId;
         private System.Windows.Forms.Label lblReaderId;
-        private System.Windows.Forms.DateTimePicker dtpTerm;
-        private System.Windows.Forms.Label lblTerm;
+        private System.Windows.Forms.DateTimePicker dtpDueDate;
+        private System.Windows.Forms.Label lblDueDate;
         private System.Windows.Forms.TextBox txtNote;
         private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.ComboBox cboLibraryCardId;
@@ -1031,11 +1030,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cboFilterLibraryCardId;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox chkLate;
+        private System.Windows.Forms.CheckBox chkFilterLate;
         private System.Windows.Forms.ComboBox cboFilterLibrarianId;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cboCompleted;
+        private System.Windows.Forms.ComboBox cboFilterCompleted;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaPhieu;

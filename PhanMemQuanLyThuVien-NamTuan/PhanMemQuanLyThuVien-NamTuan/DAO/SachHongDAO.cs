@@ -10,19 +10,14 @@ namespace PhanMemQuanLyThuVien_NamTuan.DAO
 {
     public class SachHongDAO
     {
-        public static DataTable GetData(string query, List<ParameterCSDL> LstParams = null)
+        public static DataTable GetData(string query, List<ParameterCSDL> LstParams)
         {
             return DataProvider.GetData(query, LstParams);
         }
 
-        public static int InsertData()
+        public static int InsertData(string query, List<ParameterCSDL> LstParams)
         {
-            return 0;
-        }
-
-        public static int UpdateData()
-        {
-            return 0;
+            return DataProvider.ExcuteSQL(query, LstParams);
         }
     }
 }

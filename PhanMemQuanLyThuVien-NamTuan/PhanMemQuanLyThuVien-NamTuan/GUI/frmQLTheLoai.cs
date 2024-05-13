@@ -169,15 +169,26 @@ namespace PhanMemQuanLyThuVien_NamTuan
                     ParameterCSDL[] pArray = { pMaTL, pTenTL };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                     LstParams.AddRange(pArray);
+                    // Kiểm tra xem thể loại vừa thêm đã tồn tại chưa
+                    string query = $"SELECT * FROM TheLoai WHERE TenTL = N'{TenTL}'";
 
-                    int RowsAffected = TheLoaiBUS.InsertData(LstParams);
-
-                    if (RowsAffected > 0)
+                    int ExistCategory = TheLoaiBUS.GetData(query).Rows.Count;
+                    if (ExistCategory > 0)
                     {
-                        MessageBox.Show("Thêm thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Thể loại đã tồn tại!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        int RowsAffected = TheLoaiBUS.InsertData(LstParams);
 
-                        ResetAll();
+                        if (RowsAffected > 0)
+                        {
+                            MessageBox.Show("Thêm thành công!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            ResetAll();
+                        }
                     }
                 }
                 else
