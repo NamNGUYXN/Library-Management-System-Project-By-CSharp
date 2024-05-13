@@ -467,7 +467,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 string MaTDG, NgayHetHan, ThongBao = "";
                 MaTDG = txtLibraryCardId.Text;
                 DateTime dtNow = DateTime.Now;
-                NgayHetHan = TuDongTao.SauSoNgay(dtNow, 180).ToString("yyyy/MM/dd");
+                NgayHetHan = TheDocGiaBus.SauSoNgay(dtNow, 180).ToString("yyyy/MM/dd");
 
                 string query = $"SELECT NgayHetHan FROM TheDocGia WHERE MaTDG = '{MaTDG}'";
                 DateTime NgayHetHanTrongCSDL = (DateTime)TheDocGiaBus.GetData(query).Rows[0][0];

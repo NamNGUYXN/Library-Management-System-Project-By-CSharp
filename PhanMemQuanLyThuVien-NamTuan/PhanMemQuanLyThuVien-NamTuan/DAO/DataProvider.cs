@@ -66,23 +66,5 @@ namespace PhanMemQuanLyThuVien_NamTuan.DAO
                 throw new Exception("Lỗi thực thi truy vấn...", ex);
             }
         }
-
-        public static void DoDuLieu(string column, string table, ComboBox cbo)
-        {
-            string query = "SELECT " + column + " FROM " + table;
-            
-            conn.Open();
-            SqlCommand cmd = new SqlCommand(query, conn);
-
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    string value = reader.GetString(0);
-                    cbo.Items.Add(value);
-                }
-            }
-            conn.Close();
-        }
     }
 }
