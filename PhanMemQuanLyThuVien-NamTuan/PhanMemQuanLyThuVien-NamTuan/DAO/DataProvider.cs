@@ -23,7 +23,6 @@ namespace PhanMemQuanLyThuVien_NamTuan.DAO
             {
                 DataTable data = new DataTable();
                 SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
                 if (LstParams != null)
                 {
                     foreach (ParameterCSDL param in LstParams)
@@ -31,6 +30,7 @@ namespace PhanMemQuanLyThuVien_NamTuan.DAO
                         cmd.Parameters.AddWithValue(param.KeyCSDL, param.ValueCSDL);
                     }
                 }
+                conn.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 adapter.Fill(data);
                 conn.Close();

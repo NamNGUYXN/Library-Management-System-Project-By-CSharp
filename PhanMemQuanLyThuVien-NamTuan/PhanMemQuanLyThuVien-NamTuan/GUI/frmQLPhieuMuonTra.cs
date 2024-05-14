@@ -42,7 +42,11 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         void DisplayBookId(DataTable data = null)
         {
-            if (data == null) data = SachBUS.GetData();
+            if (data == null)
+            {
+                string query = "SELECT MaSach FROM Sach WHERE TrangThai = 1 AND SoLuong <> 0";
+                data = SachBUS.GetData(query);
+            }
             clbBooks.DataSource = data;
             clbBooks.DisplayMember = "MaSach";
             clbBooks.ValueMember = "MaSach";
@@ -345,7 +349,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void txtSearchBook_TextChanged(object sender, EventArgs e)
         {
             string MaSach = txtSearchBook.Text;
-            string query = "SELECT MaSach FROM Sach WHERE TrangThai = 1 AND MaSach LIKE @MaSach";
+            string query = "SELECT MaSach FROM Sach WHERE TrangThai = 1 AND SoLuong <> 0 AND MaSach LIKE @MaSach";
             ParameterCSDL param = new ParameterCSDL("MaSach", $"%{MaSach}%");
             List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
             LstParams.Add(param);
@@ -524,7 +528,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
             {
                 string MaPhieu, MaTDG, MaTK, NgayTao, HanTra, GhiChu;
                 MaPhieu = txtLoanCardId.Text;
-                MaTDG = cboLibraryCardId.Text;
+                MaTDG = (cboLibraryCardId.SelectedIndex != -1) ? 
+                    cboLibraryCardId.SelectedValue.ToString() : "";
                 MaTK = txtLibrarianId.Text;
                 DateTime dtNow = DateTime.Now;
                 NgayTao = dtNow.ToString("yyyy/MM/dd");
@@ -532,7 +537,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 GhiChu = txtNote.Text;
 
                 string ThongBao = "";
-                if (MaTDG == "") ThongBao += "Vui lòng chọn thẻ độc giả!";
+                if (MaTDG == "") ThongBao += "Thẻ độc giả không tồn tại hoặc đã hết hạn!";
 
                 if (lstBooks.Items.Count < 1)
                 {

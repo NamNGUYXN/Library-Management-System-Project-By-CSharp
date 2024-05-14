@@ -222,12 +222,13 @@ namespace PhanMemQuanLyThuVien_NamTuan
         // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
         private void txtPublicationDate_TextChanged(object sender, EventArgs e)
         {
-            string NamXuatBan = txtPublicationDate.Text;
+            int NamXuatBan = 0;
+            bool NamXBHopLe = int.TryParse(txtPublicationDate.Text, out NamXuatBan);
             DateTime dtNow = DateTime.Now;
             int NamHienTai = dtNow.Year;
-            if (NamXuatBan == "")
+            if (txtPublicationDate.Text == "")
                 lblCheckPublicationDate.Text = "Vui lòng nhập năm xuất bản!";
-            else if (int.Parse(NamXuatBan) > NamHienTai || int.Parse(NamXuatBan) < 1800)
+            else if (!NamXBHopLe || (NamXuatBan > NamHienTai || NamXuatBan < 1800))
                 lblCheckPublicationDate.Text = "Năm xuất bản không hợp lệ!";
             else
                 lblCheckPublicationDate.Text = "";
@@ -238,10 +239,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             string TheLoai = cboCategory.Text;
             if (TheLoai == "")
-            {
                 lblCheckCategory.Text = "Vui lòng chọn thể loại!";
-            }
-            else lblCheckCategory.Text = "";
+            else 
+                lblCheckCategory.Text = "";
         }
 
         // Khi ô chọn thay đổi nếu rỗng hiện lời nhắc
@@ -249,10 +249,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             string TacGia = cboAuthor.Text;
             if (TacGia == "")
-            {
                 lblCheckAuthor.Text = "Vui lòng chọn tác giả!";
-            }
-            else lblCheckAuthor.Text = "";
+            else 
+                lblCheckAuthor.Text = "";
         }
 
         // Khi ô chọn thay đổi nếu rỗng hiện lời nhắc
@@ -260,19 +259,19 @@ namespace PhanMemQuanLyThuVien_NamTuan
         {
             string NXB = cboPublisher.Text;
             if (NXB == "")
-            {
                 lblCheckPublisher.Text = "Vui lòng chọn nhà xuất bản!";
-            }
-            else lblCheckPublisher.Text = "";
+            else 
+                lblCheckPublisher.Text = "";
         }
 
         // Ngăn ko cho nhập năm xuất bản ko hợp lệ
         private void txtPublicationDate_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            bool KeyDelete = (e.KeyChar == (char)Keys.Delete);
+            bool KeyBackspace = (e.KeyChar == (char)Keys.Back);
+            if (!KeyDelete && !KeyBackspace && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
-                lblCheckPublicationDate.Text = "Năm xuất bản không hợp lệ!";
             }
         }
 
@@ -316,7 +315,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
         }
 
         string CheckValidInput(out string MaSach, out string TenSach, out string MaTL, out string MaTG,
-            out string MaNXB, out string NamXuatBan, out int SoLuong)
+            out string MaNXB, out int NamXuatBan, out int SoLuong)
         {
             MaSach = txtBookId.Text;
             TenSach = txtBookName.Text.Trim();
@@ -326,7 +325,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 cboAuthor.SelectedValue.ToString() : "";
             MaNXB = (cboPublisher.SelectedIndex != -1) ?
                 cboPublisher.SelectedValue.ToString() : "";
-            NamXuatBan = txtPublicationDate.Text;
+            NamXuatBan = 0;
             SoLuong = (int)nudInStock.Value;
 
             string ThongBao = "";
@@ -335,24 +334,25 @@ namespace PhanMemQuanLyThuVien_NamTuan
             if (MaTL == "")
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
-                ThongBao += "Vui lòng chọn thể loại!";
+                ThongBao += "Thể loại không tồn tại!";
             }
 
             if (MaTG == "")
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
-                ThongBao += "Vui lòng chọn tác giả!";
+                ThongBao += "Tác giả không tồn tại!";
             }
 
             if (MaNXB == "")
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
-                ThongBao += "Vui lòng chọn nhà xuất bản!";
+                ThongBao += "Nhà xuất bản không tồn tại!";
             }
 
             DateTime dtNow = DateTime.Now;
             int NamHienTai = dtNow.Year;
-            if (int.Parse(NamXuatBan) > NamHienTai || int.Parse(NamXuatBan) < 1800)
+            bool NamXBHopLe = int.TryParse(txtPublicationDate.Text, out NamXuatBan);
+            if (!NamXBHopLe && (NamXuatBan > NamHienTai || NamXuatBan < 1800))
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Năm xuất bản không hợp lệ!";
@@ -368,8 +368,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
             if (result == DialogResult.Yes)
             {
-                string MaSach, TenSach, MaTL, MaTG, MaNXB, NamXuatBan;
-                int SoLuong;
+                string MaSach, TenSach, MaTL, MaTG, MaNXB;
+                int SoLuong, NamXuatBan;
                 string ThongBao = CheckValidInput(out MaSach, out TenSach,  out MaTL, out MaTG, out MaNXB,
                     out NamXuatBan, out SoLuong);
 
@@ -380,13 +380,13 @@ namespace PhanMemQuanLyThuVien_NamTuan
                     ParameterCSDL pMaTL = new ParameterCSDL("MaTL", MaTL);
                     ParameterCSDL pMaTG = new ParameterCSDL("MaTG", MaTG);
                     ParameterCSDL pMaNXB = new ParameterCSDL("MaNXB", MaNXB);
-                    ParameterCSDL pNamXuatBan = new ParameterCSDL("NamXuatBan", NamXuatBan);
+                    ParameterCSDL pNamXuatBan = new ParameterCSDL("NamXuatBan", NamXuatBan.ToString());
                     ParameterCSDL pSoLuong = new ParameterCSDL("SoLuong", SoLuong.ToString());
                     ParameterCSDL[] pArray = { pMaSach, pTenSach, pMaTL, pMaTG, pMaNXB, pNamXuatBan, pSoLuong };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                     LstParams.AddRange(pArray);
                     // Kiểm tra xem sách vừa thêm đã tồn tại chưa
-                    string query = $"SELECT MaSach FROM Sach WHERE TenSach = '{TenSach}' AND MaTL = '{MaTL}'";
+                    string query = $"SELECT MaSach FROM Sach WHERE TenSach = N'{TenSach}' AND MaTL = '{MaTL}'";
                     query += $" AND MaTG = '{MaTG}' AND MaNXB = '{MaNXB}' AND NamXuatBan = {NamXuatBan}";
 
                     DataTable data = SachBUS.GetData(query);
@@ -433,8 +433,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
             if (result == DialogResult.Yes)
             {
-                string MaSach, TenSach, MaTL, MaTG, MaNXB, NamXuatBan;
-                int SoLuong;
+                string MaSach, TenSach, MaTL, MaTG, MaNXB;
+                int SoLuong, NamXuatBan;
                 string ThongBao = CheckValidInput(out MaSach, out TenSach, out MaTL, out MaTG, out MaNXB,
                     out NamXuatBan, out SoLuong);
 
@@ -445,7 +445,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                     ParameterCSDL pMaTL = new ParameterCSDL("MaTL", MaTL);
                     ParameterCSDL pMaTG = new ParameterCSDL("MaTG", MaTG);
                     ParameterCSDL pMaNXB = new ParameterCSDL("MaNXB", MaNXB);
-                    ParameterCSDL pNamXuatBan = new ParameterCSDL("NamXuatBan", NamXuatBan);
+                    ParameterCSDL pNamXuatBan = new ParameterCSDL("NamXuatBan", NamXuatBan.ToString());
                     ParameterCSDL pSoLuong = new ParameterCSDL("SoLuong", SoLuong.ToString());
                     ParameterCSDL[] pArray = { pMaSach, pTenSach, pMaTL, pMaTG, pMaNXB, pNamXuatBan, pSoLuong };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
