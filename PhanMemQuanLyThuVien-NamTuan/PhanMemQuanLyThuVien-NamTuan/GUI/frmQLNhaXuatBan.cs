@@ -128,7 +128,23 @@ namespace PhanMemQuanLyThuVien_NamTuan
             txtPublisherName.Text = "";
             txtAddress.Text = "";
             txtPhone.Text = "";
-        }    
+        }
+
+        private void txtPublisherName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
@@ -137,40 +153,15 @@ namespace PhanMemQuanLyThuVien_NamTuan
             ResetAll();
         }
 
-        // Ngăn ko cho nhập nội dung tìm kiếm ko hợp lệ
-        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsLetter(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-                !char.IsControl(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        // Ngăn ko cho nhập SDT ko hợp lệ
-        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            bool KeyDelete = (e.KeyChar == (char)Keys.Delete);
-            bool KeyBackspace = (e.KeyChar == (char)Keys.Back);
-            if (!char.IsDigit(e.KeyChar) && !KeyDelete && !KeyBackspace)
-            {
-                e.Handled = true;
-            }
-
-            string SDT = txtPhone.Text;
-            if (SDT.Length >= 12 && !KeyDelete && !KeyBackspace)
-            {
-                e.Handled = true;
-            }
-        }
-
         // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
         private void txtPublisherName_TextChanged(object sender, EventArgs e)
         {
             string NXB = txtPublisherName.Text;
             if (NXB == "")
                 lblCheckName.Text = "Vui lòng nhập tên!";
-            else 
+            else if (!Regex.IsMatch(NXB, @"^\p{L}[\p{L}\s]+$"))
+                lblCheckName.Text = "Tên nhà xuất bản không hợp lệ!";
+            else
                 lblCheckName.Text = "";
         }
 
@@ -180,7 +171,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
             string DiaChi = txtAddress.Text;
             if (DiaChi == "")
                 lblCheckAddress.Text = "Vui lòng nhập địa chỉ!";
-            else 
+            else if (!Regex.IsMatch(DiaChi, @"^[-/,.\w\s]+$"))
+                lblCheckAddress.Text = "Địa chỉ không hợp lệ!";
+            else
                 lblCheckAddress.Text = "";
         }
 
@@ -194,8 +187,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
             int ExistPhone = NhaXuatBanBUS.GetData(query).Rows.Count;
             if (SDT == "")
                 lblCheckPhone.Text = "Vui lòng nhập SĐT!";
-            else if (SDT.Length < 10)
-                lblCheckPhone.Text = "SĐT chưa hợp lệ!";
+            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0+\d"))
+                lblCheckPhone.Text = "SĐT không hợp lệ!";
             else if (ExistPhone > 0)
                 lblCheckPhone.Text = "SĐT đã tồn tại!";
             else
@@ -211,29 +204,37 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
             string ThongBao = "";
             if (TenNXB == "") ThongBao += "Vui lòng nhập tên NXB!";
+            else if (!Regex.IsMatch(TenNXB, @"^\p{L}[\p{L}\s]+$"))
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "Tên nhà xuất bản không hợp lệ!";
+            }
 
             if (DiaChi == "")
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Vui lòng nhập địa chỉ!";
             }
+            else if (!Regex.IsMatch(DiaChi, @"^[-/,.\w\s]+$"))
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "Địa chỉ không hợp lệ!";
+            } 
 
+            string query = $"SELECT SDT FROM NhaXuatBan WHERE TrangThai = 1 AND SDT = '{SDT}'";
+            query += $" AND MaNXB <> '{txtPublisherId.Text}'";
+            int ExistPhone = NhaXuatBanBUS.GetData(query).Rows.Count;
             if (SDT == "")
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Vui lòng nhập SĐT!";
             }
-
-            if (SDT.Length < 10)
+            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0+\d"))
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
-                ThongBao += "SĐT chưa hợp lệ!";
+                ThongBao += "SĐT không hợp lệ!";
             }
-
-            string query = $"SELECT SDT FROM NhaXuatBan WHERE TrangThai = 1 AND SDT = '{SDT}'";
-            query += $" AND MaNXB <> '{txtPublisherId.Text}'";
-            int ExistPhone = NhaXuatBanBUS.GetData(query).Rows.Count;
-            if (ExistPhone > 0)
+            else if (ExistPhone > 0)
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "SĐT đã tồn tại!";

@@ -545,6 +545,12 @@ namespace PhanMemQuanLyThuVien_NamTuan
                     ThongBao += "Vui lòng chọn sách!";
                 }
 
+                if (!Regex.IsMatch(GhiChu, @"^\p{L}[\p{L}\s]+$"))
+                {
+                    ThongBao += (ThongBao != "") ? "\n" : "";
+                    ThongBao += "Ghi chú không hợp lệ!";
+                }
+
                 string query = "SELECT COUNT(MaSach) FROM PhieuMuonTra p INNER JOIN CTPhieuMuonTra ct";
                 query += $" ON p.MaPhieu = ct.MaPhieu WHERE MaTDG = '{MaTDG}' AND DaTra = 0";
                 int SoSachDaMuon = (int)PhieuMuonTraBUS.GetData(query).Rows[0][0];

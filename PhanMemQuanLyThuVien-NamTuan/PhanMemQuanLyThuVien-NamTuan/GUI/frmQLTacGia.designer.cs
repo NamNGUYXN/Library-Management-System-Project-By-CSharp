@@ -34,7 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.radFemale = new System.Windows.Forms.RadioButton();
             this.radMale = new System.Windows.Forms.RadioButton();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panTitle = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.txtHometown = new System.Windows.Forms.TextBox();
             this.txtAuthorName = new System.Windows.Forms.TextBox();
@@ -42,37 +42,37 @@
             this.imgIcon = new System.Windows.Forms.ImageList(this.components);
             this.lblGender = new System.Windows.Forms.Label();
             this.lblAuthorName = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.panEnterInfo = new System.Windows.Forms.Panel();
             this.lblCheckHometown = new System.Windows.Forms.Label();
             this.lblCheckName = new System.Windows.Forms.Label();
             this.txtAuthorId = new System.Windows.Forms.TextBox();
             this.lblAuthorId = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.panSearch = new System.Windows.Forms.Panel();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.radAuthorName = new System.Windows.Forms.RadioButton();
             this.radAuthorId = new System.Windows.Forms.RadioButton();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panDataList = new System.Windows.Forms.Panel();
             this.dgvDataList = new System.Windows.Forms.DataGridView();
             this.MaTG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HoTenTG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GioiTinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.QueQuan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pabFunction = new System.Windows.Forms.Panel();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
-            this.panel6 = new System.Windows.Forms.Panel();
+            this.panQuantity = new System.Windows.Forms.Panel();
             this.lblQuantity = new System.Windows.Forms.Label();
             this.txtQuantity = new System.Windows.Forms.TextBox();
-            this.panel1.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.panTitle.SuspendLayout();
+            this.panEnterInfo.SuspendLayout();
+            this.panSearch.SuspendLayout();
+            this.panDataList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).BeginInit();
-            this.panel2.SuspendLayout();
-            this.panel6.SuspendLayout();
+            this.pabFunction.SuspendLayout();
+            this.panQuantity.SuspendLayout();
             this.SuspendLayout();
             // 
             // radFemale
@@ -101,15 +101,15 @@
             this.radMale.Text = "Nam";
             this.radMale.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // panTitle
             // 
-            this.panel1.BackColor = System.Drawing.Color.Teal;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(998, 44);
-            this.panel1.TabIndex = 8;
+            this.panTitle.BackColor = System.Drawing.Color.Teal;
+            this.panTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panTitle.Controls.Add(this.lblTitle);
+            this.panTitle.Location = new System.Drawing.Point(12, 12);
+            this.panTitle.Name = "panTitle";
+            this.panTitle.Size = new System.Drawing.Size(998, 44);
+            this.panTitle.TabIndex = 8;
             // 
             // lblTitle
             // 
@@ -125,6 +125,7 @@
             // txtHometown
             // 
             this.txtHometown.Location = new System.Drawing.Point(102, 186);
+            this.txtHometown.MaxLength = 40;
             this.txtHometown.Name = "txtHometown";
             this.txtHometown.Size = new System.Drawing.Size(207, 22);
             this.txtHometown.TabIndex = 3;
@@ -133,6 +134,7 @@
             // txtAuthorName
             // 
             this.txtAuthorName.Location = new System.Drawing.Point(102, 82);
+            this.txtAuthorName.MaxLength = 50;
             this.txtAuthorName.Name = "txtAuthorName";
             this.txtAuthorName.Size = new System.Drawing.Size(207, 22);
             this.txtAuthorName.TabIndex = 1;
@@ -182,27 +184,27 @@
             this.lblAuthorName.TabIndex = 0;
             this.lblAuthorName.Text = "Họ tên";
             // 
-            // panel4
+            // panEnterInfo
             // 
-            this.panel4.BackColor = System.Drawing.Color.Teal;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.lblCheckHometown);
-            this.panel4.Controls.Add(this.lblCheckName);
-            this.panel4.Controls.Add(this.txtAuthorId);
-            this.panel4.Controls.Add(this.lblAuthorId);
-            this.panel4.Controls.Add(this.radFemale);
-            this.panel4.Controls.Add(this.radMale);
-            this.panel4.Controls.Add(this.txtHometown);
-            this.panel4.Controls.Add(this.txtAuthorName);
-            this.panel4.Controls.Add(this.lblHometown);
-            this.panel4.Controls.Add(this.lblGender);
-            this.panel4.Controls.Add(this.lblAuthorName);
-            this.panel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel4.ForeColor = System.Drawing.Color.White;
-            this.panel4.Location = new System.Drawing.Point(683, 62);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(327, 533);
-            this.panel4.TabIndex = 10;
+            this.panEnterInfo.BackColor = System.Drawing.Color.Teal;
+            this.panEnterInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panEnterInfo.Controls.Add(this.lblCheckHometown);
+            this.panEnterInfo.Controls.Add(this.lblCheckName);
+            this.panEnterInfo.Controls.Add(this.txtAuthorId);
+            this.panEnterInfo.Controls.Add(this.lblAuthorId);
+            this.panEnterInfo.Controls.Add(this.radFemale);
+            this.panEnterInfo.Controls.Add(this.radMale);
+            this.panEnterInfo.Controls.Add(this.txtHometown);
+            this.panEnterInfo.Controls.Add(this.txtAuthorName);
+            this.panEnterInfo.Controls.Add(this.lblHometown);
+            this.panEnterInfo.Controls.Add(this.lblGender);
+            this.panEnterInfo.Controls.Add(this.lblAuthorName);
+            this.panEnterInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panEnterInfo.ForeColor = System.Drawing.Color.White;
+            this.panEnterInfo.Location = new System.Drawing.Point(683, 62);
+            this.panEnterInfo.Name = "panEnterInfo";
+            this.panEnterInfo.Size = new System.Drawing.Size(327, 533);
+            this.panEnterInfo.TabIndex = 10;
             // 
             // lblCheckHometown
             // 
@@ -241,16 +243,16 @@
             this.lblAuthorId.TabIndex = 4;
             this.lblAuthorId.Text = "Mã tác giả";
             // 
-            // panel5
+            // panSearch
             // 
-            this.panel5.BackColor = System.Drawing.Color.Teal;
-            this.panel5.Controls.Add(this.txtSearch);
-            this.panel5.Controls.Add(this.radAuthorName);
-            this.panel5.Controls.Add(this.radAuthorId);
-            this.panel5.Location = new System.Drawing.Point(12, 153);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(522, 37);
-            this.panel5.TabIndex = 17;
+            this.panSearch.BackColor = System.Drawing.Color.Teal;
+            this.panSearch.Controls.Add(this.txtSearch);
+            this.panSearch.Controls.Add(this.radAuthorName);
+            this.panSearch.Controls.Add(this.radAuthorId);
+            this.panSearch.Location = new System.Drawing.Point(12, 153);
+            this.panSearch.Name = "panSearch";
+            this.panSearch.Size = new System.Drawing.Size(522, 37);
+            this.panSearch.TabIndex = 17;
             // 
             // txtSearch
             // 
@@ -288,13 +290,13 @@
             this.radAuthorId.UseVisualStyleBackColor = true;
             this.radAuthorId.CheckedChanged += new System.EventHandler(this.radAuthorId_CheckedChanged);
             // 
-            // panel3
+            // panDataList
             // 
-            this.panel3.Controls.Add(this.dgvDataList);
-            this.panel3.Location = new System.Drawing.Point(12, 196);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(665, 399);
-            this.panel3.TabIndex = 15;
+            this.panDataList.Controls.Add(this.dgvDataList);
+            this.panDataList.Location = new System.Drawing.Point(12, 196);
+            this.panDataList.Name = "panDataList";
+            this.panDataList.Size = new System.Drawing.Size(665, 399);
+            this.panDataList.TabIndex = 15;
             // 
             // dgvDataList
             // 
@@ -362,19 +364,19 @@
             this.QueQuan.Name = "QueQuan";
             this.QueQuan.ReadOnly = true;
             // 
-            // panel2
+            // pabFunction
             // 
-            this.panel2.BackColor = System.Drawing.Color.Teal;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.btnAdd);
-            this.panel2.Controls.Add(this.btnDelete);
-            this.panel2.Controls.Add(this.btnUpdate);
-            this.panel2.Controls.Add(this.btnReset);
-            this.panel2.Controls.Add(this.btnBack);
-            this.panel2.Location = new System.Drawing.Point(12, 62);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(665, 85);
-            this.panel2.TabIndex = 18;
+            this.pabFunction.BackColor = System.Drawing.Color.Teal;
+            this.pabFunction.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pabFunction.Controls.Add(this.btnAdd);
+            this.pabFunction.Controls.Add(this.btnDelete);
+            this.pabFunction.Controls.Add(this.btnUpdate);
+            this.pabFunction.Controls.Add(this.btnReset);
+            this.pabFunction.Controls.Add(this.btnBack);
+            this.pabFunction.Location = new System.Drawing.Point(12, 62);
+            this.pabFunction.Name = "pabFunction";
+            this.pabFunction.Size = new System.Drawing.Size(665, 85);
+            this.pabFunction.TabIndex = 18;
             // 
             // btnAdd
             // 
@@ -446,16 +448,16 @@
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
-            // panel6
+            // panQuantity
             // 
-            this.panel6.BackColor = System.Drawing.Color.Teal;
-            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.lblQuantity);
-            this.panel6.Controls.Add(this.txtQuantity);
-            this.panel6.Location = new System.Drawing.Point(540, 153);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(137, 37);
-            this.panel6.TabIndex = 20;
+            this.panQuantity.BackColor = System.Drawing.Color.Teal;
+            this.panQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panQuantity.Controls.Add(this.lblQuantity);
+            this.panQuantity.Controls.Add(this.txtQuantity);
+            this.panQuantity.Location = new System.Drawing.Point(540, 153);
+            this.panQuantity.Name = "panQuantity";
+            this.panQuantity.Size = new System.Drawing.Size(137, 37);
+            this.panQuantity.TabIndex = 20;
             // 
             // lblQuantity
             // 
@@ -484,12 +486,12 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(1022, 606);
             this.ControlBox = false;
-            this.Controls.Add(this.panel6);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel5);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panQuantity);
+            this.Controls.Add(this.pabFunction);
+            this.Controls.Add(this.panSearch);
+            this.Controls.Add(this.panDataList);
+            this.Controls.Add(this.panTitle);
+            this.Controls.Add(this.panEnterInfo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
@@ -499,17 +501,17 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý tác giả";
             this.Load += new System.EventHandler(this.frmTacGia_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.panel3.ResumeLayout(false);
+            this.panTitle.ResumeLayout(false);
+            this.panTitle.PerformLayout();
+            this.panEnterInfo.ResumeLayout(false);
+            this.panEnterInfo.PerformLayout();
+            this.panSearch.ResumeLayout(false);
+            this.panSearch.PerformLayout();
+            this.panDataList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
+            this.pabFunction.ResumeLayout(false);
+            this.panQuantity.ResumeLayout(false);
+            this.panQuantity.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -517,20 +519,20 @@
         #endregion
         private System.Windows.Forms.RadioButton radFemale;
         private System.Windows.Forms.RadioButton radMale;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panTitle;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.TextBox txtHometown;
         private System.Windows.Forms.TextBox txtAuthorName;
         private System.Windows.Forms.Label lblHometown;
         private System.Windows.Forms.Label lblGender;
         private System.Windows.Forms.Label lblAuthorName;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panEnterInfo;
         private System.Windows.Forms.ImageList imgIcon;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panSearch;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.RadioButton radAuthorName;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panDataList;
+        private System.Windows.Forms.Panel pabFunction;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
@@ -543,7 +545,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn HoTenTG;
         private System.Windows.Forms.DataGridViewTextBoxColumn GioiTinh;
         private System.Windows.Forms.DataGridViewTextBoxColumn QueQuan;
-        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panQuantity;
         private System.Windows.Forms.Label lblQuantity;
         private System.Windows.Forms.TextBox txtQuantity;
         private System.Windows.Forms.RadioButton radAuthorId;

@@ -222,13 +222,13 @@ namespace PhanMemQuanLyThuVien_NamTuan
         // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
         private void txtPublicationDate_TextChanged(object sender, EventArgs e)
         {
-            int NamXuatBan = 0;
-            bool NamXBHopLe = int.TryParse(txtPublicationDate.Text, out NamXuatBan);
+            string NamXuatBan = txtPublicationDate.Text;
+            bool NamXBHopLe = Regex.IsMatch(NamXuatBan, @"\d+");
             DateTime dtNow = DateTime.Now;
             int NamHienTai = dtNow.Year;
-            if (txtPublicationDate.Text == "")
+            if (NamXuatBan == "")
                 lblCheckPublicationDate.Text = "Vui lòng nhập năm xuất bản!";
-            else if (!NamXBHopLe || (NamXuatBan > NamHienTai || NamXuatBan < 1800))
+            else if (!NamXBHopLe || (int.Parse(NamXuatBan) > NamHienTai || int.Parse(NamXuatBan) < 1800))
                 lblCheckPublicationDate.Text = "Năm xuất bản không hợp lệ!";
             else
                 lblCheckPublicationDate.Text = "";
@@ -264,23 +264,9 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 lblCheckPublisher.Text = "";
         }
 
-        // Ngăn ko cho nhập năm xuất bản ko hợp lệ
         private void txtPublicationDate_KeyPress(object sender, KeyPressEventArgs e)
         {
-            bool KeyDelete = (e.KeyChar == (char)Keys.Delete);
-            bool KeyBackspace = (e.KeyChar == (char)Keys.Back);
-            if (!KeyDelete && !KeyBackspace && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        // Ngăn ko cho nhập số lượng ko hợp lệ
-        private void nudInStock_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            bool KeyDelete = (e.KeyChar == (char)Keys.Delete);
-            bool KeyBackspace = (e.KeyChar == (char)Keys.Back);
-            if (!char.IsDigit(e.KeyChar) && !KeyDelete && !KeyBackspace)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -315,7 +301,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
         }
 
         string CheckValidInput(out string MaSach, out string TenSach, out string MaTL, out string MaTG,
-            out string MaNXB, out int NamXuatBan, out int SoLuong)
+            out string MaNXB, out string NamXuatBan, out int SoLuong)
         {
             MaSach = txtBookId.Text;
             TenSach = txtBookName.Text.Trim();
@@ -325,8 +311,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 cboAuthor.SelectedValue.ToString() : "";
             MaNXB = (cboPublisher.SelectedIndex != -1) ?
                 cboPublisher.SelectedValue.ToString() : "";
-            NamXuatBan = 0;
             SoLuong = (int)nudInStock.Value;
+            NamXuatBan = txtPublicationDate.Text;
 
             string ThongBao = "";
             if (TenSach == "") ThongBao += "Vui lòng nhập tên sách!";
@@ -351,8 +337,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
             DateTime dtNow = DateTime.Now;
             int NamHienTai = dtNow.Year;
-            bool NamXBHopLe = int.TryParse(txtPublicationDate.Text, out NamXuatBan);
-            if (!NamXBHopLe && (NamXuatBan > NamHienTai || NamXuatBan < 1800))
+            bool NamXBHopLe = Regex.IsMatch(NamXuatBan, @"\d+");
+            if (!NamXBHopLe || (int.Parse(NamXuatBan) > NamHienTai || int.Parse(NamXuatBan) < 1800))
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Năm xuất bản không hợp lệ!";
@@ -368,8 +354,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
             if (result == DialogResult.Yes)
             {
-                string MaSach, TenSach, MaTL, MaTG, MaNXB;
-                int SoLuong, NamXuatBan;
+                string MaSach, TenSach, MaTL, MaTG, MaNXB, NamXuatBan;
+                int SoLuong;
                 string ThongBao = CheckValidInput(out MaSach, out TenSach,  out MaTL, out MaTG, out MaNXB,
                     out NamXuatBan, out SoLuong);
 
@@ -433,8 +419,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
             if (result == DialogResult.Yes)
             {
-                string MaSach, TenSach, MaTL, MaTG, MaNXB;
-                int SoLuong, NamXuatBan;
+                string MaSach, TenSach, MaTL, MaTG, MaNXB, NamXuatBan;
+                int SoLuong;
                 string ThongBao = CheckValidInput(out MaSach, out TenSach, out MaTL, out MaTG, out MaNXB,
                     out NamXuatBan, out SoLuong);
 
@@ -451,7 +437,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                     LstParams.AddRange(pArray);
                     // Kiểm tra xem nội dung sửa có khác ban đầu ko
-                    string query = $"SELECT * FROM Sach WHERE MaSach = '{MaSach}' AND TenSach = '{TenSach}'";
+                    string query = $"SELECT * FROM Sach WHERE MaSach = '{MaSach}' AND TenSach = N'{TenSach}'";
                     query += $" AND MaTL = '{MaTL}' AND MaTG = '{MaTG}' AND MaNXB = '{MaNXB}'";
                     query += $" AND NamXuatBan = {NamXuatBan} AND SoLuong = {SoLuong}";
 
@@ -459,15 +445,27 @@ namespace PhanMemQuanLyThuVien_NamTuan
                     // Khi nội dung sửa khác ban đầu thì cập nhật lại
                     if (NotChangeData == 0)
                     {
-                        int RowsAffected = SachBUS.UpdateData(LstParams);
+                        query = $"SELECT * FROM Sach WHERE TenSach = N'{TenSach}' AND MaTL = '{MaTL}'";
+                        query += $" AND MaTG = '{MaTG}' AND MaNXB = '{MaNXB}' AND NamXuatBan = '{NamXuatBan}'";
+                        int ExistBook = SachBUS.GetData(query).Rows.Count;
 
-                        if (RowsAffected > 0)
+                        if (ExistBook > 0)
                         {
-                            MessageBox.Show("Sửa thành công!", "Thông báo",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            ResetAll();
+                            MessageBox.Show("Sách này đã tồn tại!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+                        else
+                        {
+                            int RowsAffected = SachBUS.UpdateData(LstParams);
+
+                            if (RowsAffected > 0)
+                            {
+                                MessageBox.Show("Sửa thành công!", "Thông báo",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                ResetAll();
+                            }
+                        }    
                     }
                 }
                 else

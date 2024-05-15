@@ -32,16 +32,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmQLSach));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panTitle = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.imgIcon = new System.Windows.Forms.ImageList(this.components);
             this.txtBookName = new System.Windows.Forms.TextBox();
             this.lblAuthors = new System.Windows.Forms.Label();
-            this.lblManufacturer = new System.Windows.Forms.Label();
+            this.lblPublisher = new System.Windows.Forms.Label();
             this.lblCategory = new System.Windows.Forms.Label();
             this.lblInStock = new System.Windows.Forms.Label();
             this.lblBookName = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.panEnterInfo = new System.Windows.Forms.Panel();
             this.nudInStock = new System.Windows.Forms.NumericUpDown();
             this.lblCheckPublisher = new System.Windows.Forms.Label();
             this.lblCheckAuthor = new System.Windows.Forms.Label();
@@ -66,48 +66,48 @@
             this.TenNXB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NamXuatBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panDataList = new System.Windows.Forms.Panel();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panFunction = new System.Windows.Forms.Panel();
             this.btnFilter = new System.Windows.Forms.Button();
             this.radBookName = new System.Windows.Forms.RadioButton();
             this.txtSearch = new System.Windows.Forms.TextBox();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.panSearch = new System.Windows.Forms.Panel();
             this.radBookId = new System.Windows.Forms.RadioButton();
-            this.panel6 = new System.Windows.Forms.Panel();
+            this.panQuantity = new System.Windows.Forms.Panel();
             this.lblQuantity = new System.Windows.Forms.Label();
             this.txtQuantity = new System.Windows.Forms.TextBox();
-            this.panel7 = new System.Windows.Forms.Panel();
+            this.panFilter = new System.Windows.Forms.Panel();
             this.cboFilterPublisher = new System.Windows.Forms.ComboBox();
             this.cboFilterAuthor = new System.Windows.Forms.ComboBox();
             this.cboFilterCategory = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.lblFilterCategory = new System.Windows.Forms.Label();
+            this.lblFilterPublisher = new System.Windows.Forms.Label();
+            this.lblFilterAuthor = new System.Windows.Forms.Label();
+            this.panTitle.SuspendLayout();
+            this.panEnterInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudInStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).BeginInit();
-            this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
+            this.panDataList.SuspendLayout();
+            this.panFunction.SuspendLayout();
+            this.panSearch.SuspendLayout();
+            this.panQuantity.SuspendLayout();
+            this.panFilter.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // panTitle
             // 
-            this.panel1.BackColor = System.Drawing.Color.Teal;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(998, 44);
-            this.panel1.TabIndex = 8;
+            this.panTitle.BackColor = System.Drawing.Color.Teal;
+            this.panTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panTitle.Controls.Add(this.lblTitle);
+            this.panTitle.Location = new System.Drawing.Point(12, 12);
+            this.panTitle.Name = "panTitle";
+            this.panTitle.Size = new System.Drawing.Size(998, 44);
+            this.panTitle.TabIndex = 8;
             // 
             // lblTitle
             // 
@@ -134,6 +134,7 @@
             // txtBookName
             // 
             this.txtBookName.Location = new System.Drawing.Point(105, 84);
+            this.txtBookName.MaxLength = 100;
             this.txtBookName.Name = "txtBookName";
             this.txtBookName.Size = new System.Drawing.Size(207, 22);
             this.txtBookName.TabIndex = 1;
@@ -150,16 +151,16 @@
             this.lblAuthors.TabIndex = 0;
             this.lblAuthors.Text = "Tác giả";
             // 
-            // lblManufacturer
+            // lblPublisher
             // 
-            this.lblManufacturer.AutoSize = true;
-            this.lblManufacturer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblManufacturer.ForeColor = System.Drawing.Color.White;
-            this.lblManufacturer.Location = new System.Drawing.Point(2, 286);
-            this.lblManufacturer.Name = "lblManufacturer";
-            this.lblManufacturer.Size = new System.Drawing.Size(97, 16);
-            this.lblManufacturer.TabIndex = 0;
-            this.lblManufacturer.Text = "Nhà xuất bản";
+            this.lblPublisher.AutoSize = true;
+            this.lblPublisher.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPublisher.ForeColor = System.Drawing.Color.White;
+            this.lblPublisher.Location = new System.Drawing.Point(2, 286);
+            this.lblPublisher.Name = "lblPublisher";
+            this.lblPublisher.Size = new System.Drawing.Size(97, 16);
+            this.lblPublisher.TabIndex = 0;
+            this.lblPublisher.Text = "Nhà xuất bản";
             // 
             // lblCategory
             // 
@@ -194,35 +195,35 @@
             this.lblBookName.TabIndex = 0;
             this.lblBookName.Text = "Tên sách";
             // 
-            // panel4
+            // panEnterInfo
             // 
-            this.panel4.BackColor = System.Drawing.Color.Teal;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.nudInStock);
-            this.panel4.Controls.Add(this.lblCheckPublisher);
-            this.panel4.Controls.Add(this.lblCheckAuthor);
-            this.panel4.Controls.Add(this.lblCheckCategory);
-            this.panel4.Controls.Add(this.lblCheckPublicationDate);
-            this.panel4.Controls.Add(this.lblCheckBookName);
-            this.panel4.Controls.Add(this.cboAuthor);
-            this.panel4.Controls.Add(this.cboPublisher);
-            this.panel4.Controls.Add(this.cboCategory);
-            this.panel4.Controls.Add(this.txtPublicationDate);
-            this.panel4.Controls.Add(this.txtBookId);
-            this.panel4.Controls.Add(this.txtBookName);
-            this.panel4.Controls.Add(this.lblAuthors);
-            this.panel4.Controls.Add(this.lblManufacturer);
-            this.panel4.Controls.Add(this.lblCategory);
-            this.panel4.Controls.Add(this.lblPublicationDate);
-            this.panel4.Controls.Add(this.lblBookId);
-            this.panel4.Controls.Add(this.lblInStock);
-            this.panel4.Controls.Add(this.lblBookName);
-            this.panel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel4.ForeColor = System.Drawing.Color.White;
-            this.panel4.Location = new System.Drawing.Point(683, 62);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(327, 532);
-            this.panel4.TabIndex = 10;
+            this.panEnterInfo.BackColor = System.Drawing.Color.Teal;
+            this.panEnterInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panEnterInfo.Controls.Add(this.nudInStock);
+            this.panEnterInfo.Controls.Add(this.lblCheckPublisher);
+            this.panEnterInfo.Controls.Add(this.lblCheckAuthor);
+            this.panEnterInfo.Controls.Add(this.lblCheckCategory);
+            this.panEnterInfo.Controls.Add(this.lblCheckPublicationDate);
+            this.panEnterInfo.Controls.Add(this.lblCheckBookName);
+            this.panEnterInfo.Controls.Add(this.cboAuthor);
+            this.panEnterInfo.Controls.Add(this.cboPublisher);
+            this.panEnterInfo.Controls.Add(this.cboCategory);
+            this.panEnterInfo.Controls.Add(this.txtPublicationDate);
+            this.panEnterInfo.Controls.Add(this.txtBookId);
+            this.panEnterInfo.Controls.Add(this.txtBookName);
+            this.panEnterInfo.Controls.Add(this.lblAuthors);
+            this.panEnterInfo.Controls.Add(this.lblPublisher);
+            this.panEnterInfo.Controls.Add(this.lblCategory);
+            this.panEnterInfo.Controls.Add(this.lblPublicationDate);
+            this.panEnterInfo.Controls.Add(this.lblBookId);
+            this.panEnterInfo.Controls.Add(this.lblInStock);
+            this.panEnterInfo.Controls.Add(this.lblBookName);
+            this.panEnterInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panEnterInfo.ForeColor = System.Drawing.Color.White;
+            this.panEnterInfo.Location = new System.Drawing.Point(683, 62);
+            this.panEnterInfo.Name = "panEnterInfo";
+            this.panEnterInfo.Size = new System.Drawing.Size(327, 532);
+            this.panEnterInfo.TabIndex = 10;
             // 
             // nudInStock
             // 
@@ -235,7 +236,6 @@
             this.nudInStock.Name = "nudInStock";
             this.nudInStock.Size = new System.Drawing.Size(207, 22);
             this.nudInStock.TabIndex = 6;
-            this.nudInStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nudInStock_KeyPress);
             // 
             // lblCheckPublisher
             // 
@@ -318,6 +318,7 @@
             // txtPublicationDate
             // 
             this.txtPublicationDate.Location = new System.Drawing.Point(105, 348);
+            this.txtPublicationDate.MaxLength = 4;
             this.txtPublicationDate.Name = "txtPublicationDate";
             this.txtPublicationDate.Size = new System.Drawing.Size(207, 22);
             this.txtPublicationDate.TabIndex = 5;
@@ -483,13 +484,13 @@
             this.SoLuong.Name = "SoLuong";
             this.SoLuong.ReadOnly = true;
             // 
-            // panel3
+            // panDataList
             // 
-            this.panel3.Controls.Add(this.dgvDataList);
-            this.panel3.Location = new System.Drawing.Point(12, 250);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(665, 344);
-            this.panel3.TabIndex = 11;
+            this.panDataList.Controls.Add(this.dgvDataList);
+            this.panDataList.Location = new System.Drawing.Point(12, 250);
+            this.panDataList.Name = "panDataList";
+            this.panDataList.Size = new System.Drawing.Size(665, 344);
+            this.panDataList.TabIndex = 11;
             // 
             // btnBack
             // 
@@ -566,20 +567,20 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // panel2
+            // panFunction
             // 
-            this.panel2.BackColor = System.Drawing.Color.Teal;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.btnAdd);
-            this.panel2.Controls.Add(this.btnDelete);
-            this.panel2.Controls.Add(this.btnUpdate);
-            this.panel2.Controls.Add(this.btnReset);
-            this.panel2.Controls.Add(this.btnFilter);
-            this.panel2.Controls.Add(this.btnBack);
-            this.panel2.Location = new System.Drawing.Point(12, 61);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(665, 85);
-            this.panel2.TabIndex = 9;
+            this.panFunction.BackColor = System.Drawing.Color.Teal;
+            this.panFunction.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panFunction.Controls.Add(this.btnAdd);
+            this.panFunction.Controls.Add(this.btnDelete);
+            this.panFunction.Controls.Add(this.btnUpdate);
+            this.panFunction.Controls.Add(this.btnReset);
+            this.panFunction.Controls.Add(this.btnFilter);
+            this.panFunction.Controls.Add(this.btnBack);
+            this.panFunction.Location = new System.Drawing.Point(12, 61);
+            this.panFunction.Name = "panFunction";
+            this.panFunction.Size = new System.Drawing.Size(665, 85);
+            this.panFunction.TabIndex = 9;
             // 
             // btnFilter
             // 
@@ -618,16 +619,16 @@
             this.txtSearch.TabStop = false;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
-            // panel5
+            // panSearch
             // 
-            this.panel5.BackColor = System.Drawing.Color.Teal;
-            this.panel5.Controls.Add(this.txtSearch);
-            this.panel5.Controls.Add(this.radBookName);
-            this.panel5.Controls.Add(this.radBookId);
-            this.panel5.Location = new System.Drawing.Point(12, 207);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(522, 37);
-            this.panel5.TabIndex = 13;
+            this.panSearch.BackColor = System.Drawing.Color.Teal;
+            this.panSearch.Controls.Add(this.txtSearch);
+            this.panSearch.Controls.Add(this.radBookName);
+            this.panSearch.Controls.Add(this.radBookId);
+            this.panSearch.Location = new System.Drawing.Point(12, 207);
+            this.panSearch.Name = "panSearch";
+            this.panSearch.Size = new System.Drawing.Size(522, 37);
+            this.panSearch.TabIndex = 13;
             // 
             // radBookId
             // 
@@ -644,16 +645,16 @@
             this.radBookId.UseVisualStyleBackColor = true;
             this.radBookId.CheckedChanged += new System.EventHandler(this.radBookId_CheckedChanged);
             // 
-            // panel6
+            // panQuantity
             // 
-            this.panel6.BackColor = System.Drawing.Color.Teal;
-            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.lblQuantity);
-            this.panel6.Controls.Add(this.txtQuantity);
-            this.panel6.Location = new System.Drawing.Point(540, 207);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(137, 37);
-            this.panel6.TabIndex = 20;
+            this.panQuantity.BackColor = System.Drawing.Color.Teal;
+            this.panQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panQuantity.Controls.Add(this.lblQuantity);
+            this.panQuantity.Controls.Add(this.txtQuantity);
+            this.panQuantity.Location = new System.Drawing.Point(540, 207);
+            this.panQuantity.Name = "panQuantity";
+            this.panQuantity.Size = new System.Drawing.Size(137, 37);
+            this.panQuantity.TabIndex = 20;
             // 
             // lblQuantity
             // 
@@ -675,20 +676,20 @@
             this.txtQuantity.TabIndex = 1;
             this.txtQuantity.TabStop = false;
             // 
-            // panel7
+            // panFilter
             // 
-            this.panel7.BackColor = System.Drawing.Color.Teal;
-            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.cboFilterPublisher);
-            this.panel7.Controls.Add(this.cboFilterAuthor);
-            this.panel7.Controls.Add(this.cboFilterCategory);
-            this.panel7.Controls.Add(this.label1);
-            this.panel7.Controls.Add(this.label2);
-            this.panel7.Controls.Add(this.label3);
-            this.panel7.Location = new System.Drawing.Point(12, 152);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(665, 49);
-            this.panel7.TabIndex = 21;
+            this.panFilter.BackColor = System.Drawing.Color.Teal;
+            this.panFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panFilter.Controls.Add(this.cboFilterPublisher);
+            this.panFilter.Controls.Add(this.cboFilterAuthor);
+            this.panFilter.Controls.Add(this.cboFilterCategory);
+            this.panFilter.Controls.Add(this.lblFilterCategory);
+            this.panFilter.Controls.Add(this.lblFilterPublisher);
+            this.panFilter.Controls.Add(this.lblFilterAuthor);
+            this.panFilter.Location = new System.Drawing.Point(12, 152);
+            this.panFilter.Name = "panFilter";
+            this.panFilter.Size = new System.Drawing.Size(665, 49);
+            this.panFilter.TabIndex = 21;
             // 
             // cboFilterPublisher
             // 
@@ -720,38 +721,38 @@
             this.cboFilterCategory.TabIndex = 2;
             this.cboFilterCategory.TabStop = false;
             // 
-            // label1
+            // lblFilterCategory
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(84, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Thể loại";
+            this.lblFilterCategory.AutoSize = true;
+            this.lblFilterCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilterCategory.ForeColor = System.Drawing.Color.White;
+            this.lblFilterCategory.Location = new System.Drawing.Point(84, 4);
+            this.lblFilterCategory.Name = "lblFilterCategory";
+            this.lblFilterCategory.Size = new System.Drawing.Size(64, 16);
+            this.lblFilterCategory.TabIndex = 0;
+            this.lblFilterCategory.Text = "Thể loại";
             // 
-            // label2
+            // lblFilterPublisher
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(502, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 16);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Nhà xuất bản";
+            this.lblFilterPublisher.AutoSize = true;
+            this.lblFilterPublisher.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilterPublisher.ForeColor = System.Drawing.Color.White;
+            this.lblFilterPublisher.Location = new System.Drawing.Point(502, 4);
+            this.lblFilterPublisher.Name = "lblFilterPublisher";
+            this.lblFilterPublisher.Size = new System.Drawing.Size(97, 16);
+            this.lblFilterPublisher.TabIndex = 0;
+            this.lblFilterPublisher.Text = "Nhà xuất bản";
             // 
-            // label3
+            // lblFilterAuthor
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(303, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 16);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Tác giả";
+            this.lblFilterAuthor.AutoSize = true;
+            this.lblFilterAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilterAuthor.ForeColor = System.Drawing.Color.White;
+            this.lblFilterAuthor.Location = new System.Drawing.Point(303, 4);
+            this.lblFilterAuthor.Name = "lblFilterAuthor";
+            this.lblFilterAuthor.Size = new System.Drawing.Size(60, 16);
+            this.lblFilterAuthor.TabIndex = 0;
+            this.lblFilterAuthor.Text = "Tác giả";
             // 
             // frmQLSach
             // 
@@ -761,13 +762,13 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(1022, 606);
             this.ControlBox = false;
-            this.Controls.Add(this.panel7);
-            this.Controls.Add(this.panel6);
-            this.Controls.Add(this.panel5);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel4);
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panFilter);
+            this.Controls.Add(this.panQuantity);
+            this.Controls.Add(this.panSearch);
+            this.Controls.Add(this.panTitle);
+            this.Controls.Add(this.panFunction);
+            this.Controls.Add(this.panEnterInfo);
+            this.Controls.Add(this.panDataList);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
@@ -777,34 +778,34 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý sách";
             this.Load += new System.EventHandler(this.frmSach_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.panTitle.ResumeLayout(false);
+            this.panTitle.PerformLayout();
+            this.panEnterInfo.ResumeLayout(false);
+            this.panEnterInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudInStock)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
+            this.panDataList.ResumeLayout(false);
+            this.panFunction.ResumeLayout(false);
+            this.panSearch.ResumeLayout(false);
+            this.panSearch.PerformLayout();
+            this.panQuantity.ResumeLayout(false);
+            this.panQuantity.PerformLayout();
+            this.panFilter.ResumeLayout(false);
+            this.panFilter.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panTitle;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.TextBox txtBookName;
         private System.Windows.Forms.Label lblAuthors;
-        private System.Windows.Forms.Label lblManufacturer;
+        private System.Windows.Forms.Label lblPublisher;
         private System.Windows.Forms.Label lblCategory;
         private System.Windows.Forms.Label lblInStock;
         private System.Windows.Forms.Label lblBookName;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panEnterInfo;
         private System.Windows.Forms.ComboBox cboPublisher;
         private System.Windows.Forms.ComboBox cboCategory;
         private System.Windows.Forms.ImageList imgIcon;
@@ -812,16 +813,16 @@
         private System.Windows.Forms.Label lblBookId;
         private System.Windows.Forms.ComboBox cboAuthor;
         private System.Windows.Forms.DataGridView dgvDataList;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panDataList;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panFunction;
         private System.Windows.Forms.RadioButton radBookName;
         private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panSearch;
         private System.Windows.Forms.Label lblPublicationDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaSach;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenSach;
@@ -834,16 +835,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NamXuatBan;
         private System.Windows.Forms.DataGridViewTextBoxColumn SoLuong;
         private System.Windows.Forms.RadioButton radBookId;
-        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panQuantity;
         private System.Windows.Forms.Label lblQuantity;
         private System.Windows.Forms.TextBox txtQuantity;
-        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panFilter;
         private System.Windows.Forms.ComboBox cboFilterPublisher;
         private System.Windows.Forms.ComboBox cboFilterAuthor;
         private System.Windows.Forms.ComboBox cboFilterCategory;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblFilterCategory;
+        private System.Windows.Forms.Label lblFilterPublisher;
+        private System.Windows.Forms.Label lblFilterAuthor;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.TextBox txtPublicationDate;
         private System.Windows.Forms.Label lblCheckPublicationDate;

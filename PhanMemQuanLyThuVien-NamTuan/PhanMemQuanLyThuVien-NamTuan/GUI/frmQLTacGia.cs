@@ -123,6 +123,14 @@ namespace PhanMemQuanLyThuVien_NamTuan
             txtHometown.Text = "";
         }
 
+        private void txtAuthorName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsWhiteSpace(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtSearch.Text = "";
@@ -130,35 +138,25 @@ namespace PhanMemQuanLyThuVien_NamTuan
             ResetAll();
         }
 
-        // Ngăn ko cho nhập họ tên ko hợp lệ
-        private void txtAuthorName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            bool KeyDelete = (e.KeyChar == (char)Keys.Delete);
-            bool KeyBackspace = (e.KeyChar == (char)Keys.Back);
-            if (!char.IsWhiteSpace(e.KeyChar) && !char.IsLetter(e.KeyChar) &&
-                !KeyDelete && !KeyBackspace)
-            {
-                e.Handled = true;
-            }
-        }
-
-        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
         private void txtAuthorName_TextChanged(object sender, EventArgs e)
         {
             string HoTen = txtAuthorName.Text;
             if (HoTen == "")
                 lblCheckName.Text = "Vui lòng nhập họ tên!";
-            else 
+            else if (!Regex.IsMatch(HoTen, @"^\p{L}[\p{L}\s]+$"))
+                lblCheckName.Text = "Họ tên không hợp lệ!";
+            else
                 lblCheckName.Text = "";
         }
 
-        // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
         private void txtHometown_TextChanged(object sender, EventArgs e)
         {
-            string Quequan = txtHometown.Text;
-            if (Quequan == "")
+            string QueQuan = txtHometown.Text;
+            if (QueQuan == "")
                 lblCheckHometown.Text = "Vui lòng nhập quê quán!";
-            else 
+            else if (!Regex.IsMatch(QueQuan, @"^[-/,.\w\s]+$"))
+                lblCheckHometown.Text = "Quê quán không hợp lệ!";
+            else
                 lblCheckHometown.Text = "";
         }
 
@@ -171,12 +169,22 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
             string ThongBao = "";
             if (HoTenTG == "") ThongBao += "Vui lòng nhập họ tên!";
+            else if (!Regex.IsMatch(HoTenTG, @"^\p{L}[\p{L}\s]+$"))
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "Họ tên không hợp lệ!";
+            }    
 
             if (QueQuan == "")
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Vui lòng nhập quê quán!";
             }
+            else if (!Regex.IsMatch(QueQuan, @"^[-/,.\w\s]+$"))
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "Quê quán không hợp lệ!";
+            }    
 
             return ThongBao;
         }

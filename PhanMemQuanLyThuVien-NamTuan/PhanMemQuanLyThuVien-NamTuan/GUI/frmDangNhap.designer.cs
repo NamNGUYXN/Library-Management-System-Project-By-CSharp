@@ -147,6 +147,7 @@
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(105, 56);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPassword.MaxLength = 30;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(160, 23);
@@ -158,6 +159,7 @@
             this.txtLibrarianId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLibrarianId.Location = new System.Drawing.Point(105, 12);
             this.txtLibrarianId.Margin = new System.Windows.Forms.Padding(2);
+            this.txtLibrarianId.MaxLength = 5;
             this.txtLibrarianId.Name = "txtLibrarianId";
             this.txtLibrarianId.Size = new System.Drawing.Size(160, 23);
             this.txtLibrarianId.TabIndex = 1;

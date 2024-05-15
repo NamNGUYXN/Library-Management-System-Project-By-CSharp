@@ -108,6 +108,7 @@
             // txtPhone
             // 
             this.txtPhone.Location = new System.Drawing.Point(96, 189);
+            this.txtPhone.MaxLength = 12;
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(207, 22);
             this.txtPhone.TabIndex = 3;
@@ -121,6 +122,7 @@
             this.txtPublisherName.Size = new System.Drawing.Size(207, 22);
             this.txtPublisherName.TabIndex = 1;
             this.txtPublisherName.TextChanged += new System.EventHandler(this.txtPublisherName_TextChanged);
+            this.txtPublisherName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPublisherName_KeyPress);
             // 
             // lblAddress
             // 
@@ -242,7 +244,6 @@
             this.txtSearch.Size = new System.Drawing.Size(277, 20);
             this.txtSearch.TabIndex = 1;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
             // 
             // radPhone
             // 

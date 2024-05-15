@@ -184,40 +184,27 @@ namespace PhanMemQuanLyThuVien_NamTuan
             txtPassword.Text = "";
         }
 
+        private void txtLibrarianName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsWhiteSpace(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtSearch.Text = "";
             radLibrarianId.Checked = true;
             ResetAll();
-        }
-
-        // Ngăn ko cho nhập sdt ko hợp lệ
-        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            bool KeyDelete = (e.KeyChar == (char)Keys.Delete);
-            bool KeyBackspace = (e.KeyChar == (char)Keys.Back);
-            if (!KeyDelete && !KeyBackspace && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-
-            string SDT = txtPhone.Text;
-            if (!KeyDelete && !KeyBackspace && SDT.Length >= 12)
-            {
-                e.Handled = true;
-            }
-        }
-
-        // Ngăn ko cho nhập tên ko hợp lệ
-        private void txtLibrarianName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            bool KeyDelete = (e.KeyChar == (char)Keys.Delete);
-            bool KeyBackspace = (e.KeyChar == (char)Keys.Back);
-            if (!char.IsWhiteSpace(e.KeyChar) && !char.IsLetter(e.KeyChar) &&
-                !KeyDelete && !KeyBackspace)
-            {
-                e.Handled = true;
-            }
         }
 
         // Khi ô nhập thay đổi nếu rỗng hiện lời nhắc
@@ -226,6 +213,8 @@ namespace PhanMemQuanLyThuVien_NamTuan
             string HoTen = txtLibrarianName.Text;
             if (HoTen == "")
                 lblCheckName.Text = "Vui lòng nhập họ tên!";
+            else if (!Regex.IsMatch(HoTen, @"^\p{L}[\p{L}\s]+$"))
+                lblCheckName.Text = "Họ tên không hợp lệ!";
             else 
                 lblCheckName.Text = "";
         }
@@ -239,10 +228,10 @@ namespace PhanMemQuanLyThuVien_NamTuan
             int ExistPhone = TaiKhoanBUS.GetData(query).Rows.Count;
             if (SDT == "")
                 lblCheckPhone.Text = "Vui lòng nhập SĐT!";
-            else if (SDT.Length < 10)
-                lblCheckPhone.Text = "SĐT chưa hợp lệ!";
             else if (ExistPhone > 0)
                 lblCheckPhone.Text = "SĐT đã tồn tại!";
+            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0+\d"))
+                lblCheckPhone.Text = "SĐT không hợp lệ!";
             else
                 lblCheckPhone.Text = "";
         }
@@ -253,7 +242,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             string Password = txtPassword.Text;
             if (Password == "")
                 lblCheckPassword.Text = "Vui lòng nhập mật khẩu!";
-            else 
+            else
                 lblCheckPassword.Text = "";
         }
 
@@ -278,17 +267,10 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
             string ThongBao = "";
             if (HoTen == "") ThongBao += "Vui lòng nhập họ tên!";
-
-            if (SDT == "")
+            else if (!Regex.IsMatch(HoTen, @"^\p{L}[\p{L}\s]+$"))
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
-                ThongBao += "Vui lòng nhập SĐT!";
-            }
-
-            if (SDT.Length < 10)
-            {
-                ThongBao += (ThongBao != "") ? "\n" : "";
-                ThongBao += "SĐT chưa hợp lệ!";
+                ThongBao += "Họ tên không hợp lệ!";
             }
 
             if (MatKhau == "")
@@ -298,8 +280,18 @@ namespace PhanMemQuanLyThuVien_NamTuan
             }
 
             string query = $"SELECT SDT FROM TaiKhoan WHERE SDT = '{SDT}' AND MaTK <> '{txtLibrarianId.Text}'";
-            int ExistPhone = TaiKhoanBUS.GetData(query).Rows.Count;
-            if (ExistPhone > 0)
+            int ExistPhone = TheDocGiaBus.GetData(query).Rows.Count;
+            if (SDT == "")
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "Vui lòng nhập SĐT!";
+            }
+            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0+\d"))
+            {
+                ThongBao += (ThongBao != "") ? "\n" : "";
+                ThongBao += "SĐT không hợp lệ!";
+            }
+            else if (ExistPhone > 0)
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "SĐT đã tồn tại!";

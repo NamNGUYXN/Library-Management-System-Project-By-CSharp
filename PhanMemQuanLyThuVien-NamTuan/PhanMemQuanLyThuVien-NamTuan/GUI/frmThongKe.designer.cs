@@ -33,33 +33,33 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.imgIcon = new System.Windows.Forms.ImageList(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panTitle = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panFunction = new System.Windows.Forms.Panel();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnDSSachHong = new System.Windows.Forms.Button();
             this.btnDSTDGHH = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.panStatistic = new System.Windows.Forms.Panel();
+            this.lblSelect = new System.Windows.Forms.Label();
             this.cboFilter = new System.Windows.Forms.ComboBox();
-            this.panel7 = new System.Windows.Forms.Panel();
+            this.panSumNotIntactBook = new System.Windows.Forms.Panel();
             this.txtTongSachHong = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
+            this.lblSumNotIntactBook = new System.Windows.Forms.Label();
+            this.panSumBookBorrowed = new System.Windows.Forms.Panel();
             this.txtTongSachMuon = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.lblSumBookBorrowed = new System.Windows.Forms.Label();
+            this.panSumLoanCard = new System.Windows.Forms.Panel();
             this.txtTongPhieuMuon = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblSumLoanCard = new System.Windows.Forms.Label();
+            this.panDataList = new System.Windows.Forms.Panel();
             this.dgvDataList = new System.Windows.Forms.DataGridView();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel7.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.panTitle.SuspendLayout();
+            this.panFunction.SuspendLayout();
+            this.panStatistic.SuspendLayout();
+            this.panSumNotIntactBook.SuspendLayout();
+            this.panSumBookBorrowed.SuspendLayout();
+            this.panSumLoanCard.SuspendLayout();
+            this.panDataList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,15 +79,15 @@
             this.imgIcon.Images.SetKeyName(9, "statistic.png");
             this.imgIcon.Images.SetKeyName(10, "filter-icon.png");
             // 
-            // panel1
+            // panTitle
             // 
-            this.panel1.BackColor = System.Drawing.Color.Teal;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(720, 44);
-            this.panel1.TabIndex = 8;
+            this.panTitle.BackColor = System.Drawing.Color.Teal;
+            this.panTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panTitle.Controls.Add(this.lblTitle);
+            this.panTitle.Location = new System.Drawing.Point(12, 12);
+            this.panTitle.Name = "panTitle";
+            this.panTitle.Size = new System.Drawing.Size(720, 44);
+            this.panTitle.TabIndex = 8;
             // 
             // lblTitle
             // 
@@ -100,17 +100,17 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "THỐNG KÊ";
             // 
-            // panel2
+            // panFunction
             // 
-            this.panel2.BackColor = System.Drawing.Color.Teal;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.btnBack);
-            this.panel2.Controls.Add(this.btnDSSachHong);
-            this.panel2.Controls.Add(this.btnDSTDGHH);
-            this.panel2.Location = new System.Drawing.Point(12, 62);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(146, 170);
-            this.panel2.TabIndex = 9;
+            this.panFunction.BackColor = System.Drawing.Color.Teal;
+            this.panFunction.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panFunction.Controls.Add(this.btnBack);
+            this.panFunction.Controls.Add(this.btnDSSachHong);
+            this.panFunction.Controls.Add(this.btnDSTDGHH);
+            this.panFunction.Location = new System.Drawing.Point(12, 62);
+            this.panFunction.Name = "panFunction";
+            this.panFunction.Size = new System.Drawing.Size(146, 170);
+            this.panFunction.TabIndex = 9;
             // 
             // btnBack
             // 
@@ -149,31 +149,31 @@
             this.btnDSTDGHH.UseVisualStyleBackColor = true;
             this.btnDSTDGHH.Click += new System.EventHandler(this.btnDSTDGHH_Click);
             // 
-            // panel4
+            // panStatistic
             // 
-            this.panel4.BackColor = System.Drawing.Color.Teal;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.label4);
-            this.panel4.Controls.Add(this.cboFilter);
-            this.panel4.Controls.Add(this.panel7);
-            this.panel4.Controls.Add(this.panel6);
-            this.panel4.Controls.Add(this.panel5);
-            this.panel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel4.ForeColor = System.Drawing.Color.White;
-            this.panel4.Location = new System.Drawing.Point(164, 62);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(568, 170);
-            this.panel4.TabIndex = 10;
+            this.panStatistic.BackColor = System.Drawing.Color.Teal;
+            this.panStatistic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panStatistic.Controls.Add(this.lblSelect);
+            this.panStatistic.Controls.Add(this.cboFilter);
+            this.panStatistic.Controls.Add(this.panSumNotIntactBook);
+            this.panStatistic.Controls.Add(this.panSumBookBorrowed);
+            this.panStatistic.Controls.Add(this.panSumLoanCard);
+            this.panStatistic.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panStatistic.ForeColor = System.Drawing.Color.White;
+            this.panStatistic.Location = new System.Drawing.Point(164, 62);
+            this.panStatistic.Name = "panStatistic";
+            this.panStatistic.Size = new System.Drawing.Size(568, 170);
+            this.panStatistic.TabIndex = 10;
             // 
-            // label4
+            // lblSelect
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(7, 14);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(110, 16);
-            this.label4.TabIndex = 25;
-            this.label4.Text = "Thống kê theo:";
+            this.lblSelect.AutoSize = true;
+            this.lblSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelect.Location = new System.Drawing.Point(7, 14);
+            this.lblSelect.Name = "lblSelect";
+            this.lblSelect.Size = new System.Drawing.Size(110, 16);
+            this.lblSelect.TabIndex = 25;
+            this.lblSelect.Text = "Thống kê theo:";
             // 
             // cboFilter
             // 
@@ -190,15 +190,15 @@
             this.cboFilter.TabIndex = 24;
             this.cboFilter.SelectedIndexChanged += new System.EventHandler(this.cboFilter_SelectedIndexChanged);
             // 
-            // panel7
+            // panSumNotIntactBook
             // 
-            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.panel7.Controls.Add(this.txtTongSachHong);
-            this.panel7.Controls.Add(this.label3);
-            this.panel7.Location = new System.Drawing.Point(378, 54);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(178, 102);
-            this.panel7.TabIndex = 22;
+            this.panSumNotIntactBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.panSumNotIntactBook.Controls.Add(this.txtTongSachHong);
+            this.panSumNotIntactBook.Controls.Add(this.lblSumNotIntactBook);
+            this.panSumNotIntactBook.Location = new System.Drawing.Point(378, 54);
+            this.panSumNotIntactBook.Name = "panSumNotIntactBook";
+            this.panSumNotIntactBook.Size = new System.Drawing.Size(178, 102);
+            this.panSumNotIntactBook.TabIndex = 22;
             // 
             // txtTongSachHong
             // 
@@ -213,27 +213,27 @@
             this.txtTongSachHong.TabIndex = 17;
             this.txtTongSachHong.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label3
+            // lblSumNotIntactBook
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(3, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(123, 20);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Tổng sách hỏng";
+            this.lblSumNotIntactBook.AutoSize = true;
+            this.lblSumNotIntactBook.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSumNotIntactBook.ForeColor = System.Drawing.Color.Black;
+            this.lblSumNotIntactBook.Location = new System.Drawing.Point(3, 0);
+            this.lblSumNotIntactBook.Name = "lblSumNotIntactBook";
+            this.lblSumNotIntactBook.Size = new System.Drawing.Size(123, 20);
+            this.lblSumNotIntactBook.TabIndex = 15;
+            this.lblSumNotIntactBook.Text = "Tổng sách hỏng";
             // 
-            // panel6
+            // panSumBookBorrowed
             // 
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.panel6.Controls.Add(this.txtTongSachMuon);
-            this.panel6.Controls.Add(this.label2);
-            this.panel6.ForeColor = System.Drawing.Color.Transparent;
-            this.panel6.Location = new System.Drawing.Point(194, 54);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(178, 102);
-            this.panel6.TabIndex = 23;
+            this.panSumBookBorrowed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.panSumBookBorrowed.Controls.Add(this.txtTongSachMuon);
+            this.panSumBookBorrowed.Controls.Add(this.lblSumBookBorrowed);
+            this.panSumBookBorrowed.ForeColor = System.Drawing.Color.Transparent;
+            this.panSumBookBorrowed.Location = new System.Drawing.Point(194, 54);
+            this.panSumBookBorrowed.Name = "panSumBookBorrowed";
+            this.panSumBookBorrowed.Size = new System.Drawing.Size(178, 102);
+            this.panSumBookBorrowed.TabIndex = 23;
             // 
             // txtTongSachMuon
             // 
@@ -248,26 +248,26 @@
             this.txtTongSachMuon.TabIndex = 17;
             this.txtTongSachMuon.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label2
+            // lblSumBookBorrowed
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 20);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Tổng sách mượn";
+            this.lblSumBookBorrowed.AutoSize = true;
+            this.lblSumBookBorrowed.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSumBookBorrowed.ForeColor = System.Drawing.Color.Black;
+            this.lblSumBookBorrowed.Location = new System.Drawing.Point(3, 0);
+            this.lblSumBookBorrowed.Name = "lblSumBookBorrowed";
+            this.lblSumBookBorrowed.Size = new System.Drawing.Size(127, 20);
+            this.lblSumBookBorrowed.TabIndex = 15;
+            this.lblSumBookBorrowed.Text = "Tổng sách mượn";
             // 
-            // panel5
+            // panSumLoanCard
             // 
-            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.panel5.Controls.Add(this.txtTongPhieuMuon);
-            this.panel5.Controls.Add(this.label1);
-            this.panel5.Location = new System.Drawing.Point(10, 54);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(178, 102);
-            this.panel5.TabIndex = 21;
+            this.panSumLoanCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.panSumLoanCard.Controls.Add(this.txtTongPhieuMuon);
+            this.panSumLoanCard.Controls.Add(this.lblSumLoanCard);
+            this.panSumLoanCard.Location = new System.Drawing.Point(10, 54);
+            this.panSumLoanCard.Name = "panSumLoanCard";
+            this.panSumLoanCard.Size = new System.Drawing.Size(178, 102);
+            this.panSumLoanCard.TabIndex = 21;
             // 
             // txtTongPhieuMuon
             // 
@@ -282,24 +282,24 @@
             this.txtTongPhieuMuon.TabIndex = 17;
             this.txtTongPhieuMuon.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label1
+            // lblSumLoanCard
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(3, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 20);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Tổng phiếu mượn";
+            this.lblSumLoanCard.AutoSize = true;
+            this.lblSumLoanCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSumLoanCard.ForeColor = System.Drawing.Color.Black;
+            this.lblSumLoanCard.Location = new System.Drawing.Point(3, 3);
+            this.lblSumLoanCard.Name = "lblSumLoanCard";
+            this.lblSumLoanCard.Size = new System.Drawing.Size(132, 20);
+            this.lblSumLoanCard.TabIndex = 15;
+            this.lblSumLoanCard.Text = "Tổng phiếu mượn";
             // 
-            // panel3
+            // panDataList
             // 
-            this.panel3.Controls.Add(this.dgvDataList);
-            this.panel3.Location = new System.Drawing.Point(12, 238);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(720, 288);
-            this.panel3.TabIndex = 11;
+            this.panDataList.Controls.Add(this.dgvDataList);
+            this.panDataList.Location = new System.Drawing.Point(12, 238);
+            this.panDataList.Name = "panDataList";
+            this.panDataList.Size = new System.Drawing.Size(720, 288);
+            this.panDataList.TabIndex = 11;
             // 
             // dgvDataList
             // 
@@ -342,10 +342,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(742, 538);
             this.ControlBox = false;
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel4);
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panTitle);
+            this.Controls.Add(this.panFunction);
+            this.Controls.Add(this.panStatistic);
+            this.Controls.Add(this.panDataList);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(758, 577);
@@ -354,18 +354,18 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thống kê";
             this.Load += new System.EventHandler(this.frmThongKe_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.panel3.ResumeLayout(false);
+            this.panTitle.ResumeLayout(false);
+            this.panTitle.PerformLayout();
+            this.panFunction.ResumeLayout(false);
+            this.panStatistic.ResumeLayout(false);
+            this.panStatistic.PerformLayout();
+            this.panSumNotIntactBook.ResumeLayout(false);
+            this.panSumNotIntactBook.PerformLayout();
+            this.panSumBookBorrowed.ResumeLayout(false);
+            this.panSumBookBorrowed.PerformLayout();
+            this.panSumLoanCard.ResumeLayout(false);
+            this.panSumLoanCard.PerformLayout();
+            this.panDataList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).EndInit();
             this.ResumeLayout(false);
 
@@ -373,24 +373,24 @@
 
         #endregion
         private System.Windows.Forms.ImageList imgIcon;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panTitle;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panFunction;
+        private System.Windows.Forms.Panel panStatistic;
+        private System.Windows.Forms.Panel panDataList;
+        private System.Windows.Forms.Panel panSumLoanCard;
         private System.Windows.Forms.TextBox txtTongPhieuMuon;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblSumLoanCard;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnDSSachHong;
         private System.Windows.Forms.Button btnDSTDGHH;
-        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panSumNotIntactBook;
         private System.Windows.Forms.TextBox txtTongSachHong;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label lblSumNotIntactBook;
+        private System.Windows.Forms.Panel panSumBookBorrowed;
         private System.Windows.Forms.TextBox txtTongSachMuon;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblSumBookBorrowed;
+        private System.Windows.Forms.Label lblSelect;
         private System.Windows.Forms.ComboBox cboFilter;
         private System.Windows.Forms.DataGridView dgvDataList;
     }

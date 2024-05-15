@@ -63,6 +63,7 @@
             // 
             this.txtPresentPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPresentPassword.Location = new System.Drawing.Point(201, 15);
+            this.txtPresentPassword.MaxLength = 30;
             this.txtPresentPassword.Name = "txtPresentPassword";
             this.txtPresentPassword.PasswordChar = '*';
             this.txtPresentPassword.Size = new System.Drawing.Size(181, 22);
@@ -118,6 +119,7 @@
             // 
             this.txtAgainNewPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAgainNewPassword.Location = new System.Drawing.Point(201, 51);
+            this.txtAgainNewPassword.MaxLength = 30;
             this.txtAgainNewPassword.Name = "txtAgainNewPassword";
             this.txtAgainNewPassword.PasswordChar = '*';
             this.txtAgainNewPassword.Size = new System.Drawing.Size(181, 22);
@@ -127,6 +129,7 @@
             // 
             this.txtNewPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNewPassword.Location = new System.Drawing.Point(201, 12);
+            this.txtNewPassword.MaxLength = 30;
             this.txtNewPassword.Name = "txtNewPassword";
             this.txtNewPassword.PasswordChar = '*';
             this.txtNewPassword.Size = new System.Drawing.Size(181, 22);

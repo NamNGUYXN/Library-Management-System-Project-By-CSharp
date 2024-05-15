@@ -36,33 +36,33 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.imgIcon = new System.Windows.Forms.ImageList(this.components);
-            this.panel7 = new System.Windows.Forms.Panel();
+            this.panFilter = new System.Windows.Forms.Panel();
             this.cboFilterCompleted = new System.Windows.Forms.ComboBox();
             this.chkFilterLate = new System.Windows.Forms.CheckBox();
             this.cboFilterLibrarianId = new System.Windows.Forms.ComboBox();
             this.cboFilterLibraryCardId = new System.Windows.Forms.ComboBox();
             this.cboFilterDate = new System.Windows.Forms.ComboBox();
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblFilterCompleted = new System.Windows.Forms.Label();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblFilterLibrarianId = new System.Windows.Forms.Label();
             this.lblEndDate = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblSelectFilter = new System.Windows.Forms.Label();
+            this.lblFilterLibraryCardId = new System.Windows.Forms.Label();
+            this.lblSelectDate = new System.Windows.Forms.Label();
             this.lblStartDate = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panTitle = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panFunction = new System.Windows.Forms.Panel();
             this.btnReturn = new System.Windows.Forms.Button();
             this.btnBorrow = new System.Windows.Forms.Button();
             this.btnExtend = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnFilter = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.panEnterInfo = new System.Windows.Forms.Panel();
+            this.lblSelected = new System.Windows.Forms.Label();
+            this.lblSearchBook = new System.Windows.Forms.Label();
+            this.lblSelectBook = new System.Windows.Forms.Label();
             this.txtSearchBook = new System.Windows.Forms.TextBox();
             this.lstBooks = new System.Windows.Forms.ListView();
             this.clbBooks = new System.Windows.Forms.CheckedListBox();
@@ -71,7 +71,7 @@
             this.txtLoanCardId = new System.Windows.Forms.TextBox();
             this.lblLibrarianId = new System.Windows.Forms.Label();
             this.lblLoanCardId = new System.Windows.Forms.Label();
-            this.lblReaderId = new System.Windows.Forms.Label();
+            this.lblLibraryCardId = new System.Windows.Forms.Label();
             this.dtpDueDate = new System.Windows.Forms.DateTimePicker();
             this.lblDueDate = new System.Windows.Forms.Label();
             this.txtNote = new System.Windows.Forms.TextBox();
@@ -81,7 +81,7 @@
             this.lblReaderName = new System.Windows.Forms.Label();
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.lblPhone = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panDataList = new System.Windows.Forms.Panel();
             this.dgvDataList = new System.Windows.Forms.DataGridView();
             this.MaPhieu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaTDG = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -91,13 +91,13 @@
             this.NgayTra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DaTra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.panSearch = new System.Windows.Forms.Panel();
             this.txtSearch = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.panQuantity = new System.Windows.Forms.Panel();
             this.lblQuantity = new System.Windows.Forms.Label();
             this.txtQuantity = new System.Windows.Forms.TextBox();
-            this.panel8 = new System.Windows.Forms.Panel();
+            this.panInfo = new System.Windows.Forms.Panel();
             this.grpInfoBook = new System.Windows.Forms.GroupBox();
             this.txtBookName = new System.Windows.Forms.TextBox();
             this.txtCategory = new System.Windows.Forms.TextBox();
@@ -105,16 +105,16 @@
             this.lblCategoryName = new System.Windows.Forms.Label();
             this.lblAuthor = new System.Windows.Forms.Label();
             this.txtAuthor = new System.Windows.Forms.TextBox();
-            this.panel7.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.panFilter.SuspendLayout();
+            this.panTitle.SuspendLayout();
+            this.panFunction.SuspendLayout();
+            this.panEnterInfo.SuspendLayout();
             this.grpInfoReader.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.panDataList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).BeginInit();
-            this.panel5.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.panel8.SuspendLayout();
+            this.panSearch.SuspendLayout();
+            this.panQuantity.SuspendLayout();
+            this.panInfo.SuspendLayout();
             this.grpInfoBook.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,27 +130,27 @@
             this.imgIcon.Images.SetKeyName(5, "return-book-icon.png");
             this.imgIcon.Images.SetKeyName(6, "note-icon.png");
             // 
-            // panel7
+            // panFilter
             // 
-            this.panel7.BackColor = System.Drawing.Color.Teal;
-            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.cboFilterCompleted);
-            this.panel7.Controls.Add(this.chkFilterLate);
-            this.panel7.Controls.Add(this.cboFilterLibrarianId);
-            this.panel7.Controls.Add(this.cboFilterLibraryCardId);
-            this.panel7.Controls.Add(this.cboFilterDate);
-            this.panel7.Controls.Add(this.dtpEndDate);
-            this.panel7.Controls.Add(this.label7);
-            this.panel7.Controls.Add(this.dtpStartDate);
-            this.panel7.Controls.Add(this.label6);
-            this.panel7.Controls.Add(this.lblEndDate);
-            this.panel7.Controls.Add(this.label5);
-            this.panel7.Controls.Add(this.lblSelectFilter);
-            this.panel7.Controls.Add(this.lblStartDate);
-            this.panel7.Location = new System.Drawing.Point(12, 153);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(510, 98);
-            this.panel7.TabIndex = 20;
+            this.panFilter.BackColor = System.Drawing.Color.Teal;
+            this.panFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panFilter.Controls.Add(this.cboFilterCompleted);
+            this.panFilter.Controls.Add(this.chkFilterLate);
+            this.panFilter.Controls.Add(this.cboFilterLibrarianId);
+            this.panFilter.Controls.Add(this.cboFilterLibraryCardId);
+            this.panFilter.Controls.Add(this.cboFilterDate);
+            this.panFilter.Controls.Add(this.dtpEndDate);
+            this.panFilter.Controls.Add(this.lblFilterCompleted);
+            this.panFilter.Controls.Add(this.dtpStartDate);
+            this.panFilter.Controls.Add(this.lblFilterLibrarianId);
+            this.panFilter.Controls.Add(this.lblEndDate);
+            this.panFilter.Controls.Add(this.lblFilterLibraryCardId);
+            this.panFilter.Controls.Add(this.lblSelectDate);
+            this.panFilter.Controls.Add(this.lblStartDate);
+            this.panFilter.Location = new System.Drawing.Point(12, 153);
+            this.panFilter.Name = "panFilter";
+            this.panFilter.Size = new System.Drawing.Size(510, 98);
+            this.panFilter.TabIndex = 20;
             // 
             // cboFilterCompleted
             // 
@@ -213,16 +213,16 @@
             this.dtpEndDate.TabIndex = 5;
             this.dtpEndDate.ValueChanged += new System.EventHandler(this.dtpEndDate_ValueChanged);
             // 
-            // label7
+            // lblFilterCompleted
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(253, 54);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 16);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Đã trả";
+            this.lblFilterCompleted.AutoSize = true;
+            this.lblFilterCompleted.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilterCompleted.ForeColor = System.Drawing.Color.White;
+            this.lblFilterCompleted.Location = new System.Drawing.Point(253, 54);
+            this.lblFilterCompleted.Name = "lblFilterCompleted";
+            this.lblFilterCompleted.Size = new System.Drawing.Size(48, 16);
+            this.lblFilterCompleted.TabIndex = 4;
+            this.lblFilterCompleted.Text = "Đã trả";
             // 
             // dtpStartDate
             // 
@@ -234,16 +234,16 @@
             this.dtpStartDate.TabIndex = 6;
             this.dtpStartDate.ValueChanged += new System.EventHandler(this.dtpStartDate_ValueChanged);
             // 
-            // label6
+            // lblFilterLibrarianId
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(381, 8);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 16);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Mã TK";
+            this.lblFilterLibrarianId.AutoSize = true;
+            this.lblFilterLibrarianId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilterLibrarianId.ForeColor = System.Drawing.Color.White;
+            this.lblFilterLibrarianId.Location = new System.Drawing.Point(381, 8);
+            this.lblFilterLibrarianId.Name = "lblFilterLibrarianId";
+            this.lblFilterLibrarianId.Size = new System.Drawing.Size(51, 16);
+            this.lblFilterLibrarianId.TabIndex = 4;
+            this.lblFilterLibrarianId.Text = "Mã TK";
             // 
             // lblEndDate
             // 
@@ -256,27 +256,27 @@
             this.lblEndDate.TabIndex = 3;
             this.lblEndDate.Text = "Đến ngày";
             // 
-            // label5
+            // lblFilterLibraryCardId
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(253, 7);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(78, 16);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Mã thẻ ĐG";
+            this.lblFilterLibraryCardId.AutoSize = true;
+            this.lblFilterLibraryCardId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilterLibraryCardId.ForeColor = System.Drawing.Color.White;
+            this.lblFilterLibraryCardId.Location = new System.Drawing.Point(253, 7);
+            this.lblFilterLibraryCardId.Name = "lblFilterLibraryCardId";
+            this.lblFilterLibraryCardId.Size = new System.Drawing.Size(78, 16);
+            this.lblFilterLibraryCardId.TabIndex = 4;
+            this.lblFilterLibraryCardId.Text = "Mã thẻ ĐG";
             // 
-            // lblSelectFilter
+            // lblSelectDate
             // 
-            this.lblSelectFilter.AutoSize = true;
-            this.lblSelectFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSelectFilter.ForeColor = System.Drawing.Color.White;
-            this.lblSelectFilter.Location = new System.Drawing.Point(55, 7);
-            this.lblSelectFilter.Name = "lblSelectFilter";
-            this.lblSelectFilter.Size = new System.Drawing.Size(105, 16);
-            this.lblSelectFilter.TabIndex = 4;
-            this.lblSelectFilter.Text = "Chọn ngày lọc";
+            this.lblSelectDate.AutoSize = true;
+            this.lblSelectDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelectDate.ForeColor = System.Drawing.Color.White;
+            this.lblSelectDate.Location = new System.Drawing.Point(55, 7);
+            this.lblSelectDate.Name = "lblSelectDate";
+            this.lblSelectDate.Size = new System.Drawing.Size(105, 16);
+            this.lblSelectDate.TabIndex = 4;
+            this.lblSelectDate.Text = "Chọn ngày lọc";
             // 
             // lblStartDate
             // 
@@ -289,15 +289,15 @@
             this.lblStartDate.TabIndex = 4;
             this.lblStartDate.Text = "Từ ngày";
             // 
-            // panel1
+            // panTitle
             // 
-            this.panel1.BackColor = System.Drawing.Color.Teal;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(997, 44);
-            this.panel1.TabIndex = 15;
+            this.panTitle.BackColor = System.Drawing.Color.Teal;
+            this.panTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panTitle.Controls.Add(this.lblTitle);
+            this.panTitle.Location = new System.Drawing.Point(12, 12);
+            this.panTitle.Name = "panTitle";
+            this.panTitle.Size = new System.Drawing.Size(997, 44);
+            this.panTitle.TabIndex = 15;
             // 
             // lblTitle
             // 
@@ -310,20 +310,20 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "QUẢN LÝ THÔNG TIN PHIẾU MƯỢN TRẢ";
             // 
-            // panel2
+            // panFunction
             // 
-            this.panel2.BackColor = System.Drawing.Color.Teal;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.btnReturn);
-            this.panel2.Controls.Add(this.btnBorrow);
-            this.panel2.Controls.Add(this.btnExtend);
-            this.panel2.Controls.Add(this.btnReset);
-            this.panel2.Controls.Add(this.btnFilter);
-            this.panel2.Controls.Add(this.btnBack);
-            this.panel2.Location = new System.Drawing.Point(13, 62);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(665, 85);
-            this.panel2.TabIndex = 16;
+            this.panFunction.BackColor = System.Drawing.Color.Teal;
+            this.panFunction.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panFunction.Controls.Add(this.btnReturn);
+            this.panFunction.Controls.Add(this.btnBorrow);
+            this.panFunction.Controls.Add(this.btnExtend);
+            this.panFunction.Controls.Add(this.btnReset);
+            this.panFunction.Controls.Add(this.btnFilter);
+            this.panFunction.Controls.Add(this.btnBack);
+            this.panFunction.Location = new System.Drawing.Point(13, 62);
+            this.panFunction.Name = "panFunction";
+            this.panFunction.Size = new System.Drawing.Size(665, 85);
+            this.panFunction.TabIndex = 16;
             // 
             // btnReturn
             // 
@@ -409,62 +409,62 @@
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
-            // panel4
+            // panEnterInfo
             // 
-            this.panel4.BackColor = System.Drawing.Color.Teal;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.label2);
-            this.panel4.Controls.Add(this.label3);
-            this.panel4.Controls.Add(this.label1);
-            this.panel4.Controls.Add(this.txtSearchBook);
-            this.panel4.Controls.Add(this.lstBooks);
-            this.panel4.Controls.Add(this.clbBooks);
-            this.panel4.Controls.Add(this.cboLibraryCardId);
-            this.panel4.Controls.Add(this.txtLibrarianId);
-            this.panel4.Controls.Add(this.txtLoanCardId);
-            this.panel4.Controls.Add(this.lblLibrarianId);
-            this.panel4.Controls.Add(this.lblLoanCardId);
-            this.panel4.Controls.Add(this.lblReaderId);
-            this.panel4.Controls.Add(this.dtpDueDate);
-            this.panel4.Controls.Add(this.lblDueDate);
-            this.panel4.Controls.Add(this.txtNote);
-            this.panel4.Controls.Add(this.lblNote);
-            this.panel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel4.ForeColor = System.Drawing.Color.White;
-            this.panel4.Location = new System.Drawing.Point(683, 269);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(326, 325);
-            this.panel4.TabIndex = 17;
+            this.panEnterInfo.BackColor = System.Drawing.Color.Teal;
+            this.panEnterInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panEnterInfo.Controls.Add(this.lblSelected);
+            this.panEnterInfo.Controls.Add(this.lblSearchBook);
+            this.panEnterInfo.Controls.Add(this.lblSelectBook);
+            this.panEnterInfo.Controls.Add(this.txtSearchBook);
+            this.panEnterInfo.Controls.Add(this.lstBooks);
+            this.panEnterInfo.Controls.Add(this.clbBooks);
+            this.panEnterInfo.Controls.Add(this.cboLibraryCardId);
+            this.panEnterInfo.Controls.Add(this.txtLibrarianId);
+            this.panEnterInfo.Controls.Add(this.txtLoanCardId);
+            this.panEnterInfo.Controls.Add(this.lblLibrarianId);
+            this.panEnterInfo.Controls.Add(this.lblLoanCardId);
+            this.panEnterInfo.Controls.Add(this.lblLibraryCardId);
+            this.panEnterInfo.Controls.Add(this.dtpDueDate);
+            this.panEnterInfo.Controls.Add(this.lblDueDate);
+            this.panEnterInfo.Controls.Add(this.txtNote);
+            this.panEnterInfo.Controls.Add(this.lblNote);
+            this.panEnterInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panEnterInfo.ForeColor = System.Drawing.Color.White;
+            this.panEnterInfo.Location = new System.Drawing.Point(683, 269);
+            this.panEnterInfo.Name = "panEnterInfo";
+            this.panEnterInfo.Size = new System.Drawing.Size(326, 325);
+            this.panEnterInfo.TabIndex = 17;
             // 
-            // label2
+            // lblSelected
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(203, 137);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 16);
-            this.label2.TabIndex = 41;
-            this.label2.Text = "Đã chọn";
+            this.lblSelected.AutoSize = true;
+            this.lblSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelected.Location = new System.Drawing.Point(203, 137);
+            this.lblSelected.Name = "lblSelected";
+            this.lblSelected.Size = new System.Drawing.Size(63, 16);
+            this.lblSelected.TabIndex = 41;
+            this.lblSelected.Text = "Đã chọn";
             // 
-            // label3
+            // lblSearchBook
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(0, 113);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(95, 16);
-            this.label3.TabIndex = 41;
-            this.label3.Text = "Tìm mã sách";
+            this.lblSearchBook.AutoSize = true;
+            this.lblSearchBook.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSearchBook.Location = new System.Drawing.Point(0, 113);
+            this.lblSearchBook.Name = "lblSearchBook";
+            this.lblSearchBook.Size = new System.Drawing.Size(95, 16);
+            this.lblSearchBook.TabIndex = 41;
+            this.lblSearchBook.Text = "Tìm mã sách";
             // 
-            // label1
+            // lblSelectBook
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(94, 137);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 16);
-            this.label1.TabIndex = 41;
-            this.label1.Text = "Chọn sách";
+            this.lblSelectBook.AutoSize = true;
+            this.lblSelectBook.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelectBook.Location = new System.Drawing.Point(94, 137);
+            this.lblSelectBook.Name = "lblSelectBook";
+            this.lblSelectBook.Size = new System.Drawing.Size(79, 16);
+            this.lblSelectBook.TabIndex = 41;
+            this.lblSelectBook.Text = "Chọn sách";
             // 
             // txtSearchBook
             // 
@@ -546,16 +546,16 @@
             this.lblLoanCardId.TabIndex = 29;
             this.lblLoanCardId.Text = "Mã phiếu";
             // 
-            // lblReaderId
+            // lblLibraryCardId
             // 
-            this.lblReaderId.AutoSize = true;
-            this.lblReaderId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblReaderId.ForeColor = System.Drawing.Color.White;
-            this.lblReaderId.Location = new System.Drawing.Point(17, 40);
-            this.lblReaderId.Name = "lblReaderId";
-            this.lblReaderId.Size = new System.Drawing.Size(78, 16);
-            this.lblReaderId.TabIndex = 31;
-            this.lblReaderId.Text = "Mã thẻ ĐG";
+            this.lblLibraryCardId.AutoSize = true;
+            this.lblLibraryCardId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLibraryCardId.ForeColor = System.Drawing.Color.White;
+            this.lblLibraryCardId.Location = new System.Drawing.Point(17, 40);
+            this.lblLibraryCardId.Name = "lblLibraryCardId";
+            this.lblLibraryCardId.Size = new System.Drawing.Size(78, 16);
+            this.lblLibraryCardId.TabIndex = 31;
+            this.lblLibraryCardId.Text = "Mã thẻ ĐG";
             // 
             // dtpDueDate
             // 
@@ -581,6 +581,7 @@
             // txtNote
             // 
             this.txtNote.Location = new System.Drawing.Point(97, 292);
+            this.txtNote.MaxLength = 30;
             this.txtNote.Name = "txtNote";
             this.txtNote.Size = new System.Drawing.Size(202, 22);
             this.txtNote.TabIndex = 25;
@@ -653,13 +654,13 @@
             this.lblPhone.TabIndex = 0;
             this.lblPhone.Text = "SĐT";
             // 
-            // panel3
+            // panDataList
             // 
-            this.panel3.Controls.Add(this.dgvDataList);
-            this.panel3.Location = new System.Drawing.Point(13, 257);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(665, 337);
-            this.panel3.TabIndex = 18;
+            this.panDataList.Controls.Add(this.dgvDataList);
+            this.panDataList.Location = new System.Drawing.Point(13, 257);
+            this.panDataList.Name = "panDataList";
+            this.panDataList.Size = new System.Drawing.Size(665, 337);
+            this.panDataList.TabIndex = 18;
             // 
             // dgvDataList
             // 
@@ -775,15 +776,15 @@
             this.GhiChu.Name = "GhiChu";
             this.GhiChu.ReadOnly = true;
             // 
-            // panel5
+            // panSearch
             // 
-            this.panel5.BackColor = System.Drawing.Color.Teal;
-            this.panel5.Controls.Add(this.txtSearch);
-            this.panel5.Controls.Add(this.label4);
-            this.panel5.Location = new System.Drawing.Point(528, 196);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(149, 55);
-            this.panel5.TabIndex = 20;
+            this.panSearch.BackColor = System.Drawing.Color.Teal;
+            this.panSearch.Controls.Add(this.txtSearch);
+            this.panSearch.Controls.Add(this.lblSearch);
+            this.panSearch.Location = new System.Drawing.Point(528, 196);
+            this.panSearch.Name = "panSearch";
+            this.panSearch.Size = new System.Drawing.Size(149, 55);
+            this.panSearch.TabIndex = 20;
             // 
             // txtSearch
             // 
@@ -793,27 +794,27 @@
             this.txtSearch.TabIndex = 1;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
-            // label4
+            // lblSearch
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(24, 5);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 16);
-            this.label4.TabIndex = 29;
-            this.label4.Text = "Tìm mã phiếu";
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSearch.ForeColor = System.Drawing.Color.White;
+            this.lblSearch.Location = new System.Drawing.Point(24, 5);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(100, 16);
+            this.lblSearch.TabIndex = 29;
+            this.lblSearch.Text = "Tìm mã phiếu";
             // 
-            // panel6
+            // panQuantity
             // 
-            this.panel6.BackColor = System.Drawing.Color.Teal;
-            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.lblQuantity);
-            this.panel6.Controls.Add(this.txtQuantity);
-            this.panel6.Location = new System.Drawing.Point(528, 153);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(149, 37);
-            this.panel6.TabIndex = 19;
+            this.panQuantity.BackColor = System.Drawing.Color.Teal;
+            this.panQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panQuantity.Controls.Add(this.lblQuantity);
+            this.panQuantity.Controls.Add(this.txtQuantity);
+            this.panQuantity.Location = new System.Drawing.Point(528, 153);
+            this.panQuantity.Name = "panQuantity";
+            this.panQuantity.Size = new System.Drawing.Size(149, 37);
+            this.panQuantity.TabIndex = 19;
             // 
             // lblQuantity
             // 
@@ -834,18 +835,18 @@
             this.txtQuantity.Size = new System.Drawing.Size(63, 20);
             this.txtQuantity.TabIndex = 1;
             // 
-            // panel8
+            // panInfo
             // 
-            this.panel8.BackColor = System.Drawing.Color.Teal;
-            this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel8.Controls.Add(this.grpInfoBook);
-            this.panel8.Controls.Add(this.grpInfoReader);
-            this.panel8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel8.ForeColor = System.Drawing.Color.White;
-            this.panel8.Location = new System.Drawing.Point(683, 62);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(326, 201);
-            this.panel8.TabIndex = 21;
+            this.panInfo.BackColor = System.Drawing.Color.Teal;
+            this.panInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panInfo.Controls.Add(this.grpInfoBook);
+            this.panInfo.Controls.Add(this.grpInfoReader);
+            this.panInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panInfo.ForeColor = System.Drawing.Color.White;
+            this.panInfo.Location = new System.Drawing.Point(683, 62);
+            this.panInfo.Name = "panInfo";
+            this.panInfo.Size = new System.Drawing.Size(326, 201);
+            this.panInfo.TabIndex = 21;
             // 
             // grpInfoBook
             // 
@@ -935,14 +936,14 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(1022, 606);
             this.ControlBox = false;
-            this.Controls.Add(this.panel8);
-            this.Controls.Add(this.panel7);
-            this.Controls.Add(this.panel5);
-            this.Controls.Add(this.panel6);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel4);
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panInfo);
+            this.Controls.Add(this.panFilter);
+            this.Controls.Add(this.panSearch);
+            this.Controls.Add(this.panQuantity);
+            this.Controls.Add(this.panTitle);
+            this.Controls.Add(this.panFunction);
+            this.Controls.Add(this.panEnterInfo);
+            this.Controls.Add(this.panDataList);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
@@ -952,22 +953,22 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý phiếu mượn trả";
             this.Load += new System.EventHandler(this.frmPhieuMuonTra_Load);
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.panFilter.ResumeLayout(false);
+            this.panFilter.PerformLayout();
+            this.panTitle.ResumeLayout(false);
+            this.panTitle.PerformLayout();
+            this.panFunction.ResumeLayout(false);
+            this.panEnterInfo.ResumeLayout(false);
+            this.panEnterInfo.PerformLayout();
             this.grpInfoReader.ResumeLayout(false);
             this.grpInfoReader.PerformLayout();
-            this.panel3.ResumeLayout(false);
+            this.panDataList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).EndInit();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            this.panel8.ResumeLayout(false);
+            this.panSearch.ResumeLayout(false);
+            this.panSearch.PerformLayout();
+            this.panQuantity.ResumeLayout(false);
+            this.panQuantity.PerformLayout();
+            this.panInfo.ResumeLayout(false);
             this.grpInfoBook.ResumeLayout(false);
             this.grpInfoBook.PerformLayout();
             this.ResumeLayout(false);
@@ -976,34 +977,34 @@
 
         #endregion
         private System.Windows.Forms.ImageList imgIcon;
-        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panFilter;
         private System.Windows.Forms.DateTimePicker dtpStartDate;
         private System.Windows.Forms.Label lblStartDate;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panTitle;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panFunction;
         private System.Windows.Forms.Button btnBorrow;
         private System.Windows.Forms.Button btnExtend;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panEnterInfo;
         private System.Windows.Forms.GroupBox grpInfoReader;
         private System.Windows.Forms.TextBox txtReaderName;
         private System.Windows.Forms.Label lblReaderName;
         private System.Windows.Forms.TextBox txtPhone;
         private System.Windows.Forms.Label lblPhone;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panDataList;
         private System.Windows.Forms.ComboBox cboFilterDate;
-        private System.Windows.Forms.Label lblSelectFilter;
+        private System.Windows.Forms.Label lblSelectDate;
         private System.Windows.Forms.Button btnReturn;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panSearch;
         private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panQuantity;
         private System.Windows.Forms.Label lblQuantity;
         private System.Windows.Forms.TextBox txtQuantity;
         private System.Windows.Forms.DateTimePicker dtpEndDate;
         private System.Windows.Forms.Label lblEndDate;
-        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panInfo;
         private System.Windows.Forms.GroupBox grpInfoBook;
         private System.Windows.Forms.TextBox txtCategory;
         private System.Windows.Forms.Label lblCategoryName;
@@ -1015,7 +1016,7 @@
         private System.Windows.Forms.TextBox txtLoanCardId;
         private System.Windows.Forms.Label lblLibrarianId;
         private System.Windows.Forms.Label lblLoanCardId;
-        private System.Windows.Forms.Label lblReaderId;
+        private System.Windows.Forms.Label lblLibraryCardId;
         private System.Windows.Forms.DateTimePicker dtpDueDate;
         private System.Windows.Forms.Label lblDueDate;
         private System.Windows.Forms.TextBox txtNote;
@@ -1025,17 +1026,17 @@
         private System.Windows.Forms.CheckedListBox clbBooks;
         private System.Windows.Forms.TextBox txtSearchBook;
         private System.Windows.Forms.ListView lstBooks;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblSelected;
+        private System.Windows.Forms.Label lblSearchBook;
+        private System.Windows.Forms.Label lblSelectBook;
         private System.Windows.Forms.ComboBox cboFilterLibraryCardId;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.CheckBox chkFilterLate;
         private System.Windows.Forms.ComboBox cboFilterLibrarianId;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblFilterLibrarianId;
+        private System.Windows.Forms.Label lblFilterLibraryCardId;
         private System.Windows.Forms.ComboBox cboFilterCompleted;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblFilterCompleted;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaPhieu;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaTDG;
