@@ -196,28 +196,28 @@ INSERT INTO Sach VALUES ('S001', N'Dế mèn phiêu lưu ký', 'TL001', 'TG001',
 
 
 --Thêm dữ liệu cho bảng tài khoản
-INSERT INTO TaiKhoan VALUES ('TK001', N'Lê Thị Át Min', '1989/05/10', N'Nữ', '0123456789', '123456', 1, 1),
+INSERT INTO TaiKhoan VALUES ('TK001', N'Lê Thị Thúy', '1989/05/10', N'Nữ', '0123456789', '123456', 1, 1),
 							('TK002', N'Nguyễn Phương Nam', '2004/01/01', N'Nam', '0909010233', '123456', 0, 1),
 							('TK003', N'Thái Phi Tuấn', '2004/02/02', N'Nam', '0123987412', '123456', 0, 1),
 							('TK004', N'Trần Hồng Nhung', '2003/06/22', N'Nữ', '0908772231', 'nhung2206', 0, 1),
 							('TK005', N'Đoàn Khánh Vân', '2000/12/18', N'Nữ', '0192113351', 'vanne123', 0, 1)
 
 --Thêm dữ liệu cho bảng thẻ độc giả
-INSERT INTO TheDocGia VALUES ('TDG001', N'Trần Văn Vàng', N'Nam', N'TP Đà Lạt, tỉnh Lâm Đồng', 
+INSERT INTO TheDocGia VALUES ('TDG001', N'Trần Văn Vàng', N'Nam', N'TP Đà Lạt, tỉnh Lâm Đồng',
 							  '0112345678', '012321546722', '2024/01/12', '2024/07/10', 1),
 							 ('TDG002', N'Nguyễn Bạch Kim', N'Nữ', N'TP Cần Thơ', 
 							  '0122345678', '019235215443', '2023/07/26', '2024/01/22', 1),
 							 ('TDG003', N'Phạm Tinh Anh', N'Nữ', N'Quận 12, TP Hồ Chí Minh', 
 							  '0123345678', '029144325819', '2024/02/05', '2024/08/03', 1),
 							 ('TDG004', N'Võ Chí Tôn', N'Nam', N'Rạch Giá, Kiên Giang', 
-							  '0123445678', '028195743283', '2023/11/07', '2024/05/05', 1),
+							  '0123445678', '028195743283', '2023/11/16', '2024/05/14', 1),
 							 ('TDG005', N'Lê Kim Cương', N'Nam', N'Quận Bình Thạnh, TP Hồ Chí Minh', 
 							  '0123455678', '029314552216', '2024/03/29', '2024/09/25', 1),
 							 ('TDG006', N'Trần Minh Hoàng', N'Nam', N'Quận Tân Bình, TP Hồ Chí Minh', 
 							  '0123456678', '091123581239', '2024/04/04', '2024/10/01', 1),
 							 ('TDG007', N'Nguyễn Kim Anh', N'Nữ', N'tỉnh Long An', 
 							  '0123456778', '099091238283', '2024/04/20', '2024/10/17', 1)
-
+							 
 --Thêm dữ liệu cho bảng phiếu mượn trả
 INSERT INTO PhieuMuonTra VALUES ('P001', 'TDG002', 'TK003', '2023/12/04', '2023/12/25', null, 0, null),
 								('P002', 'TDG002', 'TK001', '2023/12/10', '2023/12/31', null, 0, null),
@@ -226,7 +226,7 @@ INSERT INTO PhieuMuonTra VALUES ('P001', 'TDG002', 'TK003', '2023/12/04', '2023/
 								('P005', 'TDG005', 'TK003', '2024/03/11', '2024/04/01', null, 0, null),
 								('P006', 'TDG001', 'TK001', '2024/04/12', '2024/05/03', '2024/04/26', 1, null),
 								('P007', 'TDG001', 'TK001', '2024/04/13', '2024/05/04', null, 0, null),
-								('P008', 'TDG003', 'TK002', '2024/04/15', '2024/05/06', '2024/05/09', 0, null),
+								('P008', 'TDG003', 'TK002', '2024/04/15', '2024/05/06', '2024/05/09', 1, null),
 								('P009', 'TDG007', 'TK004', '2024/04/22', '2024/05/13', null, 0, null),
 								('P010', 'TDG006', 'TK004', '2024/05/05', '2024/05/26', null, 0, null),
 								('P011', 'TDG006', 'TK005', '2024/05/08', '2024/05/29', null, 0, null)

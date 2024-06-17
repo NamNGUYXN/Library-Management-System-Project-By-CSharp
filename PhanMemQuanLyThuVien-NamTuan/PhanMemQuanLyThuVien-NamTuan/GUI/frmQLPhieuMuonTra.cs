@@ -415,6 +415,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             DisplayDueDate();
 
             txtSearchBook.Text = "";
+            cboLibraryCardId.Text = "";
             txtNote.Text = "";
             dtpStartDate.Value = dtpEndDate.Value = DateTime.Now;
         }
@@ -434,18 +435,15 @@ namespace PhanMemQuanLyThuVien_NamTuan
 
         private void cboFilterDate_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboFilterDate.SelectedIndex != -1)
+            if (cboFilterDate.SelectedIndex == 0)
             {
-                if (cboFilterDate.SelectedIndex == 0)
-                {
-                    dtpStartDate.Enabled = false;
-                    dtpEndDate.Enabled = false;
-                }
-                else
-                {
-                    dtpStartDate.Enabled = true;
-                    dtpEndDate.Enabled = true;
-                }
+                dtpStartDate.Enabled = false;
+                dtpEndDate.Enabled = false;
+            }
+            else
+            {
+                dtpStartDate.Enabled = true;
+                dtpEndDate.Enabled = true;
             }
         }
 
@@ -543,12 +541,6 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 {
                     ThongBao += (ThongBao != "") ? "\n" : "";
                     ThongBao += "Vui lòng chọn sách!";
-                }
-
-                if (!Regex.IsMatch(GhiChu, @"^\p{L}[\p{L}\s]+$"))
-                {
-                    ThongBao += (ThongBao != "") ? "\n" : "";
-                    ThongBao += "Ghi chú không hợp lệ!";
                 }
 
                 string query = "SELECT COUNT(MaSach) FROM PhieuMuonTra p INNER JOIN CTPhieuMuonTra ct";

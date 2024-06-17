@@ -181,15 +181,12 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void txtPhone_TextChanged(object sender, EventArgs e)
         {
             string SDT = txtPhone.Text;
-            // Kiểm tra số điện thoại đã tồn tại
-            string query = $"SELECT SDT FROM NhaXuatBan WHERE TrangThai = 1 AND SDT = '{SDT}'";
-            query += $" AND MaNXB <> '{txtPublisherId.Text}'";
-            int ExistPhone = NhaXuatBanBUS.GetData(query).Rows.Count;
+            bool ExistPhone = NhaXuatBanBUS.ExistPhone(txtPublisherId.Text, SDT);
             if (SDT == "")
                 lblCheckPhone.Text = "Vui lòng nhập SĐT!";
-            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0+\d"))
+            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0\d+$"))
                 lblCheckPhone.Text = "SĐT không hợp lệ!";
-            else if (ExistPhone > 0)
+            else if (ExistPhone)
                 lblCheckPhone.Text = "SĐT đã tồn tại!";
             else
                 lblCheckPhone.Text = "";
@@ -221,20 +218,18 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 ThongBao += "Địa chỉ không hợp lệ!";
             } 
 
-            string query = $"SELECT SDT FROM NhaXuatBan WHERE TrangThai = 1 AND SDT = '{SDT}'";
-            query += $" AND MaNXB <> '{txtPublisherId.Text}'";
-            int ExistPhone = NhaXuatBanBUS.GetData(query).Rows.Count;
+            bool ExistPhone = NhaXuatBanBUS.ExistPhone(MaNXB, SDT);
             if (SDT == "")
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Vui lòng nhập SĐT!";
             }
-            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0+\d"))
+            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0\d+$"))
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "SĐT không hợp lệ!";
             }
-            else if (ExistPhone > 0)
+            else if (ExistPhone)
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "SĐT đã tồn tại!";
@@ -302,13 +297,11 @@ namespace PhanMemQuanLyThuVien_NamTuan
                     ParameterCSDL[] pArray = { pMaNXB, pTenNXB, pDiaChi, pSDT };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                     LstParams.AddRange(pArray);
-                    // Kiểm tra xem nội dung sửa có khác ban đầu ko
-                    string query = $"SELECT * FROM NhaXuatBan WHERE MaNXB = '{MaNXB}' AND TenNXB = N'{TenNXB}'";
-                    query += $" AND DiaChi = N'{DiaChi}' AND SDT = '{SDT}'";
 
-                    int NotChangeData = NhaXuatBanBUS.GetData(query).Rows.Count;
+                    // Kiểm tra xem nội dung sửa có khác ban đầu ko
+                    bool NotChangeData = NhaXuatBanBUS.CheckNotChange(MaNXB, TenNXB, DiaChi, SDT);
                     // Khi nội dung sửa khác ban đầu thì cập nhật lại
-                    if (NotChangeData == 0)
+                    if (NotChangeData)
                     {
                         int RowsAffected = NhaXuatBanBUS.UpdateData(LstParams);
 

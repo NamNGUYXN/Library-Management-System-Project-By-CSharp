@@ -238,9 +238,13 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void cboCategory_TextChanged(object sender, EventArgs e)
         {
             string TheLoai = cboCategory.Text;
+            string query = $"SELECT MaTL FROM TheLoai WHERE TrangThai = 1 AND TenTL = N'{TheLoai}'";
+            int ExistCategory = TheLoaiBUS.GetData(query).Rows.Count;
             if (TheLoai == "")
                 lblCheckCategory.Text = "Vui lòng chọn thể loại!";
-            else 
+            else if (ExistCategory == 0)
+                lblCheckCategory.Text = "Thể loại không hợp lệ!";
+            else
                 lblCheckCategory.Text = "";
         }
 
@@ -248,9 +252,13 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void cboAuthor_TextChanged(object sender, EventArgs e)
         {
             string TacGia = cboAuthor.Text;
+            string query = $"SELECT MaTG FROM TacGia WHERE TrangThai = 1 AND HoTenTG = N'{TacGia}'";
+            int ExistAuthor = TacGiaBUS.GetData(query).Rows.Count;
             if (TacGia == "")
                 lblCheckAuthor.Text = "Vui lòng chọn tác giả!";
-            else 
+            else if (ExistAuthor == 0)
+                lblCheckAuthor.Text = "Tác giả không tồn tại!";
+            else
                 lblCheckAuthor.Text = "";
         }
 
@@ -258,9 +266,13 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void cboPublisher_TextChanged(object sender, EventArgs e)
         {
             string NXB = cboPublisher.Text;
+            string query = $"SELECT MaNXB FROM NhaXuatBan WHERE TrangThai = 1 AND TenNXB = N'{NXB}'";
+            int ExistPublisher = NhaXuatBanBUS.GetData(query).Rows.Count;
             if (NXB == "")
                 lblCheckPublisher.Text = "Vui lòng chọn nhà xuất bản!";
-            else 
+            else if (ExistPublisher == 0)
+                lblCheckPublisher.Text = "Nhà xuất bản không tồn tại!";
+            else
                 lblCheckPublisher.Text = "";
         }
 

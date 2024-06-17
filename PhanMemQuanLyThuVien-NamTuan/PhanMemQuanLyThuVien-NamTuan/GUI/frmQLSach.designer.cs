@@ -233,9 +233,19 @@
             0,
             0,
             0});
+            this.nudInStock.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudInStock.Name = "nudInStock";
             this.nudInStock.Size = new System.Drawing.Size(207, 22);
             this.nudInStock.TabIndex = 6;
+            this.nudInStock.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // lblCheckPublisher
             // 

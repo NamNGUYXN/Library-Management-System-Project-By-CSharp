@@ -62,7 +62,7 @@
             this.radPhone = new System.Windows.Forms.RadioButton();
             this.radIdCard = new System.Windows.Forms.RadioButton();
             this.radReaderName = new System.Windows.Forms.RadioButton();
-            this.radReaderId = new System.Windows.Forms.RadioButton();
+            this.radLibraryCardId = new System.Windows.Forms.RadioButton();
             this.btnExtend = new System.Windows.Forms.Button();
             this.panDataList = new System.Windows.Forms.Panel();
             this.dgvDataList = new System.Windows.Forms.DataGridView();
@@ -357,7 +357,7 @@
             this.panSearch.Controls.Add(this.radPhone);
             this.panSearch.Controls.Add(this.radIdCard);
             this.panSearch.Controls.Add(this.radReaderName);
-            this.panSearch.Controls.Add(this.radReaderId);
+            this.panSearch.Controls.Add(this.radLibraryCardId);
             this.panSearch.Location = new System.Drawing.Point(12, 153);
             this.panSearch.Name = "panSearch";
             this.panSearch.Size = new System.Drawing.Size(522, 37);
@@ -410,20 +410,20 @@
             this.radReaderName.UseVisualStyleBackColor = true;
             this.radReaderName.CheckedChanged += new System.EventHandler(this.radReaderName_CheckedChanged);
             // 
-            // radReaderId
+            // radLibraryCardId
             // 
-            this.radReaderId.AutoSize = true;
-            this.radReaderId.Checked = true;
-            this.radReaderId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radReaderId.ForeColor = System.Drawing.Color.White;
-            this.radReaderId.Location = new System.Drawing.Point(11, 8);
-            this.radReaderId.Name = "radReaderId";
-            this.radReaderId.Size = new System.Drawing.Size(71, 20);
-            this.radReaderId.TabIndex = 6;
-            this.radReaderId.TabStop = true;
-            this.radReaderId.Text = "Mã thẻ";
-            this.radReaderId.UseVisualStyleBackColor = true;
-            this.radReaderId.CheckedChanged += new System.EventHandler(this.radReaderId_CheckedChanged);
+            this.radLibraryCardId.AutoSize = true;
+            this.radLibraryCardId.Checked = true;
+            this.radLibraryCardId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radLibraryCardId.ForeColor = System.Drawing.Color.White;
+            this.radLibraryCardId.Location = new System.Drawing.Point(11, 8);
+            this.radLibraryCardId.Name = "radLibraryCardId";
+            this.radLibraryCardId.Size = new System.Drawing.Size(71, 20);
+            this.radLibraryCardId.TabIndex = 6;
+            this.radLibraryCardId.TabStop = true;
+            this.radLibraryCardId.Text = "Mã thẻ";
+            this.radLibraryCardId.UseVisualStyleBackColor = true;
+            this.radLibraryCardId.CheckedChanged += new System.EventHandler(this.radReaderId_CheckedChanged);
             // 
             // btnExtend
             // 
@@ -738,7 +738,7 @@
         private System.Windows.Forms.Panel panQuantity;
         private System.Windows.Forms.Label lblQuantity;
         private System.Windows.Forms.TextBox txtQuantity;
-        private System.Windows.Forms.RadioButton radReaderId;
+        private System.Windows.Forms.RadioButton radLibraryCardId;
         private System.Windows.Forms.RadioButton radPhone;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaTDG;
         private System.Windows.Forms.DataGridViewTextBoxColumn HoTenDG;

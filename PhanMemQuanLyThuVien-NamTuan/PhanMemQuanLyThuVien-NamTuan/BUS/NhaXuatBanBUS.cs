@@ -70,5 +70,27 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
 
             return NextId;
         }
+
+        public static bool ExistPhone(string MaNXB, string SDT)
+        {
+            string query = $"SELECT SDT FROM NhaXuatBan WHERE TrangThai = 1 AND SDT = '{SDT}'";
+            query += $" AND MaNXB <> '{MaNXB}'";
+            if (NhaXuatBanDAO.GetData(query, null).Rows.Count > 0)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        public static bool CheckNotChange(params string[] lst)
+        {
+            string query = $"SELECT * FROM NhaXuatBan WHERE MaNXB = '{lst[0]}' AND TenNXB = N'{lst[1]}'";
+            query += $" AND DiaChi = N'{lst[2]}' AND SDT = '{lst[3]}'";
+            if (NhaXuatBanDAO.GetData(query, null).Rows.Count == 0)
+            {
+                return true;
+            }
+            else return false;
+        }
     }
 }

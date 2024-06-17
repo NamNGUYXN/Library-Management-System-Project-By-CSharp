@@ -79,6 +79,45 @@ namespace PhanMemQuanLyThuVien_NamTuan.BUS
             return NextId;
         }
 
+        public static bool ExistPhone(string MaTDG, string SDT)
+        {
+            string query = $"SELECT SDT FROM TheDocGia WHERE TrangThai = 1 AND SDT = '{SDT}'";
+            query += $" AND MaTDG <> '{MaTDG}'";
+            if (TheDocGiaDAO.GetData(query, null).Rows.Count > 0)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        public static bool ExistIdCard(string MaTDG, string CCCD)
+        {
+            string query = $"SELECT CCCD FROM TheDocGia WHERE TrangThai = 1 AND CCCD = '{CCCD}'";
+            query += $" AND MaTDG <> '{MaTDG}'";
+            if (TheDocGiaDAO.GetData(query, null).Rows.Count > 0)
+            {
+                return true;
+            }
+            else return false;
+        }
+        public static bool CheckNotChange(params string[] lst)
+        {
+            string query = $"SELECT * FROM TheDocGia WHERE MaTDG = '{lst[0]}' AND HoTenDG = N'{lst[1]}'";
+            query += $" AND GioiTinh = N'{lst[2]}' AND DiaChi = N'{lst[3]}' AND SDT = '{lst[4]}'";
+            query += $" AND CCCD = '{lst[5]}'";
+            if (NhaXuatBanDAO.GetData(query, null).Rows.Count == 0)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        public static DateTime GetDueDate(string MaTDG)
+        {
+            string query = $"SELECT NgayHetHan FROM TheDocGia WHERE MaTDG = '{MaTDG}'";
+            return (DateTime)TheDocGiaDAO.GetData(query, null).Rows[0][0];
+        }
+
         public static DateTime SauSoNgay(DateTime date, int days)
         {
             int day = date.Day, month = date.Month, year = date.Year;

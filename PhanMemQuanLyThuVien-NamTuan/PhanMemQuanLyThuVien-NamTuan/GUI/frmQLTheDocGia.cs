@@ -140,7 +140,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
         // Sự kiện xảy ra khi nội dung tìm thay đổi
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            if (radReaderId.Checked)
+            if (radLibraryCardId.Checked)
                 radReaderId_CheckedChanged(sender, e);
             else if (radReaderName.Checked)
                 radReaderName_CheckedChanged(sender, e);
@@ -162,6 +162,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
             HienThiNgayHetHan();
             txtReaderName.Text = "";
             radMale.Checked = true;
+            radLibraryCardId.Checked = true;
             txtAddress.Text = "";
             txtPhone.Text = "";
             txtIdCard.Text = "";
@@ -226,15 +227,12 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void txtPhone_TextChanged(object sender, EventArgs e)
         {
             string SDT = txtPhone.Text;
-            // Kiểm tra số điện thoại đã tồn tại
-            string query = $"SELECT SDT FROM TheDocGia WHERE TrangThai = 1 AND SDT = '{SDT}'";
-            query += $" AND MaTDG <> '{txtLibraryCardId.Text}'";
-            int ExistPhone = TheDocGiaBus.GetData(query).Rows.Count;
+            bool ExistPhone = TheDocGiaBus.ExistPhone(txtLibraryCardId.Text, SDT);
             if (SDT == "")
                 lblCheckPhone.Text = "Vui lòng nhập SĐT!";
-            else if (ExistPhone > 0)
+            else if (ExistPhone)
                 lblCheckPhone.Text = "SĐT đã tồn tại!";
-            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0+\d"))
+            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0\d+$"))
                 lblCheckPhone.Text = "SĐT không hợp lệ!";
             else
                 lblCheckPhone.Text = "";
@@ -244,15 +242,12 @@ namespace PhanMemQuanLyThuVien_NamTuan
         private void txtIdCard_TextChanged(object sender, EventArgs e)
         {
             string CCCD = txtIdCard.Text;
-            // Kiểm tra cccd đã tồn tại
-            string query = $"SELECT CCCD FROM TheDocGia WHERE TrangThai = 1 AND CCCD = '{CCCD}'";
-            query += $" AND MaTDG <> '{txtLibraryCardId.Text}'";
-            int ExistIdCard = TheDocGiaBus.GetData(query).Rows.Count;
+            bool ExistIdCard = TheDocGiaBus.ExistIdCard(txtLibraryCardId.Text, CCCD);
             if (CCCD == "")
                 lblCheckIdCard.Text = "Vui lòng nhập CCCD!";
-            else if (ExistIdCard > 0)
+            else if (ExistIdCard)
                 lblCheckIdCard.Text = "CCCD đã tồn tại!";
-            else if (CCCD.Length != 12 || !Regex.IsMatch(CCCD, @"^0+\d"))
+            else if (CCCD.Length != 12 || !Regex.IsMatch(CCCD, @"^0\d+$"))
                 lblCheckIdCard.Text = "CCCD không hợp lệ!";
             else
                 lblCheckIdCard.Text = "";
@@ -290,39 +285,35 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 ThongBao += "Địa chỉ không hợp lệ!";
             }
 
-            string query = $"SELECT SDT FROM TheDocGia WHERE TrangThai = 1 AND SDT = '{SDT}'";
-            query += $" AND MaTDG <> '{txtLibraryCardId.Text}'";
-            int ExistPhone = TheDocGiaBus.GetData(query).Rows.Count;
+            bool ExistPhone = TheDocGiaBus.ExistPhone(MaTDG, SDT);
             if (SDT == "")
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Vui lòng nhập SĐT!";
             } 
-            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0+\d"))
+            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0\d+$"))
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "SĐT không hợp lệ!";
             }
-            else if (ExistPhone > 0)
+            else if (ExistPhone)
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "SĐT đã tồn tại!";
             }
 
-            query = $"SELECT CCCD FROM TheDocGia WHERE TrangThai = 1 AND CCCD = '{CCCD}'";
-            query += $" AND MaTDG <> '{txtLibraryCardId.Text}'";
-            int ExistIdCard = TheDocGiaBus.GetData(query).Rows.Count;
+            bool ExistIdCard = TheDocGiaBus.ExistIdCard(MaTDG, CCCD);
             if (CCCD == "")
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Vui lòng nhập CCCD!";
             }
-            else if (CCCD.Length != 12 || !Regex.IsMatch(CCCD, @"^0+\d"))
+            else if (CCCD.Length != 12 || !Regex.IsMatch(CCCD, @"^0\d+$"))
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "CCCD không hợp lệ!";
             }
-            else if (ExistIdCard > 0)
+            else if (ExistIdCard)
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "CCCD đã tồn tại!";
@@ -398,14 +389,11 @@ namespace PhanMemQuanLyThuVien_NamTuan
                     ParameterCSDL[] pArray = { pMaTDG, pHoTenDG, pGioiTinh, pDiaChi, pSDT, pCCCD };
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                     LstParams.AddRange(pArray);
-                    // Kiểm tra xem nội dung sửa có khác ban đầu ko
-                    string query = $"SELECT * FROM TheDocGia WHERE MaTDG = '{MaTDG}' AND HoTenDG = N'{HoTenDG}'";
-                    query += $" AND GioiTinh = N'{GioiTinh}' AND DiaChi = N'{DiaChi}' AND SDT = '{SDT}'";
-                    query += $" AND CCCD = '{CCCD}'";
 
-                    int NotChangeData = TheDocGiaBus.GetData(query).Rows.Count;
+                    // Kiểm tra xem nội dung sửa có khác ban đầu ko
+                    bool NotChangeData = TheDocGiaBus.CheckNotChange(MaTDG, HoTenDG, GioiTinh, DiaChi, SDT, CCCD);
                     // Khi nội dung sửa khác ban đầu thì cập nhật lại
-                    if (NotChangeData == 0)
+                    if (NotChangeData)
                     {
                         int RowsAffected = TheDocGiaBus.UpdateData(LstParams);
                         if (RowsAffected > 0)
@@ -459,8 +447,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 DateTime dtNow = DateTime.Now;
                 NgayHetHan = TheDocGiaBus.SauSoNgay(dtNow, 180).ToString("yyyy/MM/dd");
 
-                string query = $"SELECT NgayHetHan FROM TheDocGia WHERE MaTDG = '{MaTDG}'";
-                DateTime NgayHetHanTrongCSDL = (DateTime)TheDocGiaBus.GetData(query).Rows[0][0];
+                DateTime NgayHetHanTrongCSDL = TheDocGiaBus.GetDueDate(MaTDG);
                 DateTime NgayToiDaDuocGiaHan = TheDocGiaBus.SauSoNgay(NgayHetHanTrongCSDL, 10);
                 if (dtNow > NgayToiDaDuocGiaHan)
                 {

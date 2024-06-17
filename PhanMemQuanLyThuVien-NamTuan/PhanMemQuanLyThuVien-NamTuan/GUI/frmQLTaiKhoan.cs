@@ -230,7 +230,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 lblCheckPhone.Text = "Vui lòng nhập SĐT!";
             else if (ExistPhone > 0)
                 lblCheckPhone.Text = "SĐT đã tồn tại!";
-            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0+\d"))
+            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0\d+$"))
                 lblCheckPhone.Text = "SĐT không hợp lệ!";
             else
                 lblCheckPhone.Text = "";
@@ -286,7 +286,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "Vui lòng nhập SĐT!";
             }
-            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0+\d"))
+            else if (SDT.Length > 12 || SDT.Length < 10 || !Regex.IsMatch(SDT, @"^0\d+$"))
             {
                 ThongBao += (ThongBao != "") ? "\n" : "";
                 ThongBao += "SĐT không hợp lệ!";
@@ -366,11 +366,12 @@ namespace PhanMemQuanLyThuVien_NamTuan
                     // Kiểm tra xem nội dung sửa có khác ban đầu ko
                     string query = $"SELECT * FROM TaiKhoan WHERE MaTK = '{MaTK}' AND HoTen = N'{HoTen}'";
                     query += $" AND NgaySinh = '{NgaySinh}' AND GioiTinh = N'{GioiTinh}' AND SDT = '{SDT}'";
-                    query += $" AND MatKhau = '{MatKhau}'";
-
                     int NotChangeData = TaiKhoanBUS.GetData(query).Rows.Count;
+
+                    query = $"SELECT MatKhau FROM TaiKhoan WHERE MaTK = '{MaTK}'";
+                    string MatKhauTrongCSDL = TaiKhoanBUS.GetData(query).Rows[0][0].ToString();
                     // Khi nội dung sửa khác ban đầu thì cập nhật lại
-                    if (NotChangeData == 0)
+                    if (NotChangeData == 0 || MatKhauTrongCSDL != MatKhau)
                     {
                         int RowsAffected = TaiKhoanBUS.UpdateData(LstParams);
 

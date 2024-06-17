@@ -170,7 +170,7 @@ namespace PhanMemQuanLyThuVien_NamTuan
                     List<ParameterCSDL> LstParams = new List<ParameterCSDL>();
                     LstParams.AddRange(pArray);
                     // Kiểm tra xem thể loại vừa thêm đã tồn tại chưa
-                    string query = $"SELECT * FROM TheLoai WHERE TenTL = N'{TenTL}'";
+                    string query = $"SELECT * FROM TheLoai WHERE TrangThai = 1 AND TenTL = N'{TenTL}'";
 
                     int ExistCategory = TheLoaiBUS.GetData(query).Rows.Count;
                     if (ExistCategory > 0)
